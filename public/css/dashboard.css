@@ -1,0 +1,293 @@
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: #FFF7FD;
+    }
+
+    .sidebar-gradient {
+        background: linear-gradient(180deg, #6A1452 0%, #44113E 100%);
+    }
+
+    .btn-signout {
+        background-color: #F83F3F;
+        color: white;
+        border-radius: 16px;
+        font-weight: 600;
+    }
+
+    .btn-signout:hover {
+        background-color: #D93D3D;
+        color: white;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    /* Conten */
+    .hero-gradient {
+        background: linear-gradient(to right,
+                #6A1452 0%,
+                #FF1493 72%,
+                #FFD700 100%);
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .custom-gradient {
+        background: linear-gradient(to right,
+                #6A1452 0%,
+                #FF1493 72%,
+                #FFD700 100%);
+    }
+
+    .gradient-border-wrapper {
+        padding: 1px;
+        border-radius: 16px;
+        background: linear-gradient(135deg,
+                #6A1452 0%,
+                #FF1493 50%,
+                #FFD700 100%);
+    }
+
+    .gradient-border-content {
+        background: #ffffff;
+        border-radius: 16px;
+    }
+
+    .header-gradient-green {
+        background: linear-gradient(to right,
+                #00c851,
+                #009966);
+    }
+
+    .bg-soft-pink {
+        background-color: #FFF2FB;
+        border-radius: 16px;
+    }
+
+    .bg-pink {
+        background-color: #FFF5FC;
+
+    }
+
+    .bg-pink-new {
+        background-color: rgba(255, 73, 193, 0.07);
+    }
+
+
+    .input-readonly-custom {
+        background-color: #FFF2FB;
+    }
+
+    /* Button Custom */
+    .btn-custom-green {
+        background: linear-gradient(to right,
+                #00c851,
+                #009966);
+        color: white;
+
+    }
+
+    .btn-custom-green:hover {
+        background: linear-gradient(to right,
+                #054b34,
+                #007E33);
+        color: white;
+
+    }
+
+    .btn-custom {
+        color: white;
+        border: none;
+        background-image: linear-gradient(to bottom right, #FF49C1 0%, #6A1452 100%);
+        font-size: 16px;
+    }
+
+    .btn-custom:hover {
+        background-position: right center;
+        color: white;
+        background-image: linear-gradient(to bottom, #6A1452 0%, #44113E 100%);
+        box-shadow: 0 4px 15px rgba(106, 20, 82, 0.4);
+    }
+
+    .btn-cancel-custom {
+        background-color: white;
+        color: #B04285;
+        border: 2px solid #D689B5;
+        font-size: 16px;
+
+    }
+
+    .btn-cancel-custom:hover {
+        background-color: #FFF0F5;
+        border-color: #b04285;
+        color: #B04285;
+    }
+
+    /* Text purple */
+    .text-custom-purple {
+        color: #44113E;
+    }
+
+    .floating-icon {
+        top: -50px;
+    }
+
+
+    /* Responsif SideBar */
+    #wrapper {
+        overflow-x: hidden;
+    }
+
+    #sidebar-wrapper {
+        min-height: 100vh;
+        width: 280px;
+        transition: all 0.3s ease-out;
+    }
+
+    #sidebar-wrapper .sidebar-heading {
+        padding: 0.875rem 1.25rem;
+        font-size: 1.2rem;
+    }
+
+    #page-content-wrapper {
+        flex: 1;
+        min-width: 0;
+        transition: all 0.3s ease-out;
+    }
+
+    @media (min-width: 768px) {
+        #sidebar-wrapper {
+            margin-left: 0;
+            position: relative;
+            width: 280px;
+        }
+
+        #page-content-wrapper {
+            min-width: 0;
+            width: calc(100% - 280px);
+        }
+
+        /* Collapsed sidebar on desktop */
+        body.sb-sidenav-toggled #sidebar-wrapper {
+            width: 80px;
+        }
+
+        body.sb-sidenav-toggled #page-content-wrapper {
+            width: calc(100% - 80px);
+        }
+
+        /* Hide labels and adjust layout when collapsed */
+        body.sb-sidenav-toggled .sidebar-label {
+            display: none;
+        }
+
+        body.sb-sidenav-toggled .sidebar-logo {
+            margin-bottom: 1.5rem;
+        }
+
+        body.sb-sidenav-toggled .sidebar-logo .logo-img {
+            max-width: 50px;
+        }
+
+        body.sb-sidenav-toggled .sidebar-nav-link {
+            justify-content: center !important;
+            padding: 0.75rem !important;
+        }
+
+        body.sb-sidenav-toggled .sidebar-signout-btn {
+            justify-content: center !important;
+            padding: 0.75rem !important;
+        }
+
+        body.sb-sidenav-toggled .sidebar-menu {
+            gap: 1rem !important;
+        }
+
+
+
+        body.sb-sidenav-toggled .sidebar-content {
+            padding: 1rem 0.75rem !important;
+        }
+
+        body.sb-sidenav-toggled .sidebar-decoration {
+            display: none;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        #sidebar-wrapper {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            margin-left: -280px;
+            z-index: 1040;
+            width: 280px;
+        }
+
+        #page-content-wrapper {
+            min-width: 100vw;
+            margin-left: 0;
+            width: 100%;
+        }
+
+        body.sb-sidenav-toggled #sidebar-wrapper {
+            margin-left: 0;
+        }
+    }
+
+    /* Sidebar Backdrop */
+    .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1030;
+        opacity: 0;
+        transition: opacity 0.25s ease-out;
+    }
+
+    @media (max-width: 767.98px) {
+        .sidebar-backdrop.active {
+            display: block;
+            opacity: 1;
+        }
+    }
+
+    .sidebar-nav-link {
+        border-radius: 16px;
+        transition: background-color 200ms ease, box-shadow 200ms ease, transform 120ms ease;
+        align-items: center;
+    }
+
+    .sidebar-nav-link:hover {
+        background: rgba(255, 255, 255, 0.06);
+        text-decoration: none;
+        box-shadow: none;
+        border-radius: 16px;
+
+    }
+
+    .sidebar-nav-link .icon-svg {
+        display: inline-block;
+        padding: 6px;
+        border-radius: 8px;
+        transition: background-color 180ms ease, transform 180ms ease;
+        background: transparent;
+    }
+
+    .sidebar-nav-link:hover .icon-svg {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-pills .sidebar-nav-link.active {
+        background-color: rgba(255, 255, 255, 0.12) !important;
+        border-radius: 16px;
+        color: #ffffff !important;
+    }

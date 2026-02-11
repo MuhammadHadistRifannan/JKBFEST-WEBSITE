@@ -1,0 +1,135 @@
+ body {
+   font-family: "Poppins", sans-serif;
+   height: 100vh;
+   overflow: hidden;
+   margin: 0;
+ }
+
+ /* Gradient Button */
+ .bg-gradient-custom {
+   background: linear-gradient(90deg, #6a1452 0%, #ff1493 50%, #ffd700 100%);
+   color: white;
+   border: none;
+ }
+
+ /* Text Custom */
+ .text-custom-purple {
+   color: #44113E;
+ }
+
+ /* KIRI*/
+ .left-panel {
+   background-color: #61134d;
+   height: 100vh;
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow: hidden;
+   color: white;
+ }
+
+ .left-content {
+   z-index: 2;
+   text-align: center;
+   max-width: 420px;
+   padding: 20px;
+ }
+
+ .left-content h2 {
+   color: #ff1493;
+ }
+
+ /*PANEL KANAN*/
+ .border-custom {
+   border: 1px solid #6A1452;
+ }
+
+ .decor-rectangle {
+   bottom: 40px;
+   left: -52px;
+ }
+
+ .right-panel {
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #fff;
+ }
+
+ .register-card {
+   width: 100%;
+   max-width: 420px;
+   border-radius: 10px;
+   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+   overflow: hidden;
+ }
+
+ .padding-custom {
+   padding: 32px;
+ }
+
+ .form-label {
+   font-weight: 600;
+   color: #44113E;
+   font-size: 16px;
+   margin-bottom: 0px;
+ }
+
+ .form-control::placeholder {
+   color: #9A9C9E;
+   font-size: 14px;
+ }
+
+ .input-group:focus-within .form-control,
+ .input-group:focus-within .input-group-text {
+   border-color: #ff1493;
+ }
+
+ .btn-register {
+   width: 100%;
+   padding: 12px;
+   border-radius: 10px;
+   font-weight: 600;
+   margin-top: 10px;
+ }
+
+ .btn-gradient-custom {
+   background-image: linear-gradient(to bottom right, #FF49C1 0%, #6A1452 100%);
+   color: white;
+   border: none;
+ }
+
+ .btn-signin {
+   background: #f1f1f1;
+   border-radius: 10px;
+   padding: 12px;
+   margin-top: 15px;
+   display: block;
+   text-align: center;
+   text-decoration: none;
+   color: #333;
+ }
+
+ .btn-signin:hover {
+   background: #e1e1e1;
+   color: #000;
+ }
+
+ .form-error .form-control,
+ .form-error .input-group-text {
+   border-color: #dc3545 !important;
+ }
+
+ .form-error .form-control:focus {
+   box-shadow: none;
+ }
+
+ .form-error .input-group-text:first-child {
+   border-right: 0;
+ }
+
+ .form-error .input-group-text:last-child {
+   border-left: 0;
+ }
