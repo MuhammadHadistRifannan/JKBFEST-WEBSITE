@@ -6,7 +6,6 @@
 
     <div class="d-flex flex-column h-100 p-4 position-relative sidebar-content" style="z-index: 2;">
 
-        {{-- Logo --}}
         <div class="text-center mb-5 mt-2 pt-2 sidebar-logo">
             <img src="{{ asset('images/logo-dashboard.png') }}" alt="Logo" class="img-fluid logo-img">
         </div>
@@ -38,14 +37,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white d-flex align-items-center sidebar-nav-link" title="Upload">
+                <a href="{{ route('uploadKarya') }}"
+                    class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('uploadKarya') ? 'active' : '' }}"
+                    title="Upload">
                     <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0">
                     <span class="sidebar-label">Upload</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white d-flex align-items-center sidebar-nav-link"
-                    title="Contact Person">
+                <a href="{{ route('contact') }}"
+                    class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
+                    title="Contact">
                     <img src="{{ asset('icons/dashboard/contact.svg') }}" alt="Contact Person"
                         class="icon-svg flex-shrink-0">
                     <span class="sidebar-label">Contact Person</span>

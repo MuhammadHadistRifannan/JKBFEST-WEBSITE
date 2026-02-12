@@ -122,6 +122,15 @@
                         </small>
                     </div>
                 @else
+                    @if ($user->team && !$user->team->is_verified && !$user->team->document_path && $isAlmostClosed)
+                        <div class="rounded-3 p-3 mb-3" style="background:#FFE3E0; border:1px solid #EB5243;">
+                            <small class="fw-light alert-custom">
+                                Segera lakukan pembayaran dan unggah bukti pembayaran
+                                sebelum batas waktu pendaftaran ditutup.
+                            </small>
+                        </div>
+                    @endif
+
                     <div class="text-center mb-3">
                         <span class="fw-medium">Biaya Pendaftaran Rp 70.000,00</span>
                     </div>
@@ -137,8 +146,8 @@
                             Bayar
                         </button>
                     @endif
-
                 @endif
+
 
             </div>
 
@@ -164,22 +173,42 @@
                         </div>
                     </div>
                 @else
-                    <form action="#" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="file" name="document_file" id="documentInput" accept="application/pdf" hidden
-                            onchange="this.form.submit()">
-
-                        <div class="w-100 px-5 py-4 d-flex flex-column align-items-center text-center"
-                            onclick="document.getElementById('documentInput').click()"
-                            style="border: 2px dashed #ccc; border-radius: 10px; cursor: pointer;">
-                            <div class="mb-2 text-custom-purple">
-                                <img src="{{ asset('icons/dashboard/upload-icon.svg') }}" alt="Upload Icon" />
-                            </div>
-                            <span class="fw-bold mb-1" style="color: #FF49C1;">Upload Berkas</span>
-                            <small class="text-muted">Pdf Maks 20 mb</small>
+                    @if ($user->team && $isAlmostClosed)
+                        <div class="rounded-3 p-3 mb-3" style="background:#FFE3E0; border:1px solid #EB5243;">
+                            <small class="alert-custom d-block fw-light mb-2 ">
+                                Peringatan: Waktu pendaftaran lomba hampir berakhir.
+                            </small>
+                            <small class="alert-custom d-block fw-light ">
+                                Segera lengkapi pendaftaran dan unggah berkas yang diperlukan sebelum batas waktu ditutup.
+                            </small>
                         </div>
-                    </form>
-                @endif
+                        {{-- @endif --}}
+
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            @csrf
+
+                            <input type="file" name="document_file" id="documentInput" accept="application/pdf" hidden
+                                onchange="this.form.submit()">
+
+                            <div class="w-100 px-5 py-4 d-flex flex-column align-items-center text-center"
+                                onclick="document.getElementById('documentInput').click()"
+                                style="border: 2px dashed #ccc; border-radius: 10px; cursor: pointer;">
+
+                                <div class="mb-2 text-custom-purple">
+                                    <img src="{{ asset('icons/dashboard/upload-icon.svg') }}" alt="Upload Icon" />
+                                </div>
+
+                                <span class="fw-bold mb-1" style="color: #FF49C1;">
+                                    Upload Berkas
+                                </span>
+
+                                <small class="text-muted">
+                                    PDF Maks 20 MB
+                                </small>
+                            </div>
+                        </form>
+                    @endif
+
             </div>
         </div>
     </div>
