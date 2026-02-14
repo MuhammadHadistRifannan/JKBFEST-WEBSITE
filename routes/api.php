@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\JwtAuthMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,6 @@ Route::apiResource('user', UserController::class);
 /**
  * Register , Delete , Show team
  */
-Route::apiResource('team' , TeamController::class);
+Route::apiResource('team' , TeamController::class)
+->middleware(JwtAuthMiddleware::class);
 

@@ -12,6 +12,10 @@ class TeamController extends Controller
     public function index()
     {
         //
+        return response()
+                ->json([
+                    'message' => 'authentikasi berhasil'
+                ]);
     }
 
     /**
@@ -28,6 +32,10 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         //
+        return response()
+                ->json([
+                    'message' => 'authentikasi berhasil'
+                ]);
     }
 
     /**

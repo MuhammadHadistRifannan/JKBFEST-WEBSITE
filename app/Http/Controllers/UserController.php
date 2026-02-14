@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\JwtService;
 use App\UserDto;
+use Auth;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
@@ -38,9 +40,12 @@ class UserController extends Controller
             return response()->json(['message' => 'email atau password salah' , 'status' => null] , 401);
         }
 
+        //kasih token 
+        $token = JwtService::GenerateJwt($validated);
 
         return response()->json([
-            'message' => 'Berhasil Login'
+            'message' => 'Berhasil Login',
+            'token' => $token
         ]);
     }
     /**
