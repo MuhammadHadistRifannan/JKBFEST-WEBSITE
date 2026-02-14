@@ -137,7 +137,7 @@
                                 Create Account
                             </button>
 
-                            <a href="#" class="btn-signin d-block text-center py-2">
+                            <a href="/login" class="btn-signin d-block text-center py-2">
                                 Sudah memiliki akun? <span class="text-custom-purple fw-semibold">Sign In</span>
                             </a>
                         </form>

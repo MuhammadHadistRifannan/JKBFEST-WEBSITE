@@ -75,7 +75,7 @@
                             </div>
 
                             <button class="btn btn-register btn-gradient-custom py-2 shadow-sm">SIgn In</button>
-                            <a href="#" class="btn-signin py-2"> Belum memiliki akun? <span
+                            <a href="/register" class="btn-signin py-2"> Belum memiliki akun? <span
                                     class="text-custom-purple fw-medium">Buat Akun</span> </a>
                         </form>
                     </div>

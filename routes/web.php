@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
-
 Route::post('/register', function (Request $request) {
 
     $request->validate([
@@ -50,3 +48,6 @@ Route::get('/contact', function () {
 Route::get('/uploadKarya', function () {
     return view('dashboard.dashboard.uploadKarya');
 })->name('uploadKarya');
+
+
+//BACKEND API 
