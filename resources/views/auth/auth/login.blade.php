@@ -46,7 +46,8 @@
                     </div>
 
                     <div class="padding-custom">
-                        <form>
+                        <form method="post" action="{{ route('login') }}">
+                            @csrf
                             <div class="mb-3">
                                 <label class="text-custom-purple form-label">Email</label>
                                 <div class="input-group">

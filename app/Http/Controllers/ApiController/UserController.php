@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
-use App\JwtService;
+use App\Http\Controllers\Controller;
+use App\Services\JwtService;
 use App\UserDto;
 use Auth;
 use DB;
@@ -40,11 +41,19 @@ class UserController extends Controller
             return response()->json(['message' => 'email atau password salah' , 'status' => null] , 401);
         }
 
+        //Buat payload
+        $payload = [
+            'id' => $user->id,
+            'nama' => $user->name,
+            'email' => $validated['email']
+        ];
+
         //kasih token 
-        $token = JwtService::GenerateJwt($validated);
+        $token = JwtService::GenerateJwt($payload);
 
         return response()->json([
             'message' => 'Berhasil Login',
+            'data' => $payload,
             'token' => $token
         ]);
     }
@@ -66,7 +75,7 @@ class UserController extends Controller
 
         try {
     
-            DB::table('users')->insert([
+            $userId = DB::table('users')->insertGetId([
                 'name' => $validated['nama'],
                 'email' => $validated['email'],
                 'no_telp'=> $validated['no_telp'],
@@ -77,11 +86,21 @@ class UserController extends Controller
         catch(Exception $e){
             return response()->json($e->getMessage());
         }
-    
+
+        //Buat payload 
+        $payload = [
+            'id' => $userId,
+            'nama' => $validated['nama'] ,
+            'email' => $validated['email']
+        ];
+
+        //generate jwt
+        $token = JwtService::GenerateJwt($payload);
 
         //success responses 
         return response()->json([
-            'data' => $validated
+            'data' => $payload,
+            'token' => $token
         ]);
     }
 

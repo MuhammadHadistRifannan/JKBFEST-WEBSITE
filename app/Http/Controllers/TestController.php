@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    public function dashboard()
-    {
+    //
+    public function index(){
         return view('dashboard.dashboard.dashboard');
     }
 }

@@ -87,19 +87,19 @@
                                 <a href="#endpoints-DELETEapi-user--id-">DELETE USER BY ID</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-team">
-                                <a href="#endpoints-GETapi-team">Display a listing of the resource.</a>
+                                <a href="#endpoints-GETapi-team">MELIHAT SEMUA TEAM</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-team">
-                                <a href="#endpoints-POSTapi-team">Store a newly created resource in storage.</a>
+                                <a href="#endpoints-POSTapi-team">MEMBUAT TEAM BARU</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-team--id-">
-                                <a href="#endpoints-GETapi-team--id-">Display the specified resource.</a>
+                                <a href="#endpoints-GETapi-team--id-">MELIHAT DATA TEAM DARI ID KETUA</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-PUTapi-team--id-">
-                                <a href="#endpoints-PUTapi-team--id-">Update the specified resource in storage.</a>
+                                <a href="#endpoints-PUTapi-team--id-">UPDATE DATA TEAM</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-team--id-">
-                                <a href="#endpoints-DELETEapi-team--id-">Remove the specified resource from storage.</a>
+                                <a href="#endpoints-DELETEapi-team--id-">HAPUS TEAM</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -845,7 +845,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-                    <h2 id="endpoints-GETapi-team">Display a listing of the resource.</h2>
+                    <h2 id="endpoints-GETapi-team">MELIHAT SEMUA TEAM</h2>
 
 <p>
 </p>
@@ -882,18 +882,21 @@ fetch(url, {
 
 <span id="example-responses-GETapi-team">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (402):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
                 <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
             </summary>
-            <pre><code class="language-http">content-type: text/html; charset=utf-8
-cache-control: no-cache, private
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;"></code>
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;request tidak mempunyai token&quot;,
+    &quot;status&quot;: null
+}</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-team" hidden>
@@ -969,7 +972,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="endpoints-POSTapi-team">Store a newly created resource in storage.</h2>
+                    <h2 id="endpoints-POSTapi-team">MEMBUAT TEAM BARU</h2>
 
 <p>
 </p>
@@ -984,7 +987,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/api/team" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"nama_team\": \"vmqeopfuudtdsufvyvddq\",
+    \"asal_team\": \"amniihfqcoynlazghdtqt\",
+    \"pembimbing_team\": \"qxbajwbpilpmufinllwlo\",
+    \"no_telp_pembimbing_team\": \"auydlsmsjuryvojcybzvr\",
+    \"member_1\": \"byickznkygloigmkwxphl\",
+    \"no_telp_member_1\": \"vazjrcnfbaqywuxhgjjmz\",
+    \"member_2\": \"uxjubqouzswiwxtrkimfc\",
+    \"no_telp_member_2\": \"atbxspzmrazsroyjpxmqe\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -997,9 +1011,21 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "nama_team": "vmqeopfuudtdsufvyvddq",
+    "asal_team": "amniihfqcoynlazghdtqt",
+    "pembimbing_team": "qxbajwbpilpmufinllwlo",
+    "no_telp_pembimbing_team": "auydlsmsjuryvojcybzvr",
+    "member_1": "byickznkygloigmkwxphl",
+    "no_telp_member_1": "vazjrcnfbaqywuxhgjjmz",
+    "member_2": "uxjubqouzswiwxtrkimfc",
+    "no_telp_member_2": "atbxspzmrazsroyjpxmqe"
+};
+
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -1077,9 +1103,106 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>nama_team</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="nama_team"                data-endpoint="POSTapi-team"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>TEAM. Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>asal_team</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="asal_team"                data-endpoint="POSTapi-team"
+               value="amniihfqcoynlazghdtqt"
+               data-component="body">
+    <br>
+<p>Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>amniihfqcoynlazghdtqt</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>pembimbing_team</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="pembimbing_team"                data-endpoint="POSTapi-team"
+               value="qxbajwbpilpmufinllwlo"
+               data-component="body">
+    <br>
+<p>Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>qxbajwbpilpmufinllwlo</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>no_telp_pembimbing_team</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="no_telp_pembimbing_team"                data-endpoint="POSTapi-team"
+               value="auydlsmsjuryvojcybzvr"
+               data-component="body">
+    <br>
+<p>Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>auydlsmsjuryvojcybzvr</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>member_1</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="member_1"                data-endpoint="POSTapi-team"
+               value="byickznkygloigmkwxphl"
+               data-component="body">
+    <br>
+<p>MEMBER. Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>byickznkygloigmkwxphl</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>no_telp_member_1</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="no_telp_member_1"                data-endpoint="POSTapi-team"
+               value="vazjrcnfbaqywuxhgjjmz"
+               data-component="body">
+    <br>
+<p>Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>vazjrcnfbaqywuxhgjjmz</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>member_2</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="member_2"                data-endpoint="POSTapi-team"
+               value="uxjubqouzswiwxtrkimfc"
+               data-component="body">
+    <br>
+<p>Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>uxjubqouzswiwxtrkimfc</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>no_telp_member_2</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="no_telp_member_2"                data-endpoint="POSTapi-team"
+               value="atbxspzmrazsroyjpxmqe"
+               data-component="body">
+    <br>
+<p>Must be at least 3 characters. Must not be greater than 100 characters. Example: <code>atbxspzmrazsroyjpxmqe</code></p>
+        </div>
+        </form>
 
-                    <h2 id="endpoints-GETapi-team--id-">Display the specified resource.</h2>
+                    <h2 id="endpoints-GETapi-team--id-">MELIHAT DATA TEAM DARI ID KETUA</h2>
 
 <p>
 </p>
@@ -1116,18 +1239,21 @@ fetch(url, {
 
 <span id="example-responses-GETapi-team--id-">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (402):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
                 <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
             </summary>
-            <pre><code class="language-http">content-type: text/html; charset=utf-8
-cache-control: no-cache, private
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;"></code>
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;request tidak mempunyai token&quot;,
+    &quot;status&quot;: null
+}</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-team--id-" hidden>
@@ -1216,7 +1342,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-                    <h2 id="endpoints-PUTapi-team--id-">Update the specified resource in storage.</h2>
+                    <h2 id="endpoints-PUTapi-team--id-">UPDATE DATA TEAM</h2>
 
 <p>
 </p>
@@ -1343,7 +1469,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-                    <h2 id="endpoints-DELETEapi-team--id-">Remove the specified resource from storage.</h2>
+                    <h2 id="endpoints-DELETEapi-team--id-">HAPUS TEAM</h2>
 
 <p>
 </p>

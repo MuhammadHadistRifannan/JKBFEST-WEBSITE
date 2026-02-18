@@ -1,11 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Services;
 
 use Exception;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use stdClass;
 
 class JwtService
 {
@@ -22,6 +23,8 @@ class JwtService
         $payload = [
             'iss' => 'jkbfest',
             'aud' => 'jkbfest',
+            'id' => $credential['id'],
+            'name' => $credential['nama'],
             'email' => $credential['email'],
             'exp' => time() + 10800
         ];
@@ -43,5 +46,12 @@ class JwtService
             return ['status' => false , 'type' => 'invalid'];
         }
         return ['status' => true , 'type' => 'success'];
+    }
+
+    public static function GetVar($token){
+        $key = env('JWT_SECRET');
+        $std = new stdClass();
+        $user = JWT::decode($token , new Key($key , 'HS256'));
+        return $user;
     }
 }

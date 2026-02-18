@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Team\TeamController;
+use App\Http\Controllers\User\UserController;
 use Faker\Guesser\Name;
 use Illuminate\Http\Request;
 use PhpParser\Node\Name as NodeName;
@@ -39,7 +41,7 @@ Route::get('/teamPeserta', function () {
     return view('dashboard.dashboard.teamPeserta');
 })->name('teamPeserta');
 
-Route::get('/dashboard', [TestController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [TestController::class, 'index'])->name('dashboard');
 
 Route::get('/contact', function () {
     return view('dashboard.dashboard.contactPerson');
@@ -50,4 +52,5 @@ Route::get('/uploadKarya', function () {
 })->name('uploadKarya');
 
 
-//BACKEND API 
+
+Route::post('/login' , [UserController::class , 'login'])->name('login');

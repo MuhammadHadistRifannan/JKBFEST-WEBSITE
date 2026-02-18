@@ -287,7 +287,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a listing of the resource.'
+      title: 'MELIHAT SEMUA TEAM'
       description: ''
       authenticated: false
       deprecated: false
@@ -304,11 +304,11 @@ endpoints:
     responses:
       -
         custom: []
-        status: 200
-        content: ''
+        status: 402
+        content: '{"message":"request tidak mempunyai token","status":null}'
         headers:
-          content-type: 'text/html; charset=utf-8'
           cache-control: 'no-cache, private'
+          content-type: application/json
           access-control-allow-origin: '*'
         description: null
     responseFields: []
@@ -327,7 +327,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store a newly created resource in storage.'
+      title: 'MEMBUAT TEAM BARU'
       description: ''
       authenticated: false
       deprecated: false
@@ -338,8 +338,104 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      nama_team:
+        custom: []
+        name: nama_team
+        description: 'TEAM. Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: true
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      asal_team:
+        custom: []
+        name: asal_team
+        description: 'Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: true
+        example: amniihfqcoynlazghdtqt
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      pembimbing_team:
+        custom: []
+        name: pembimbing_team
+        description: 'Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: true
+        example: qxbajwbpilpmufinllwlo
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      no_telp_pembimbing_team:
+        custom: []
+        name: no_telp_pembimbing_team
+        description: 'Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: true
+        example: auydlsmsjuryvojcybzvr
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      member_1:
+        custom: []
+        name: member_1
+        description: 'MEMBER. Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: true
+        example: byickznkygloigmkwxphl
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      no_telp_member_1:
+        custom: []
+        name: no_telp_member_1
+        description: 'Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: true
+        example: vazjrcnfbaqywuxhgjjmz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      member_2:
+        custom: []
+        name: member_2
+        description: 'Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: false
+        example: uxjubqouzswiwxtrkimfc
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      no_telp_member_2:
+        custom: []
+        name: no_telp_member_2
+        description: 'Must be at least 3 characters. Must not be greater than 100 characters.'
+        required: false
+        example: atbxspzmrazsroyjpxmqe
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      nama_team: vmqeopfuudtdsufvyvddq
+      asal_team: amniihfqcoynlazghdtqt
+      pembimbing_team: qxbajwbpilpmufinllwlo
+      no_telp_pembimbing_team: auydlsmsjuryvojcybzvr
+      member_1: byickznkygloigmkwxphl
+      no_telp_member_1: vazjrcnfbaqywuxhgjjmz
+      member_2: uxjubqouzswiwxtrkimfc
+      no_telp_member_2: atbxspzmrazsroyjpxmqe
     fileParameters: []
     responses: []
     responseFields: []
@@ -358,7 +454,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display the specified resource.'
+      title: 'MELIHAT DATA TEAM DARI ID KETUA'
       description: ''
       authenticated: false
       deprecated: false
@@ -387,11 +483,11 @@ endpoints:
     responses:
       -
         custom: []
-        status: 200
-        content: ''
+        status: 402
+        content: '{"message":"request tidak mempunyai token","status":null}'
         headers:
-          content-type: 'text/html; charset=utf-8'
           cache-control: 'no-cache, private'
+          content-type: application/json
           access-control-allow-origin: '*'
         description: null
     responseFields: []
@@ -411,7 +507,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Update the specified resource in storage.'
+      title: 'UPDATE DATA TEAM'
       description: ''
       authenticated: false
       deprecated: false
@@ -454,7 +550,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Remove the specified resource from storage.'
+      title: 'HAPUS TEAM'
       description: ''
       authenticated: false
       deprecated: false
