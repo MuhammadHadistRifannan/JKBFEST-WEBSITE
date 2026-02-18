@@ -53,4 +53,3 @@ Route::get('/uploadKarya', function () {
 
 
 
-Route::post('/login' , [UserController::class , 'login'])->name('login');

@@ -16,7 +16,7 @@ Route::apiResource('user', UserController::class);
 /**
  * Login Use Case
  */
-Route::post('user/login', [UserController::class , 'login']);
+Route::post('user/login', [UserController::class , 'login'])->name('login');
 
 /**
  * Register , Delete , Show team

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
 use App\Services\JwtService;
+use App\Services\UserService\UserService;
 use App\UserDto;
 use Auth;
 use DB;
@@ -19,89 +20,28 @@ class UserController extends Controller
      * @param Request $request
      * @return void
      */
-    public function login(Request $request){
-        
-        //validate 
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/'
-        ]);
-        
-        //read database 
-        $user = DB::table('users')
-        ->where('email' , $validated['email'])
-        ->first();
-        
-        if (!$user){
-            return response()->json(['message' => 'user tidak ditemukan' , 'status' => null], 404);
-        }        
+    public function login(Request $request , UserService $service){
+        $response = $service->loginService($request);
 
-        //verifying password 
-        if (!password_verify($validated['password'] , $user->password)){
-            return response()->json(['message' => 'email atau password salah' , 'status' => null] , 401);
-        }
+        if (!$response['status']) return redirect()->back()->with('error' ,$response['message']);
 
-        //Buat payload
-        $payload = [
-            'id' => $user->id,
-            'nama' => $user->name,
-            'email' => $validated['email']
-        ];
+        $user = $response['data'];
+        Auth::login($user);
 
-        //kasih token 
-        $token = JwtService::GenerateJwt($payload);
-
-        return response()->json([
-            'message' => 'Berhasil Login',
-            'data' => $payload,
-            'token' => $token
-        ]);
+        return redirect()->route('dashboard')->with('success' , 'Login Successfull');
     }
     /**
      * REGISTER USER.
      */
-    public function store(Request $request)
+    public function store(Request $request , UserService $service)
     {
-        //validate
+        $response = $service->registerService($request);
+        
+        if (!$response['status'])  return redirect()->back()->with('error' , $response);
 
-         $validated = $request->validate([
-            'nama' => 'required|string|min:3|max:100',
-            'email' => 'required|email',
-            'no_telp' => 'required|min:8',
-            'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/'
-        ]);
+        $user = $response['data']; 
 
-        //store to database
-
-        try {
-    
-            $userId = DB::table('users')->insertGetId([
-                'name' => $validated['nama'],
-                'email' => $validated['email'],
-                'no_telp'=> $validated['no_telp'],
-                'password' => password_hash($validated['password'] , PASSWORD_DEFAULT)
-            ]);
-
-        }
-        catch(Exception $e){
-            return response()->json($e->getMessage());
-        }
-
-        //Buat payload 
-        $payload = [
-            'id' => $userId,
-            'nama' => $validated['nama'] ,
-            'email' => $validated['email']
-        ];
-
-        //generate jwt
-        $token = JwtService::GenerateJwt($payload);
-
-        //success responses 
-        return response()->json([
-            'data' => $payload,
-            'token' => $token
-        ]);
+        return view('dashboard.dashboard.dashboard' , compact('user'));
     }
 
     /**
