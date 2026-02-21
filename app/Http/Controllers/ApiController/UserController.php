@@ -4,13 +4,15 @@ namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
 use App\Services\JwtService;
-use App\Services\UserService\UserService;
+use App\Services\UserService;
+use App\Services\ResponseService;
 use App\UserDto;
 use Auth;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
 use Password;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -23,25 +25,44 @@ class UserController extends Controller
     public function login(Request $request , UserService $service){
         $response = $service->loginService($request);
 
-        if (!$response['status']) return redirect()->back()->with('error' ,$response['message']);
+        if (!$response['status']){
+            Alert::error('Error' , $response['message']);
+            return redirect()->back()->withInput();
+        }
 
         $user = $response['data'];
         Auth::login($user);
+        
+        $request->session()->regenerate();
 
-        return redirect()->route('dashboard')->with('success' , 'Login Successfull');
+        return redirect()->route('dashboard');
     }
     /**
      * REGISTER USER.
      */
-    public function store(Request $request , UserService $service)
+    public function register(Request $request , UserService $service)
     {
         $response = $service->registerService($request);
         
-        if (!$response['status'])  return redirect()->back()->with('error' , $response);
+        if (!$response['status']) {
+
+            Alert::error('Error' , $response['message']);
+            return redirect()->back()->withInput();
+        }
 
         $user = $response['data']; 
+        Auth::login($user);
 
-        return view('dashboard.dashboard.dashboard' , compact('user'));
+        $request->session()->regenerate();
+
+        return redirect()->route('dashboard');
+    }
+
+    public function logout(Request $request){
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 
     /**

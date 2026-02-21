@@ -57,12 +57,16 @@
 
         {{-- Sign Out --}}
         <div class="mt-auto mb-3 sidebar-signout">
-            <button
-                class="btn btn-signout w-100 py-2 ps-4 d-flex align-items-center justify-content-start gap-2 shadow sidebar-signout-btn"
-                title="Sign Out">
-                <img src="{{ asset('icons/dashboard/sign-out.svg') }}" alt="Sign Out" class="icon-svg flex-shrink-0">
-                <span class="sidebar-label">Sign Out</span>
-            </button>
+            <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                @csrf
+                <button type="submit"
+                    class="btn btn-signout w-100 py-2 ps-4 d-flex align-items-center justify-content-start gap-2 shadow sidebar-signout-btn"
+                    title="Sign Out">
+                    <img src="{{ asset('icons/dashboard/sign-out.svg') }}" alt="Sign Out"
+                        class="icon-svg flex-shrink-0">
+                    <span class="sidebar-label">Sign Out</span>
+                </button>
+            </form>
         </div>
 
     </div>

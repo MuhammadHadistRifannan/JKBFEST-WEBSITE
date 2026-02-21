@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Team\TeamController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\ApiController\UserController;
+use App\Http\Middleware\AuthMiddleware;
+use App\Route\Router;
 use Faker\Guesser\Name;
 use Illuminate\Http\Request;
 use PhpParser\Node\Name as NodeName;
@@ -9,47 +11,50 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use RealRashid\SweetAlert\Facades\Alert;
 
-Route::post('/register', function (Request $request) {
 
-    $request->validate([
-        'name' => 'required|min:3',
-        'email' => 'required|email',
-        'no_telepon' => 'required',
-        'password' => 'required|min:8|confirmed',
-    ]);
 
-    Alert::success('Pendaftaran Berhasil!', 'Akun Anda telah berhasil dibuat.');
-    return back();
+Route::middleware([AuthMiddleware::class])->group(function(){
+    
+    Route::get('/editProfile', function () {
+        return view('dashboard.dashboard.editProfile');
+    })->name('editProfile');
+
+    Route::get('/addTeam', function () {
+        return view('dashboard.dashboard.addTeam');
+    })->name('addTeam');
+
+    Route::get('/teamPeserta', function () {
+        return view('dashboard.dashboard.teamPeserta');
+    })->name('teamPeserta');
+
+    Route::get('/dashboard' , function() {
+        return view('dashboard.dashboard.dashboard');
+    })
+    ->name('dashboard');
+
+    Route::get('/contact', function () {
+        return view('dashboard.dashboard.contactPerson');
+    })->name('contact');
+
+    Route::get('/uploadKarya', function () {
+        return view('dashboard.dashboard.uploadKarya');
+    })->name('uploadKarya');
+
 });
-Route::get('/register', function () {
+
+
+
+
+
+Route::post(Router::$registParam , [UserController::class, 'register'])->name('register');
+Route::post(Router::$loginParam , [UserController::class , 'login'])->name('login');
+Route::post(Router::$logoutParam , [UserController::class , 'logout'])->name('logout');
+
+Route::get(Router::$registParam, function () {
     return view('auth.auth.register');
 })->name('register');
 
-Route::get('/login', function () {
+Route::get(Router::$loginParam, function () {
     return view('auth.auth.login');
 })->name('login');
-
-Route::get('/editProfile', function () {
-    return view('dashboard.dashboard.editProfile');
-})->name('editProfile');
-
-Route::get('/addTeam', function () {
-    return view('dashboard.dashboard.addTeam');
-})->name('addTeam');
-
-Route::get('/teamPeserta', function () {
-    return view('dashboard.dashboard.teamPeserta');
-})->name('teamPeserta');
-
-Route::get('/dashboard', [TestController::class, 'index'])->name('dashboard');
-
-Route::get('/contact', function () {
-    return view('dashboard.dashboard.contactPerson');
-})->name('contact');
-
-Route::get('/uploadKarya', function () {
-    return view('dashboard.dashboard.uploadKarya');
-})->name('uploadKarya');
-
-
 

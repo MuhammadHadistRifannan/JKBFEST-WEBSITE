@@ -6,7 +6,7 @@
     <div class="d-flex flex-column gap-4">
 
         {{-- JIKA TIM BELUM DAFTAR --}}
-        @if (!$user->team)
+        @if (!auth()->user()->team)
             <div
                 class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center fs-2">
@@ -21,7 +21,7 @@
             </div>
 
             {{--  JIKA SUDAH DAFTAR TAPI BELUM LENGKAPI BERKAS --}}
-        @elseif($user->team->status == 'incomplete')
+        @elseif(auth()->user()->team->status == 'incomplete')
             <div
                 class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center fs-2">
@@ -36,7 +36,7 @@
             </div>
 
             {{-- JIKA SUDAH KUMPUL BERKAS TAPI BELUM VERIFIKASI (PENDING) --}}
-        @elseif($user->team->status == 'pending')
+        @elseif(auth()->user()->team->status == 'pending')
             <div
                 class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center fs-2">
@@ -80,11 +80,11 @@
 
                         <div class="mb-4">
                             <small class="text-muted d-block mb-2 fw-semibold">Nama Tim</small>
-                            <h5 class="fw-bold text-dark mb-0">{{ $user->team->name ?? '-' }}</h5>
+                            <h5 class="fw-bold text-dark mb-0">{{ auth()->user()->team->name ?? '-' }}</h5>
                         </div>
 
 
-                        @if ($user->team && $user->team->status == 'verified')
+                        @if (auth()->user()->team && auth()->user()->team->status == 'verified')
 
                             {{-- Jika Sudah Upload --}}
                             @if (isset($submission))

@@ -18,10 +18,12 @@ return new class extends Migration
             ->foreignId('user_id')
             ->constrained('users')
             ->cascadeOnDelete();
+            $table->string('advisor_name');
 
             $table->string('team_name');
             $table->string('institution');
-            $table->enum('status' , ['pending' , 'verified' , 'decline']);
+            $table->boolean('status_document');
+            $table->boolean('status_team');
 
         });
 

@@ -12,9 +12,19 @@ class Team extends Model
     protected $fillable = [
         'user_id',
         'team_name',
+        'advisor_name',
         'institution',
-        'status'
+        'status_document',
+        'status_team'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function member(){
+        return $this->hasMany(TeamMember::class , 'team_id');
+    }
 
 
 }

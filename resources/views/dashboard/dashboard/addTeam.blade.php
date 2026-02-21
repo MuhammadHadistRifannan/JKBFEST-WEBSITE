@@ -33,13 +33,13 @@
                 <div class="col-md-6 order-2">
                     <label class="form-label fw-semibold">Ketua Team</label>
                     <input type="text" class="form-control rounded-3 input-readonly-custom py-2"
-                        value="{{ $user->name ?? 'Harry Potter' }}" readonly>
+                        value="{{ auth()->user()->name ?? 'Harry Potter' }}" readonly>
                 </div>
 
                 <div class="col-md-6 order-md-4 order-3">
                     <label class="form-label fw-semibold">Nomer Hp Ketua Team</label>
                     <input type="text" class="form-control rounded-3 input-readonly-custom py-2"
-                        value="{{ $user->phone ?? '08555 787870 7776' }}" readonly>
+                        value="{{ auth()->user()->phone ?? '08555 787870 7776' }}" readonly>
                 </div>
 
                 <div class="col-md-6 order-md-3 order-4">

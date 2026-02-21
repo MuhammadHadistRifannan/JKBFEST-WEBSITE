@@ -6,13 +6,14 @@
     {{-- Header --}}
     <div class="hero-gradient p-4 mb-4 text-white d-flex align-items-center justify-content-between position-relative">
         <div class="z-3">
-            <h2 class="fw-semibold mb-1 mt-3">Selamat Datang, Harry!!</h2>
+            <h2 class="fw-semibold mb-1 mt-3">Selamat Datang, {{ auth()->user()->name }}!!</h2>
             <p class="mb-3">Bersiaplah untuk berinovasi dan tunjukkan potensi terbaikmu di JKB Fest</p>
         </div>
         <div class="corner-dash position-absolute top-0 end-0">
             <img src="{{ asset('images/corner-top-dash.png') }}" alt="corner-top-dash">
         </div>
     </div>
+
     {{-- Detail User --}}
     <div class="card mb-4 p-4 rounded-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -28,20 +29,18 @@
             <div class="col-md-6">
                 <div class="bg-soft-pink p-3 d-flex align-items-center">
                     <img src="{{ asset('icons/dashboard/user.svg') }}" alt="User Icon" class="icon-svg me-3">
-                    </i>
                     <div>
                         <small class="fw-light d-block">Nama Lengkap</small>
-                        <span class="fw-bold">Harry Potter</span>
+                        <span class="fw-bold">{{ auth()->user()->name }}</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="bg-soft-pink p-3 d-flex align-items-center">
                     <img src="{{ asset('icons/dashboard/team-black.svg') }}" alt="Team Icon" class="icon-svg me-3">
-                    </i>
                     <div>
                         <small class="fw-light d-block ">Status Team</small>
-                        @if ($user->team)
+                        @if (auth()->user()->team)
                             <span class="fw-bold">Terdaftar</span>
                         @else
                             <span class="fw-bold">Belum Mendaftar</span>
@@ -52,54 +51,51 @@
             <div class="col-md-6">
                 <div class="bg-soft-pink p-3 d-flex align-items-center">
                     <img src="{{ asset('icons/dashboard/telephone.svg') }}" alt="Telephone Icon" class="icon-svg me-3">
-                    </i>
                     <div>
                         <small class="fw-light d-block">No Telepon</small>
-                        <span class="fw-bold">08555 787870 7776</span>
+                        <span class="fw-bold">{{ auth()->user()->no_telp }}</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="bg-soft-pink p-3 d-flex align-items-center">
                     <img src="{{ asset('icons/dashboard/email.svg') }}" alt="Email Icon" class="icon-svg me-3">
-                    </i>
                     <div>
                         <small class="fw-light d-block">Email</small>
-                        <span class="fw-bold text-break">Harrypotter@gmail.com</span>
+                        <span class="fw-bold text-break">{{ auth()->user()->email }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
     {{-- Informasi Team --}}
     <div class="row g-4">
         <div class="col-lg-7">
-            <div class="card  p-4 rounded-4">
+            <div class="card p-4 rounded-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class=" text-custom-purple fw-bold d-flex align-items-center gap-2 mb-0">
+                    <h5 class="text-custom-purple fw-bold d-flex align-items-center gap-2 mb-0">
                         <img src="{{ asset('icons/dashboard/people.svg') }}" alt="Team Icon" class="icon-svg me-2">
                         Informasi Team
                     </h5>
 
                     {{-- Badge status --}}
-                    @if ($user->team)
-                        @if ($user->team->status == 'terverifikasi')
+                    @if (auth()->user()->team)
+                        @if (auth()->user()->team->status == 'verified')
                             <span class="badge rounded-pill px-3 py-2" style="background-color: #00C851">
                                 <img src="{{ asset('icons/dashboard/shield-icon.svg') }}" alt="shield-icon" class="me-1">
                                 Terverifikasi
                             </span>
                         @else
                             <span class="badge bg-danger rounded-pill px-3 py-2">
-                                <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon"
-                                    class="me-1">
+                                <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon" class="me-1">
                                 Pending
                             </span>
                         @endif
+                    @endif {{-- Ini @endif yang sebelumnya kurang --}}
                 </div>
 
-                @if (!$user->team)
+                @if (!auth()->user()->team)
                     {{-- JIKA BELUM MENDAFTAR TEAM --}}
                     <div class="bg-soft-pink p-4 rounded-4 text-center h-100 d-flex flex-column justify-content-center">
                         <p class="mb-4">
@@ -133,9 +129,8 @@
                             </table>
                         </div>
                     </div>
-                    <hr class=" border-secondary border-3 opacity-25 mt-4">
+                    <hr class="border-secondary border-3 opacity-25 mt-4">
                 @endif
-
             </div>
         </div>
 
@@ -163,13 +158,11 @@
                         <span class="fw-light">Timeline Lomba</span>
                     </a>
                     <a href="#" class="text-decoration-none text-dark d-flex align-items-center gap-3">
-                        <img src="{{ asset('icons/dashboard/sistem-nilai.svg') }}" alt="Penilaian Icon"
-                            class="icon-svg">
+                        <img src="{{ asset('icons/dashboard/sistem-nilai.svg') }}" alt="Penilaian Icon" class="icon-svg">
                         <span class="fw-light">Sistem Penilaian</span>
                     </a>
                     <a href="#" class="text-decoration-none text-dark d-flex align-items-center gap-3">
-                        <img src="{{ asset('icons/dashboard/ketentuan-pengumpulan.svg') }}"
-                            alt="Ketentuan Pengumpulan Icon" class="icon-svg">
+                        <img src="{{ asset('icons/dashboard/ketentuan-pengumpulan.svg') }}" alt="Ketentuan Pengumpulan Icon" class="icon-svg">
                         <span class="fw-light">Ketentuan Pengumpulan</span>
                     </a>
                     <a href="#" class="btn btn-custom rounded-3 fw-bold py-2">
@@ -179,6 +172,4 @@
             </div>
         </div>
     </div>
-    </div>
-    <?php endif; ?>
 @endsection

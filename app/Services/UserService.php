@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Services\UserService;
+namespace App\Services;
 
+use App\Models\User;
 use App\Services\JwtService;
-use App\Services\ResponseService\ResponseService;
+use App\Services\ResponseService;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+use Response;
 
 
 class UserService
@@ -32,18 +34,18 @@ class UserService
         ]);
 
         //read database
-        $user = DB::table('users')
+        $user = User::select()
         ->where('email' , $validated['email'])
         ->first();
 
         //check user existing
         if (!$user){
-            return response()->json(['message' => 'user tidak ditemukan' , 'status' => null], 404);
+            return ResponseService::MakeResponse(401 , 'User tidak ditemukan');
         }    
         
         //verifying hashing password
         if (!password_verify($validated['password'] , $user->password)){
-            return response()->json(['message' => 'email atau password salah' , 'status' => null] , 401);
+            return ResponseService::MakeResponse(402 , 'Kata sandi salah');
         }
 
 
@@ -56,7 +58,7 @@ class UserService
 
         $token = JwtService::GenerateJwt($payload);
 
-        return ResponseService::MakeResponse(200 , 'login success' , $payload , 'success');
+        return ResponseService::MakeResponse(200 , 'login success' , $user , 'success');
 
     }
 
@@ -69,44 +71,50 @@ class UserService
 
         //validated
         $validated = $request->validate([
-            'nama' => 'required|string|min:3|max:100',
+            'name' => 'required|string|min:3|max:100',
             'email' => 'required|email',
-            'no_telp' => 'required|min:8',
+            'no_telepon' => 'required|min:8',
             'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/'
         ]);
 
         //cek email 
-        $emailexist = DB::table('users')->where('email' , $validated['email']);
+        $emailexist = User::where('email', $validated['email'])->first();
+
+        if ($emailexist)
+        {
+            return ResponseService::MakeResponse(402 , 'Email was exist');
+        }
         
 
         //store to database
 
         try {
-    
-            $userId = DB::table('users')->insertGetId([
-                'name' => $validated['nama'],
+
+            $user = User::create([
+                'name' => $validated['name'],
                 'email' => $validated['email'],
-                'no_telp'=> $validated['no_telp'],
+                'no_telp' => $validated['no_telepon'],
                 'password' => password_hash($validated['password'] , PASSWORD_DEFAULT)
             ]);
 
         }
         catch(Exception $e){
-            return response()->json($e->getMessage());
+            return ResponseService::MakeResponse(402 , 'Input not valid');
         }
 
         //Buat payload 
         $payload = [
-            'id' => $userId,
-            'nama' => $validated['nama'] ,
-            'email' => $validated['email']
+            'id' => $user->id,
+            'nama' => $user->name ,
+            'email' => $user->email
         ];
 
         //generate jwt
         $token = JwtService::GenerateJwt($payload);
 
+
         //success responses 
-        return ResponseService::MakeResponse(200 , 'Register Success' , $payload, 'success' , $token);
+        return ResponseService::MakeResponse(200 , 'Register Success' , $user, 'success' , $token);
     }
 
 

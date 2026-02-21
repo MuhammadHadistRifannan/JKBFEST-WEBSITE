@@ -15,4 +15,8 @@ class TeamMember extends Model
         'name',
         'phone'
     ];
+
+    public function team(){
+        $this->belongsTo(Team::class);
+    }
 }
