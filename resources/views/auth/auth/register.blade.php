@@ -4,7 +4,6 @@
     <div class="container-fluid vh-100">
         <div class="row h-100">
 
-            <!-- PANEL KIRI -->
             <div class="col-lg-6 left-panel d-none d-lg-flex position-relative">
                 <div class="corner-top position-absolute top-0 end-0">
                     <img src="{{ asset('images/corner-top.png') }}" alt="corner-top">
@@ -20,7 +19,6 @@
                 </div>
             </div>
 
-            <!-- PANEL KANAN -->
             <div class="col-12 col-lg-6 right-panel position-relative">
                 <div class="decor-rectangle position-absolute">
                     <img src="{{ asset('icons/auth/rectangle-auth.svg') }}" alt="">
@@ -45,7 +43,6 @@
                         <form action={{ route('register') }} method="POST">
                             @csrf
 
-                            <!-- NAMA -->
                             <div class="mb-3">
                                 <label class="text-custom-purple form-label">Nama</label>
                                 <div class="input-group @error('name') form-error @enderror">
@@ -62,7 +59,6 @@
                                 @enderror
                             </div>
 
-                            <!-- EMAIL -->
                             <div class="mb-3">
                                 <label class="text-custom-purple form-label">Email</label>
                                 <div class="input-group @error('email') form-error @enderror">
@@ -79,7 +75,6 @@
                                 @enderror
                             </div>
 
-                            <!-- NO TELEPON -->
                             <div class="mb-3">
                                 <label class="text-custom-purple form-label">No Telepon</label>
                                 <div class="input-group @error('no_telepon') form-error @enderror">
@@ -96,19 +91,18 @@
                                 @enderror
                             </div>
 
-                            <!-- PASSWORD -->
                             <div class="mb-3">
                                 <label class="text-custom-purple form-label">Password</label>
                                 <div class="input-group @error('password') form-error @enderror">
                                     <span class="input-group-text bg-white border-end-0 py-2">
                                         <img src="{{ asset('icons/auth/password.svg') }}" class="icon-svg">
                                     </span>
-                                    <input type="password" name="password"
+                                    <input type="password" name="password" id="passwordInput"
                                         class="form-control border-start-0 border-end-0 shadow-none py-2
                                     @error('password') is-invalid @enderror"
                                         placeholder="Masukkan Password">
-                                    <span class="input-group-text bg-white border-start-0 py-2">
-                                        <img src="{{ asset('icons/auth/eye.svg') }}" class="icon-svg">
+                                    <span class="input-group-text bg-white border-start-0 cursor-pointer py-2" id="togglePassword">
+                                        <img src="{{ asset('icons/auth/eye.svg') }}" alt="show password" class="icon-svg" id="eyeIconImage" style="width: 24px !important; height: 24px !important; object-fit: contain;">
                                     </span>
                                 </div>
                                 @error('password')
@@ -116,18 +110,17 @@
                                 @enderror
                             </div>
 
-                            <!-- CONFIRM PASSWORD -->
                             <div class="mb-4">
                                 <label class="text-custom-purple form-label">Confirm Password</label>
                                 <div class="input-group @error('password_confirmation') form-error @enderror">
                                     <span class="input-group-text bg-white border-end-0 py-2">
                                         <img src="{{ asset('icons/auth/password.svg') }}" class="icon-svg">
                                     </span>
-                                    <input type="password" name="password_confirmation"
+                                    <input type="password" name="password_confirmation" id="passwordConfirmInput"
                                         class="form-control border-start-0 border-end-0 shadow-none py-2"
                                         placeholder="Masukkan Konfirmasi Password">
-                                    <span class="input-group-text bg-white border-start-0 py-2">
-                                        <img src="{{ asset('icons/auth/eye.svg') }}" class="icon-svg">
+                                    <span class="input-group-text bg-white border-start-0 cursor-pointer py-2" id="togglePasswordConfirm">
+                                        <img src="{{ asset('icons/auth/eye.svg') }}" alt="show password" class="icon-svg" id="eyeIconConfirmImage" style="width: 24px !important; height: 24px !important; object-fit: contain;">
                                     </span>
                                 </div>
                             </div>
@@ -147,4 +140,35 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fungsi reusable untuk mengatur toggle password
+            function setupPasswordToggle(toggleSpanId, inputId, iconId) {
+                const toggleSpan = document.getElementById(toggleSpanId);
+                const inputField = document.getElementById(inputId);
+                const eyeIcon = document.getElementById(iconId);
+
+                if(toggleSpan && inputField && eyeIcon) {
+                    toggleSpan.addEventListener("click", function() {
+                        const type = inputField.getAttribute("type") === "password" ? "text" : "password";
+                        inputField.setAttribute("type", type);
+                        
+                        if (type === "text") {
+                            eyeIcon.src = "{{ asset('icons/auth/eye-slash.svg') }}";
+                            eyeIcon.alt = "hide password";
+                        } else {
+                            eyeIcon.src = "{{ asset('icons/auth/eye.svg') }}";
+                            eyeIcon.alt = "show password";
+                        }
+                    });
+                }
+            }
+
+            // Terapkan ke field "Password"
+            setupPasswordToggle("togglePassword", "passwordInput", "eyeIconImage");
+            
+            // Terapkan ke field "Confirm Password"
+            setupPasswordToggle("togglePasswordConfirm", "passwordConfirmInput", "eyeIconConfirmImage");
+        });
+    </script>
 @endsection
