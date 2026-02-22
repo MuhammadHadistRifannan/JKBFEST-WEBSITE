@@ -2,10 +2,8 @@
 @section('title', 'Login')
 
 @section('content')
-    <!-- form login -->
     <div class="container-fluid vh-100">
         <div class="row h-100">
-            <!-- PANEL KIRI -->
             <div class="col-lg-6 left-panel d-none d-lg-flex position-relative">
                 <div class="corner-top position-absolute top-0 end-0 ">
                     <img src="{{ asset('images/corner-top.png') }}" alt="corner-top" />
@@ -23,7 +21,6 @@
                 </div>
             </div>
 
-            <!-- PANEL KANAN -->
             <div class="col-12 col-lg-6 right-panel position-relative">
                 <div class="decor-rectangle position-absolute">
                     <img src="{{ asset('icons/auth/rectangle-auth.svg') }}" alt="">
@@ -57,10 +54,6 @@
                                     <input type="email" name="email"
                                         class="form-control border-start-0 shadow-none py-2" placeholder="Masukkan Email" />
                                 </div>
-                                <div>@error('email')
-                                    {{ $message }}
-                                @enderror
-                            </div>
                             </div>
 
                             <div class="mb-3">
@@ -74,14 +67,9 @@
                                         placeholder="Masukkan Password" />
                                     <span class="input-group-text bg-white border-start-0 cursor-pointer py-2"
                                         id="togglePassword">
-                                        <img src="{{ asset('icons/auth/eye.svg') }}" alt="eye" class="icon-svg">
+                                        {{-- Penambahan style inline di sini untuk memperkecil ukuran ikon mata --}}
+                                        <img src="{{ asset('icons/auth/eye.svg') }}" alt="show password" class="icon-svg" id="eyeIconImage" style="width: 24px !important; height: 24px !important; object-fit: contain;">
                                     </span>
-                                </div>
-
-                                <div>
-                                    @error('password')
-                                        {{ $message }}
-                                    @enderror
                                 </div>
                             </div>
 
@@ -94,4 +82,31 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const togglePasswordSpan = document.getElementById("togglePassword");
+            const passwordInput = document.getElementById("passwordInput");
+            const eyeIconImage = document.getElementById("eyeIconImage");
+
+            togglePasswordSpan.addEventListener("click", function() {
+                // 1. Cek tipe input saat ini apakah password atau text
+                const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                
+                // 2. Ubah tipe inputnya
+                passwordInput.setAttribute("type", type);
+                
+                // 3. Ubah gambar ikonnya berdasarkan tipe input baru
+                if (type === "text") {
+                    // Menggunakan file eye-slash.svg persis seperti kode Anda
+                    eyeIconImage.src = "{{ asset('icons/auth/eye-slash.svg') }}";
+                    eyeIconImage.alt = "hide password";
+                } else {
+                    // Kembali ke ikon mata normal (eye)
+                    eyeIconImage.src = "{{ asset('icons/auth/eye.svg') }}";
+                    eyeIconImage.alt = "show password";
+                }
+            });
+        });
+    </script>
 @endsection
