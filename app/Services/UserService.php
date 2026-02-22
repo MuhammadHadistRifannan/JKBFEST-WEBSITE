@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Services\JwtService;
 use App\Services\ResponseService;
 use DB;
 use Exception;
@@ -48,16 +47,6 @@ class UserService
         if (!password_verify($validated['password'] , $user->password)){
             return ResponseService::MakeResponse(402 , 'Kata sandi salah');
         }
-
-
-        //bikin payload buat jwt service
-        $payload = [
-            'id' => $user->id,
-            'nama' => $user->name,
-            'email' => $validated['email']
-        ];
-
-        $token = JwtService::GenerateJwt($payload);
 
         return ResponseService::MakeResponse(200 , 'login success' , $user , 'success');
 
@@ -111,12 +100,9 @@ class UserService
             'email' => $user->email
         ];
 
-        //generate jwt
-        $token = JwtService::GenerateJwt($payload);
-
 
         //success responses 
-        return ResponseService::MakeResponse(200 , 'Register Success' , $user, 'success' , $token);
+        return ResponseService::MakeResponse(200 , 'Register Success' , $user, 'success');
     }
 
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
-use App\Services\JwtService;
 use App\Services\UserService;
 use App\Services\ResponseService;
 use App\UserDto;
