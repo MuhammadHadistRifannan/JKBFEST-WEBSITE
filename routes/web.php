@@ -54,6 +54,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/uploadKarya', function () {
         return view('dashboard.dashboard.uploadKarya');
     })->name('uploadKarya');
+
 });
 
 Route::post(Router::$registParam, [UserController::class, 'register'])->name('register');

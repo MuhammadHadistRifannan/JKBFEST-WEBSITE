@@ -32,6 +32,17 @@ class TeamController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function UploadDocument(Request $request , TeamService $service){
+        $response = $service->UploadDocument($request);
+
+        if (!$response['status']){
+            Alert::error('Error' , $response['message']);
+            return redirect()->back()->withInput();
+        }
+
+        Alert::success('Success' , $response['message']);
+        return redirect()->route('teamPeserta');
+    }
 
 
 }

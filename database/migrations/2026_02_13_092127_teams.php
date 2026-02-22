@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+     
         //
         Schema::create('teams' , function(Blueprint $table){
             $table->id();
@@ -18,14 +20,24 @@ return new class extends Migration
             ->foreignId('user_id')
             ->constrained('users')
             ->cascadeOnDelete();
+            
             $table->string('advisor_name');
             $table->string('advisor_phone');
-
+            
             $table->string('team_name');
             $table->string('institution');
-            $table->boolean('status_document');
             $table->boolean('status_team');
 
+        });
+
+           Schema::create('document', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->foreignId('team_id')
+            ->constrained('teams')
+            ->cascadeOnDelete();
+            $table->string('document_path');
+            $table->enum('status_document', ['pending', 'approved', 'rejected']);
         });
 
         Schema::create('team_members' , function(Blueprint $table){
@@ -48,7 +60,8 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::dropIfExists('teams');
         Schema::dropIfExists('team_members');
+        Schema::dropIfExist('document');
+        Schema::dropIfExists('teams');
     }
 };

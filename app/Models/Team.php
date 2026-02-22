@@ -15,7 +15,6 @@ class Team extends Model
         'advisor_name',
         'advisor_phone',
         'institution',
-        'status_document',
         'status_team'
     ];
 
@@ -23,6 +22,10 @@ class Team extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function document(){
+        return $this->hasOne(Document::class, 'team_id');
     }
 
     public function member(){

@@ -83,7 +83,7 @@
 
                     {{-- Badge status --}}
                     @if (auth()->user()->team)
-                        @if (auth()->user()->team->status == 'verified')
+                        @if (auth()->user()->team->status)
                             <span class="badge rounded-pill px-3 py-2" style="background-color: #00C851">
                                 <img src="{{ asset('icons/dashboard/shield-icon.svg') }}" alt="shield-icon" class="me-1">
                                 Terverifikasi
