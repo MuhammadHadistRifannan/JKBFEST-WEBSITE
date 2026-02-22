@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController\AdminController;
 use App\Http\Controllers\ApiController\TeamController;
 use App\Http\Controllers\ApiController\UserController;
 use App\Http\Middleware\AuthMiddleware;
@@ -11,13 +12,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         return redirect()->route('admin.dashboard');
     });
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
 
-    Route::get('/verifikasi', function () {
-        return view('admin.dashboard.verifikasi');
-    })->name('verifikasi');
+    Route::get('/verifikasi', [AdminController::class, 'verifikasi'])->name('verifikasi');
 
     Route::get('/team', function () {
         return view('admin.dashboard.team');
@@ -26,6 +23,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/karya', function () {
         return view('admin.dashboard.karya');
     })->name('karya');
+
+    Route::post('/updateStatus', [AdminController::class, 'updateStatus'])->name('updateStatus');
+    Route::post('/rejectDocument', [AdminController::class, 'rejectDocument'])->name('rejectDocument');
 });
 
 Route::middleware([AuthMiddleware::class])->group(function () {
@@ -54,6 +54,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/uploadKarya', function () {
         return view('dashboard.dashboard.uploadKarya');
     })->name('uploadKarya');
+
+    Route::post('/uploadDocument', [TeamController::class, 'UploadDocument'])->name('uploadDocument');
 
 });
 

@@ -137,7 +137,7 @@
             <div class="col-md-4">
                 <div class="card stat-card border-0 shadow-sm rounded-4 p-4 text-center h-100 d-flex flex-column justify-content-center align-items-center">
                     <i class="bi bi-people-fill text-custom-purple mb-2" style="font-size: 2.8rem;"></i>
-                    <h2 class="fw-bold text-dark mb-0">45</h2>
+                    <h2 class="fw-bold text-dark mb-0">{{ $data['total'] }}</h2>
                     <span class="text-muted small fw-medium">Total Tim Terdaftar</span>
                 </div>
             </div>
@@ -160,19 +160,19 @@
                                 <small class="text-muted d-flex align-items-center fw-medium" style="font-size: 11px;">
                                     <span class="legend-indicator me-2" style="background:#FF49C1;"></span> Pending
                                 </small>
-                                <small class="fw-bold">: 5</small>
+                                <small class="fw-bold">: {{ $data['pending'] }}</small>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-1 gap-2">
                                 <small class="text-muted d-flex align-items-center fw-medium" style="font-size: 11px;">
                                     <span class="legend-indicator me-2" style="background:#44113E;"></span> Ditolak
                                 </small>
-                                <small class="fw-bold">: 5</small>
+                                <small class="fw-bold">: {{ $data['rejected'] }}</small>
                             </div>
                             <div class="d-flex align-items-center justify-content-between gap-2">
                                 <small class="text-muted d-flex align-items-center fw-medium" style="font-size: 11px;">
                                     <span class="legend-indicator me-2" style="background:#FFD1A9;"></span> disetujui
                                 </small>
-                                <small class="fw-bold">: 5</small>
+                                <small class="fw-bold">: {{ $data['approved'] }}</small>
                             </div>
                         </div>
                     </div>

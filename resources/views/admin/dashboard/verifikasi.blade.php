@@ -185,9 +185,7 @@
     .icon-edit { color: #4A154D; }
     .icon-delete { color: #E25A45; }
 
-    /* ========================================================
-       STYLE UNTUK MODAL VERIFIKASI (BARU)
-       ======================================================== */
+    /* Modal Styles */
     .modal-header-gradient {
         background: linear-gradient(135deg, #D81E76 0%, #4A154D 100%);
     }
@@ -200,6 +198,12 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .pdf-placeholder:hover {
+        background-color: #fcfcfc;
+        border-color: #D81E76;
     }
 
     .table-modal-detail td {
@@ -257,7 +261,7 @@
         </div>
     </div>
 
-    <h6 class="fw-bold text-custom-purple mb-4">Web Developmen Competition</h6>
+    <h6 class="fw-bold text-custom-purple mb-4">Web Development Competition</h6>
 
     <div class="row g-4">
         
@@ -268,17 +272,21 @@
                 <div class="d-flex flex-column">
                     <a class="tab-box active filter-tab" data-filter="all">
                         <i class="bi bi-people-fill"></i>
-                        <span>Semua (100)</span>
+                        <span>Semua ({{ $data->count() }})</span>
                     </a>
 
                     <a class="tab-box inactive filter-tab" data-filter="pending">
                         <i class="bi bi-hourglass-split"></i>
-                        <span>Pending (100)</span>
+                        <span>Pending ({{ $data->where('status_document', 'pending')->count() }})</span>
+                    </a>
+                    <a class="tab-box inactive filter-tab" data-filter="rejected">
+                        <i class="bi bi-x-circle-fill"></i>
+                        <span>Rejected ({{ $data->where('status_document', 'rejected')->count() }})</span>
                     </a>
 
-                    <a class="tab-box inactive filter-tab" data-filter="verified">
+                    <a class="tab-box inactive filter-tab" data-filter="approved">
                         <i class="bi bi-check-circle-fill"></i>
-                        <span>Terverifikasi (100)</span>
+                        <span>Terverifikasi ({{ $data->where('status_document', 'approved')->count() }})</span>
                     </a>
                 </div>
             </div>
@@ -297,84 +305,41 @@
                         </tr>
                     </thead>
                     <tbody id="table-body">
-                        <tr class="table-row" data-status="pending">
-                            <td>1</td>
-                            <td>Langsung di Acc Saja</td>
-                            <td>10 Januari 1998</td>
+                        @php $i = 1; @endphp
+                        @foreach ($data as $team)
+                        <tr class="table-row" data-status="{{ $team->status_document }}">
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $team->team_name }}</td>
+                            <td>{{ $team->created_at }}</td>
                             <td>
-                                <div class="badge-status bg-pending shadow-sm">
-                                    <i class="bi bi-three-dots px-1 border border-1 border-white rounded-pill" style="font-size: 10px;"></i>
-                                    Pending
+                                {{-- Jika status diverifikasi, ganti background jadi hijau (opsional) --}}
+                                <div class="badge-status {{ $team->status_document == 'approved' ? 'bg-verified' : 'bg-pending' }} shadow-sm">
+                                    <i class="bi {{ $team->status_document == 'approved' ? 'bi-check2-circle' : 'bi-three-dots' }} px-1 border border-1 border-white rounded-pill" style="font-size: 10px;"></i>
+                                    {{ $team->status_document }}
                                 </div>
                             </td>
                             <td>
                                 <div class="action-icons">
-                                    <button class="icon-action icon-edit" data-bs-toggle="modal" data-bs-target="#modalDetailVerifikasi">
+                                    {{-- TOMBOL EDIT YANG SUDAH DIBERI DATA ATTRIBUTES --}}
+                                    <button class="icon-action icon-edit btn-edit" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#modalDetailVerifikasi"
+                                        data-id="{{ $team->team_id }}"
+                                        data-name="{{ $team->team_name }}"
+                                        data-inst="{{ $team->institution }}"
+                                        data-ketua="{{ $team->name ?? 'Belum ada ketua' }}" 
+                                        data-status="{{ $team->status_team ? 'Terverifikasi' : 'Pending' }}"
+                                        data-pdf="{{ $team->document_path ? asset('storage/' . $team->document_path) : '#' }}">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
+                                    
                                     <button class="icon-action icon-delete">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-
-                        <tr class="table-row" data-status="verified">
-                            <td>2</td>
-                            <td>Langsung di Acc Saja</td>
-                            <td>10 Januari 1998</td>
-                            <td>
-                                <div class="badge-status bg-verified shadow-sm">
-                                    <i class="bi bi-shield-check" style="font-size: 14px;"></i>
-                                    Terverifikasi
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-icons">
-                                    <button class="icon-action icon-edit" data-bs-toggle="modal" data-bs-target="#modalDetailVerifikasi">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                    <button class="icon-action icon-delete">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr class="table-row" data-status="pending">
-                            <td>3</td>
-                            <td>Langsung di Acc Saja</td>
-                            <td>10 Januari 1998</td>
-                            <td>
-                                <div class="badge-status bg-pending shadow-sm">
-                                    <i class="bi bi-three-dots px-1 border border-1 border-white rounded-pill" style="font-size: 10px;"></i>
-                                    Pending
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-icons">
-                                    <button class="icon-action icon-edit" data-bs-toggle="modal" data-bs-target="#modalDetailVerifikasi">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                    <button class="icon-action icon-delete">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr class="table-row" data-status="pending">
-                            <td>4</td>
-                            <td>Langsung di Acc Saja</td>
-                            <td>10 Januari 1998</td>
-                            <td><div class="badge-status bg-pending shadow-sm"><i class="bi bi-three-dots px-1 border border-1 border-white rounded-pill" style="font-size: 10px;"></i> Pending</div></td>
-                            <td>
-                                <div class="action-icons">
-                                    <button class="icon-action icon-edit" data-bs-toggle="modal" data-bs-target="#modalDetailVerifikasi"><i class="bi bi-pencil-square"></i></button>
-                                    <button class="icon-action icon-delete"><i class="bi bi-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -383,12 +348,13 @@
     </div>
 </div>
 
+{{-- MODAL DETAIL VERIFIKASI --}}
 <div class="modal fade" id="modalDetailVerifikasi" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 rounded-4 overflow-hidden shadow">
             
             <div class="modal-header modal-header-gradient border-0 text-white p-3">
-                <h6 class="modal-title fw-bold ms-3">Verifikasi Pending</h6>
+                <h6 class="modal-title fw-bold ms-3">Verifikasi Dokumen</h6>
                 <button type="button" class="btn-close btn-close-white me-2" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             
@@ -396,10 +362,11 @@
                 <div class="row g-4 align-items-center">
                     
                     <div class="col-md-5">
-                        <div class="pdf-placeholder">
+                        {{-- KOTAK PDF SEKARANG BISA DIKLIK --}}
+                        <a href="#" target="_blank" id="modal-pdf-link" class="pdf-placeholder text-decoration-none w-100">
                             <i class="bi bi-filetype-pdf" style="font-size: 4rem; color: #D81E76;"></i>
-                            <span class="fw-bold mt-2" style="color: #D81E76; font-size: 1.2rem; letter-spacing: 2px;">PDF</span>
-                        </div>
+                            <span class="fw-bold mt-2" style="color: #D81E76; font-size: 1.2rem; letter-spacing: 2px;">Buka PDF</span>
+                        </a>
                     </div>
                     
                     <div class="col-md-7 ps-md-4">
@@ -409,32 +376,40 @@
                             <tr>
                                 <td class="text-muted" style="width: 120px;">Nama Team</td>
                                 <td class="text-muted" style="width: 10px;">:</td>
-                                <td class="text-dark fw-medium">Langsung di ACC Saja</td>
+                                <td class="text-dark fw-medium" id="modal-nama-team"></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Asal Instansi</td>
                                 <td class="text-muted">:</td>
-                                <td class="text-dark fw-medium">Politeknik Negeri Cilacap</td>
+                                <td class="text-dark fw-medium" id="modal-instansi"></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Ketua Team</td>
                                 <td class="text-muted">:</td>
-                                <td class="text-dark fw-medium">Harry Potter</td>
+                                <td class="text-dark fw-medium" id="modal-ketua"></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Status</td>
                                 <td class="text-muted">:</td>
-                                <td class="text-dark fw-medium">Pending</td>
+                                <td class="text-dark fw-medium" id="modal-status"></td>
                             </tr>
                         </table>
                         
                         <div class="d-flex gap-3 mt-4">
+                            {{-- TOMBOL TOLAK --}}
                             <button class="btn btn-modal-outline w-50 py-2 fw-bold" data-bs-toggle="modal" data-bs-target="#modalTolak">
                                 Tolak
                             </button>
-                            <button class="btn btn-modal-gradient w-50 py-2 fw-bold" data-bs-toggle="modal" data-bs-target="#modalSuccess">
-                                Verifikasi
-                            </button>
+                            
+                            {{-- FORM VERIFIKASI (SIAP DISAMBUNGKAN KE ROUTE) --}}
+                            <form id="form-verifikasi" method="POST" action="{{ route('admin.updateStatus') }}" class="w-50">
+                                @csrf
+                                {{-- Jika ada method PUT/PATCH, tambahkan @method('PUT') --}}
+                                <input type="hidden" name="team_id" id="hidden_team_id">
+                                <button type="submit" class="btn btn-modal-gradient w-100 py-2 fw-bold">
+                                    Verifikasi
+                                </button>
+                            </form>
                         </div>
                     </div>
                     
@@ -444,30 +419,38 @@
     </div>
 </div>
 
+{{-- MODAL TOLAK --}}
 <div class="modal fade" id="modalTolak" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 rounded-4 overflow-hidden shadow">
             
             <div class="modal-header border-0 text-white p-3" style="background-color: #E25A45;">
-                <h6 class="modal-title fw-bold ms-3">Ditolak</h6>
+                <h6 class="modal-title fw-bold ms-3">Tolak Dokumen</h6>
                 <button type="button" class="btn-close btn-close-white me-2" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             
             <div class="modal-body p-4 p-md-5">
-                <h6 class="fw-bold text-dark mb-1">Status Di Tolak</h6>
+                <h6 class="fw-bold text-dark mb-1">Status Ditolak</h6>
                 <small class="text-muted d-block mb-3">Berikan alasan ditolak agar team dapat memperbaikinya</small>
                 
-                <textarea class="form-control bg-light-custom border-0 rounded-3 mb-4 p-3" rows="5" placeholder="Tuliskan alasan penolakan..."></textarea>
-                
-                <button class="btn btn-modal-gradient w-100 py-2 fw-bold d-flex justify-content-center align-items-center gap-2" data-bs-dismiss="modal">
-                    <i class="bi bi-send-fill"></i> Kirim
-                </button>
+                {{-- FORM TOLAK (SIAP DISAMBUNGKAN KE ROUTE) --}}
+                <form id="form-tolak" method="POST" action="{{ route('admin.rejectDocument') }}">
+                    @csrf
+                    {{-- Jika ada method PUT/PATCH, tambahkan @method('PUT') --}}
+                    <input type="hidden" name="team_id" id="hidden_team_id_reject">
+                    <textarea name="alasan_penolakan" class="form-control bg-light-custom border-0 rounded-3 mb-4 p-3" rows="5" placeholder="Tuliskan alasan penolakan..." required></textarea>
+                    
+                    <button type="submit" class="btn btn-modal-gradient w-100 py-2 fw-bold d-flex justify-content-center align-items-center gap-2">
+                        <i class="bi bi-send-fill"></i> Kirim
+                    </button>
+                </form>
             </div>
             
         </div>
     </div>
 </div>
 
+{{-- MODAL SUCCESS (BISA DIPAKAI SEBAGAI FLASH MESSAGE NANTINYA) --}}
 <div class="modal fade" id="modalSuccess" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content border-0 rounded-4 p-4 p-md-5 text-center shadow">
@@ -479,7 +462,7 @@
             </div>
             
             <h5 class="fw-bold text-dark mb-2">Verifikasi Berhasil</h5>
-            <p class="text-muted small mb-4 px-2">Team Langsung di Acc Saja Berhasil di Verifikasi Admin</p>
+            <p class="text-muted small mb-4 px-2">Team <span id="modal-success-team-name"></span> Berhasil di Verifikasi Admin</p>
             
             <button class="btn btn-modal-gradient w-100 py-2 fw-bold mt-2" data-bs-dismiss="modal">
                 Kembali
@@ -494,7 +477,8 @@
 @section('scripts')
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // --- Logic Filter Tab Pendaftar ---
+        
+        // --- 1. Logic Filter Tab Pendaftar ---
         const tabs = document.querySelectorAll('.filter-tab');
         const rows = document.querySelectorAll('.table-row');
 
@@ -524,6 +508,47 @@
                 });
             });
         });
+
+        // --- 2. Logic Passing Data ke Modal Edit ---
+        const editButtons = document.querySelectorAll('.btn-edit');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil data dari atribut HTML tombol yang sedang diklik
+                const teamId     = this.getAttribute('data-id');
+                const teamName   = this.getAttribute('data-name');
+                const teamInst   = this.getAttribute('data-inst');
+                const teamKetua  = this.getAttribute('data-ketua');
+                const teamStatus = this.getAttribute('data-status');
+                const teamPdf    = this.getAttribute('data-pdf');
+
+                // Cetak data ke dalam teks Modal Detail
+                document.getElementById('modal-nama-team').innerText = teamName;
+                document.getElementById('modal-instansi').innerText = teamInst;
+                document.getElementById('modal-ketua').innerText = teamKetua;
+                document.getElementById('modal-status').innerText = teamStatus;
+
+                // Update Link untuk Tombol Buka PDF
+                const pdfLink = document.getElementById('modal-pdf-link');
+                if (teamPdf !== '#') {
+                    pdfLink.href = teamPdf;
+                    pdfLink.removeAttribute('onclick');
+                } else {
+                    pdfLink.href = '#';
+                    pdfLink.setAttribute('onclick', 'alert("Dokumen PDF belum diunggah!"); return false;');
+                }
+
+                // Update Action Form Verifikasi & Tolak sesuai dengan ID Team
+                // (Sesuaikan URL route ini dengan route yang kamu buat di web.php)
+                document.getElementById('hidden_team_id').value = teamId;
+                document.getElementById('hidden_team_id_reject').value = teamId;
+                
+                // Opsional: Untuk Modal Success
+                const successName = document.getElementById('modal-success-team-name');
+                if(successName) successName.innerText = teamName;
+            });
+        });
+
     });
 </script>
 @endsection
