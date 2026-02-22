@@ -4,6 +4,17 @@
 
 @section('content')
 
+    @php
+        //Deadline Pendaftaran
+        $deadline = date_create('2026-02-26');
+        $range = now()->diffInDays($deadline);
+
+        $day_remain = round($range);
+
+        $isAlmostClosed = $day_remain <= 2;
+
+    @endphp
+
     {{-- Cek apakah user BELUM punya team --}}
     @if (!auth()->user()->team)
         
@@ -37,7 +48,7 @@
                     @endif
                 </div>
 
-                <h4 class="fw-bold mb-0 mt-0 mt-lg-2">{{ auth()->user()->team->name ?? 'Langsung di ACC Saja' }}</h4>
+                <h4 class="fw-bold mb-0 mt-0 mt-lg-2">{{ auth()->user()->team->team_name ?? 'Langsung di ACC Saja' }}</h4>
             </div>
 
             <div class="rounded-circle me-3 d-flex align-items-center justify-content-center position-relative z-3">
@@ -325,9 +336,9 @@
                                 </div>
 
                                 <div class="w-100 w-sm-50">
-                                    <form action="#" method="POST">
+                                    <form action="/hasPayment" method="POST">
                                         @csrf
-                                        <button type="button" class="btn btn-custom w-100 rounded-3 py-2 fw-semibold"
+                                        <button type="submit" class="btn btn-custom w-100 rounded-3 py-2 fw-semibold"
                                             data-bs-dismiss="modal">
                                             Saya Sudah Bayar
                                         </button>
@@ -342,6 +353,6 @@
             </div>
         </div>
 
-    @endif {{-- Penutup if (!auth()->user()->team) --}}
+    @endif 
 
 @endsection

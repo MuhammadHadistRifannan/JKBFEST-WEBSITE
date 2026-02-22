@@ -57,6 +57,10 @@
                                     <input type="email" name="email"
                                         class="form-control border-start-0 shadow-none py-2" placeholder="Masukkan Email" />
                                 </div>
+                                <div>@error('email')
+                                    {{ $message }}
+                                @enderror
+                            </div>
                             </div>
 
                             <div class="mb-3">
@@ -72,6 +76,12 @@
                                         id="togglePassword">
                                         <img src="{{ asset('icons/auth/eye.svg') }}" alt="eye" class="icon-svg">
                                     </span>
+                                </div>
+
+                                <div>
+                                    @error('password')
+                                        {{ $message }}
+                                    @enderror
                                 </div>
                             </div>
 

@@ -14,44 +14,58 @@
 
     {{-- FORM BUAT TEAM --}}
     <div class="card p-5 mx-3 rounded-4 shadow-sm">
-        <form action="#" method="POST">
+        <form action={{ route('registerTeam') }} method="POST">
             @csrf
             <h5 class="fw-bold text-custom-purple mb-4">Lengkapi Team</h5>
             <div class="row g-4 mb-4">
                 <div class="col-md-6 order-0">
                     <label class="form-label fw-semibold">Nama Team</label>
                     <input type="text" name="team_name" class="form-control rounded-3 py-2"
-                        placeholder="Masukkan Nama Team" value="{{ old('team_name') }}">
+                    placeholder="Masukkan Nama Team" value="{{ old('team_name') }}">
+                
+                    @error('team_name')
+                        {{ $message }}
+                    @enderror
                 </div>
-
+                
                 <div class="col-md-6 order-1">
                     <label class="form-label fw-semibold">Asal Instansi</label>
                     <input type="text" name="institution" class="form-control rounded-3 py-2"
-                        placeholder="Masukkan Asal Instansi" value="{{ old('institution') }}">
+                    placeholder="Masukkan Asal Instansi" value="{{ old('institution') }}">
+                    @error('institution')
+                        {{ $message }}
+                    @enderror
                 </div>
-
+                
                 <div class="col-md-6 order-2">
                     <label class="form-label fw-semibold">Ketua Team</label>
                     <input type="text" class="form-control rounded-3 input-readonly-custom py-2"
-                        value="{{ auth()->user()->name ?? 'Harry Potter' }}" readonly>
+                    value="{{ auth()->user()->name ?? 'Harry Potter' }}" readonly>
+                    
                 </div>
 
                 <div class="col-md-6 order-md-4 order-3">
                     <label class="form-label fw-semibold">Nomer Hp Ketua Team</label>
                     <input type="text" class="form-control rounded-3 input-readonly-custom py-2"
-                        value="{{ auth()->user()->phone ?? '08555 787870 7776' }}" readonly>
+                        value="{{ auth()->user()->no_telp ?? '08555 787870 7776' }}" readonly>
                 </div>
 
                 <div class="col-md-6 order-md-3 order-4">
                     <label class="form-label fw-semibold">Nama Pembimbing</label>
                     <input type="text" name="advisor_name" class="form-control rounded-3 py-2"
                         placeholder="Masukkan Nama Pembimbing" value="{{ old('advisor_name') }}">
+                        @error('advisor_name')
+                        {{ $message }}
+                    @enderror
                 </div>
 
                 <div class="col-md-6 order-5">
                     <label class="form-label fw-semibold">Nomer Hp Pembimbing</label>
                     <input type="text" name="advisor_phone" class="form-control rounded-3 py-2"
                         placeholder="Masukkan No HP Pembimbing" value="{{ old('advisor_phone') }}">
+                        @error('advisor_phone')
+                        {{ $message }}
+                    @enderror
                 </div>
             </div>
 
@@ -67,12 +81,18 @@
                     <label class="form-label fw-semibold">Member 1</label>
                     <input type="text" name="member_1_name" class="form-control rounded-3 py-2"
                         placeholder="Masukkan Member 1" value="{{ old('member_1_name') }}">
+                        @error('member_1_name')
+                        {{ $message }}
+                    @enderror
                 </div>
 
                 <div class="col-md-6 order-md-2 order-1">
                     <label class="form-label fw-semibold">Nomer Hp</label>
                     <input type="text" name="member_1_phone" class="form-control rounded-3 py-2"
                         placeholder="Masukkan Nomer HP" value="{{ old('member_1_phone') }}">
+                        @error('member_1_phone')
+                        {{ $message }}
+                    @enderror
                 </div>
 
                 {{-- Member 2 --}}
@@ -86,6 +106,9 @@
                     <label class="form-label fw-semibold">Nomer Hp</label>
                     <input type="text" name="member_2_phone" class="form-control rounded-3 py-2"
                         placeholder="Masukkan Nomer HP" value="{{ old('member_2_phone') }}">
+                        @error('member_2_phone')
+                        {{ $message }}
+                    @enderror
                 </div>
             </div>
 

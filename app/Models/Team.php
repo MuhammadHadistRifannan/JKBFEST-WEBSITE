@@ -13,10 +13,13 @@ class Team extends Model
         'user_id',
         'team_name',
         'advisor_name',
+        'advisor_phone',
         'institution',
         'status_document',
         'status_team'
     ];
+
+    public $timestamps = false;
 
     public function user(){
         return $this->belongsTo(User::class);

@@ -19,6 +19,7 @@ return new class extends Migration
             ->constrained('users')
             ->cascadeOnDelete();
             $table->string('advisor_name');
+            $table->string('advisor_phone');
 
             $table->string('team_name');
             $table->string('institution');

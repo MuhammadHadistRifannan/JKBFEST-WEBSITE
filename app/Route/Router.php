@@ -9,4 +9,6 @@ class Router
 
     public static $logoutParam = '/logout';
 
+    public static $registTeamParam = '/teamRegist';
+
 }

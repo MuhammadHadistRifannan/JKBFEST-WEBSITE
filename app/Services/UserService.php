@@ -77,6 +77,7 @@ class UserService
             'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/'
         ]);
 
+        
         //cek email 
         $emailexist = User::where('email', $validated['email'])->first();
 

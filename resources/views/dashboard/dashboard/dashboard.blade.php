@@ -21,9 +21,11 @@
                 <img src="{{ asset('icons/dashboard/user.svg') }}" alt="User Icon" class="icon-svg">
                 Detail User
             </h5>
-            <button class="btn btn-outline-primary btn-sm px-3 rounded-3">
+            <a href="/editProfile" class="btn btn-outline-primary btn-sm px-3 rounded-3">
                 <i class="bi bi-pencil-square"></i> Edit
-            </button>
+            </a>
+
+
         </div>
         <div class="row g-3">
             <div class="col-md-6">
@@ -115,15 +117,15 @@
                                 <tbody>
                                     <tr>
                                         <td class="fw-light ps-0 py-1" style="width: 160px;">Nama Team</td>
-                                        <td class="fw-light py-1">: Hallo mo</td>
+                                        <td class="fw-light py-1">: {{ auth()->user()->team->team_name }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light ps-0 py-1">Asal Institusi</td>
-                                        <td class="fw-light py-1">: PNC Ale</td>
+                                        <td class="fw-light py-1">: {{ auth()->user()->team->institution }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light ps-0 py-1">Ketua Team</td>
-                                        <td class="fw-light py-1">: Harry Potter</td>
+                                        <td class="fw-light py-1">: {{ auth()->user()->name }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -162,7 +164,8 @@
                         <span class="fw-light">Sistem Penilaian</span>
                     </a>
                     <a href="#" class="text-decoration-none text-dark d-flex align-items-center gap-3">
-                        <img src="{{ asset('icons/dashboard/ketentuan-pengumpulan.svg') }}" alt="Ketentuan Pengumpulan Icon" class="icon-svg">
+                        <img src="{{ asset('icons/dashboard/ketentuan-pengumpulan.svg') }}" alt="Ketentuan Pengumpulan Icon"
+                            class="icon-svg">
                         <span class="fw-light">Ketentuan Pengumpulan</span>
                     </a>
                     <a href="#" class="btn btn-custom rounded-3 fw-bold py-2">
@@ -172,4 +175,5 @@
             </div>
         </div>
     </div>
+
 @endsection

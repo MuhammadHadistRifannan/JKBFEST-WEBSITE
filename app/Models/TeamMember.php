@@ -16,6 +16,8 @@ class TeamMember extends Model
         'phone'
     ];
 
+    public $timestamps = false;
+
     public function team(){
         $this->belongsTo(Team::class);
     }

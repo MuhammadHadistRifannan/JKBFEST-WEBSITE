@@ -34,12 +34,13 @@ class UserController extends Controller
         Auth::login($user);
         
         $request->session()->regenerate();
-
+        Alert::success('Success' , $response['message']);
+        
         return redirect()->route('dashboard');
     }
     /**
      * REGISTER USER.
-     */
+    */
     public function register(Request $request , UserService $service)
     {
         $response = $service->registerService($request);
@@ -50,10 +51,11 @@ class UserController extends Controller
             return redirect()->back()->withInput();
         }
 
-        $user = $response['data']; 
+        $user = $response['data'];
         Auth::login($user);
-
+        
         $request->session()->regenerate();
+        Alert::success('Success' , $response['message']);
 
         return redirect()->route('dashboard');
     }

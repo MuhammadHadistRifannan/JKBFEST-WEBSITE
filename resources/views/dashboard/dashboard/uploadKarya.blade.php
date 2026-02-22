@@ -21,7 +21,7 @@
             </div>
 
             {{--  JIKA SUDAH DAFTAR TAPI BELUM LENGKAPI BERKAS --}}
-        @elseif(auth()->user()->team->status == 'incomplete')
+        @elseif(!auth()->user()->team->status_document)
             <div
                 class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center fs-2">
@@ -36,7 +36,7 @@
             </div>
 
             {{-- JIKA SUDAH KUMPUL BERKAS TAPI BELUM VERIFIKASI (PENDING) --}}
-        @elseif(auth()->user()->team->status == 'pending')
+        @elseif(!auth()->user()->team->status_team)
             <div
                 class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center fs-2">

@@ -6,7 +6,7 @@
     {{-- HEADER --}}
     <div class="mb-4">
         <div class="d-flex align-items-center gap-3">
-            <a href="#" class="text-decoration-none text-dark">
+            <a href="/dashboard" class="text-decoration-none text-dark">
                 <i class="bi bi-arrow-left fs-4"></i>
             </a>
             <h5 class="text-custom-purple fw-semibold mb-0">Edit Profile Anda</h5>
@@ -17,7 +17,7 @@
     <div class="card p-4 rounded-4 shadow-sm">
         <form action="#" method="POST">
             @csrf
-            @method('PUT')
+            @method('POST')
 
             <div class="row g-4">
                 <div class="col-md-6">

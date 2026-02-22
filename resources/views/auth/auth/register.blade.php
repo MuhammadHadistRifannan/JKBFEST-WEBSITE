@@ -1,6 +1,5 @@
 @extends('auth.layouts.app')
 @section('title', 'Register')
-
 @section('content')
     <div class="container-fluid vh-100">
         <div class="row h-100">
@@ -43,7 +42,7 @@
                     </div>
 
                     <div class="padding-custom">
-                        <form action="/register" method="POST">
+                        <form action={{ route('register') }} method="POST">
                             @csrf
 
                             <!-- NAMA -->

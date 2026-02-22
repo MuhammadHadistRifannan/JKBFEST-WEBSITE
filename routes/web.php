@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Team\TeamController;
+use App\Http\Controllers\ApiController\TeamController;
 use App\Http\Controllers\ApiController\UserController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Route\Router;
@@ -27,6 +27,7 @@ Route::middleware([AuthMiddleware::class])->group(function(){
         return view('dashboard.dashboard.teamPeserta');
     })->name('teamPeserta');
 
+
     Route::get('/dashboard' , function() {
         return view('dashboard.dashboard.dashboard');
     })
@@ -47,6 +48,8 @@ Route::middleware([AuthMiddleware::class])->group(function(){
 
 
 Route::post(Router::$registParam , [UserController::class, 'register'])->name('register');
+Route::post(Router::$registTeamParam , [TeamController::class, 'register'])->name('registerTeam');
+
 Route::post(Router::$loginParam , [UserController::class , 'login'])->name('login');
 Route::post(Router::$logoutParam , [UserController::class , 'logout'])->name('logout');
 
