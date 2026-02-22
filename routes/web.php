@@ -19,6 +19,8 @@ Route::middleware([AuthMiddleware::class])->group(function(){
         return view('dashboard.dashboard.editProfile');
     })->name('editProfile');
 
+    Route::post('/updateProfile', [UserController::class, 'update'])->name('updateProfile');
+
     Route::get('/addTeam', function () {
         return view('dashboard.dashboard.addTeam');
     })->name('addTeam');

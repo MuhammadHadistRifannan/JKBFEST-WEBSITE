@@ -95,9 +95,17 @@ class UserController extends Controller
     /**
      * UPDATE USER BY ID
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request , UserService $service)
     {
         //
+        $response = $service->updateService($request);
+
+        if (!$response['status']){
+            Alert::error('Error' , $response['message']);
+            return redirect()->back()->withInput();
+        }
+        Alert::success('Success' , $response['message']);
+        return redirect()->route('dashboard');
     }
 
     /**
