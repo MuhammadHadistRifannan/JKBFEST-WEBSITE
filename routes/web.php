@@ -16,13 +16,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/verifikasi', [AdminController::class, 'verifikasi'])->name('verifikasi');
 
-    Route::get('/team', function () {
-        return view('admin.dashboard.team');
-    })->name('team');
+    Route::get('/team', [AdminController::class , 'teamView'])->name('team');
 
     Route::get('/karya', function () {
         return view('admin.dashboard.karya');
     })->name('karya');
+
+    Route::get('/export', [AdminController::class , 'exportData'])->name('export');
 
     Route::post('/updateStatus', [AdminController::class, 'updateStatus'])->name('updateStatus');
     Route::post('/rejectDocument', [AdminController::class, 'rejectDocument'])->name('rejectDocument');

@@ -182,30 +182,15 @@
 
         <div class="card border-0 rounded-4 shadow-sm p-4">
             <h5 class="fw-bold text-custom-purple mb-4">Recent Activity</h5>
-            
+            @foreach ( $logs as $log)    
             <div class="recent-activity-item">
                 <div>
-                    <h6 class="fw-bold text-custom-purple mb-1">Berkas di Verifikasi</h6>
-                    <small class="text-muted fw-medium">Berkas Team Langsung di ACC saja di verifikasi admin</small>
+                    <h6 class="fw-bold text-custom-purple mb-1">{{ $log->action }}</h6>
+                    <small class="text-muted fw-medium">{{ $log->description }}</small>
                 </div>
-                <small class="text-muted">Hari ini</small>
+                <small class="text-muted">{{ $log->created_at->diffForHumans() }}</small>
             </div>
-
-            <div class="recent-activity-item">
-                <div>
-                    <h6 class="fw-bold text-custom-purple mb-1">Berkas di Verifikasi</h6>
-                    <small class="text-muted fw-medium">Berkas Team Langsung di ACC saja di verifikasi admin</small>
-                </div>
-                <small class="text-muted">Hari ini</small>
-            </div>
-
-            <div class="recent-activity-item">
-                <div>
-                    <h6 class="fw-bold text-custom-purple mb-1">Berkas di Verifikasi</h6>
-                    <small class="text-muted fw-medium">Berkas Team Langsung di ACC saja di verifikasi admin</small>
-                </div>
-                <small class="text-muted">Hari ini</small>
-            </div>
+            @endforeach
         </div>
 
     </div>
@@ -298,6 +283,7 @@
 
     </div>
 </div>
+@include('sweetalert::alert')
 @endsection
 
 {{-- Script Khusus untuk fitur Hide/Show Kalender --}}

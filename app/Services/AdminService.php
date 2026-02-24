@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\Team;
 use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Builder\Function_;
 use Response;
 
 class AdminService
@@ -49,10 +50,10 @@ class AdminService
                 't.institution',       // Ambil institusi dari tabel teams
                 't.status_team',   // Ambil status tim dari tabel teams
                 'u.name',
-                'u.email'
+                'u.email',
             )
             ->join('teams as t', 'd.team_id', '=', 't.id')
-            ->join('users as u', 't.user_id', '=', 'u.id') // Memberikan alias 'u' untuk tabel users
+            ->join('users as u', 't.user_id', '=', 'u.id')
             ->get(); // Eksekusi query
 
         return $documents;
@@ -69,13 +70,13 @@ class AdminService
 
             Team::where('id', $document->team_id)->update([
                 'status_team' => true
-            ]); 
+            ]);
 
         } catch (Exception $e) {
             return ResponseService::MakeResponse(500, 'Update galat');
         }
 
-        return ResponseService::MakeResponse(200, 'Team telah diverifikasi');
+        return ResponseService::MakeResponse(200, 'Team telah diverifikasi', status: 'success');
 
     }
 
@@ -92,13 +93,21 @@ class AdminService
 
             Team::where('id', $document->team_id)->update([
                 'status_team' => false
-            ]); 
+            ]);
 
         } catch (Exception $e) {
             return ResponseService::MakeResponse(500, 'Update galat');
         }
 
-        return ResponseService::MakeResponse(200, 'Team telah ditolak');
+        return ResponseService::MakeResponse(200, 'Team telah ditolak', status: 'success');
 
     }
+
+    public function GetTeamList()
+    {
+        $teams = Team::with(['user', 'member'])->paginate(5);
+        return $teams;
+    }
+
+    
 }

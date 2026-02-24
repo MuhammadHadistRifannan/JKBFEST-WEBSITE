@@ -406,6 +406,7 @@
                                 @csrf
                                 {{-- Jika ada method PUT/PATCH, tambahkan @method('PUT') --}}
                                 <input type="hidden" name="team_id" id="hidden_team_id">
+                                <input type="hidden" name="team_name" id="hidden_team_name">
                                 <button type="submit" class="btn btn-modal-gradient w-100 py-2 fw-bold">
                                     Verifikasi
                                 </button>
@@ -438,6 +439,7 @@
                     @csrf
                     {{-- Jika ada method PUT/PATCH, tambahkan @method('PUT') --}}
                     <input type="hidden" name="team_id" id="hidden_team_id_reject">
+                    <input type="hidden" name="team_name" id="hidden_team_id_reject_name">
                     <textarea name="alasan_penolakan" class="form-control bg-light-custom border-0 rounded-3 mb-4 p-3" rows="5" placeholder="Tuliskan alasan penolakan..." required></textarea>
                     
                     <button type="submit" class="btn btn-modal-gradient w-100 py-2 fw-bold d-flex justify-content-center align-items-center gap-2">
@@ -471,6 +473,8 @@
         </div>
     </div>
 </div>
+
+@include('sweetalert::alert')
 
 @endsection
 
@@ -541,7 +545,9 @@
                 // Update Action Form Verifikasi & Tolak sesuai dengan ID Team
                 // (Sesuaikan URL route ini dengan route yang kamu buat di web.php)
                 document.getElementById('hidden_team_id').value = teamId;
+                document.getElementById('hidden_team_name').value = teamName;
                 document.getElementById('hidden_team_id_reject').value = teamId;
+                document.getElementById('hidden_team_id_reject_name').value = teamName;
                 
                 // Opsional: Untuk Modal Success
                 const successName = document.getElementById('modal-success-team-name');

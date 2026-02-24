@@ -102,9 +102,9 @@
             <p class="text-muted fw-normal mb-0" style="font-size: 14px;">Manajemen Verifikasi</p>
         </div>
         
-        <button class="btn btn-export shadow-sm">
+        <a href="{{ route('admin.export') }}" class="btn btn-export shadow-sm">
             <i class="bi bi-file-earmark-excel-fill fs-5"></i> Export Data (Excel/CSV)
-        </button>
+        </a>
     </div>
 
     <div class="table-team-wrapper">
@@ -118,39 +118,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    @foreach ($data as $team)
+                        <tr>
                         <td class="text-center align-middle">
-                            <h6 class="fw-bold text-dark mb-1">Langsung di ACC Saja</h6>
-                            <small class="text-muted">(Politeknik Negeri Cilacap)</small>
+                            <h6 class="fw-bold text-dark mb-1">{{ $team->team_name }}</h6>
+                            <small class="text-muted">({{ $team->institution }})</small>
                         </td>
                         <td class="text-center align-middle">
                             <div class="category-badge">Web Development</div>
                         </td>
                         <td>
                             <ol class="member-list">
-                                <li>Lamine Yamal (Ketua)</li>
-                                <li>Lewandowski</li>
-                                <li>Raphinha</li>
+                                <li>{{ $team->user->name }} (Ketua)</li>
+                                @foreach ($team->member as $member)
+                                    <li>{{ $member->name }} - {{ $member->phone }}</li>
+                                @endforeach
                             </ol>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td class="text-center align-middle">
-                            <h6 class="fw-bold text-dark mb-1">Langsung di ACC Saja</h6>
-                            <small class="text-muted">(Politeknik Negeri Cilacap)</small>
-                        </td>
-                        <td class="text-center align-middle">
-                            <div class="category-badge">Web Development</div>
-                        </td>
-                        <td>
-                            <ol class="member-list">
-                                <li>Lamine Yamal (Ketua)</li>
-                                <li>Lewandowski</li>
-                                <li>Raphinha</li>
-                            </ol>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
