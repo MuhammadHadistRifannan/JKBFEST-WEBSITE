@@ -18,11 +18,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/team', [AdminController::class , 'teamView'])->name('team');
 
-    Route::get('/karya', function () {
-        return view('admin.dashboard.karya');
-    })->name('karya');
+    Route::get('/karya', [AdminController::class , 'karyaView'])->name('karya');
 
     Route::get('/export', [AdminController::class , 'exportData'])->name('export');
+    Route::get('/exportKarya' , [AdminController::class , 'exportKarya'])->name('exportKarya');
+
+    Route::get('/deleteTeam/{id}' , [AdminController::class , 'deleteTeam'] );
 
     Route::post('/updateStatus', [AdminController::class, 'updateStatus'])->name('updateStatus');
     Route::post('/rejectDocument', [AdminController::class, 'rejectDocument'])->name('rejectDocument');
@@ -56,7 +57,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     })->name('uploadKarya');
 
     Route::post('/uploadDocument', [TeamController::class, 'UploadDocument'])->name('uploadDocument');
-
+    Route::post('/uploadKarya', [TeamController::class , 'UploadKarya'])->name('uploadKarya');
+    Route::get('/haspay' , [TeamController::class , 'Payment'])->name('hasPayment');
 });
 
 Route::post(Router::$registParam, [UserController::class, 'register'])->name('register');

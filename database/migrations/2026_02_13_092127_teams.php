@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('team_name');
             $table->string('institution');
             $table->boolean('status_team');
+            $table->string('link_karya')->nullable();
+            $table->string('waktu_submit')->nullable();
 
         });
 
@@ -37,7 +39,9 @@ return new class extends Migration
             ->constrained('teams')
             ->cascadeOnDelete();
             $table->string('document_path');
+            $table->boolean('has_payed');
             $table->enum('status_document', ['pending', 'approved', 'rejected']);
+            $table->string('alasan_ditolak')->nullable();
         });
 
         Schema::create('team_members' , function(Blueprint $table){

@@ -17,7 +17,6 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
-      - redis
     networks:
       - laravel_network
 
@@ -36,14 +35,6 @@ services:
     networks:
       - laravel_network
 
-  redis:
-    image: redis:7-alpine
-    container_name: laravel_redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    networks:
-      - laravel_network
 
 volumes:
   postgres_data:

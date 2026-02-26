@@ -251,8 +251,13 @@
         
         <div class="d-flex flex-column flex-md-row gap-3 align-items-center w-100">
             <div class="search-bar-wrapper flex-grow-1 w-100 d-flex align-items-center">
-                <input type="text" class="w-100" placeholder="Search">
-                <i class="bi bi-search text-muted fs-5"></i>
+                <form action="{{ url()->current() }}" method="get" class="flex-grow-1 w-100 d-flex align-items-center">
+                    @if (request('status'))
+                        <input type="hidden" name="status" value="{{ request('status') }}">
+                    @endif
+                    <input type="text" class="w-100" placeholder="Search" name="search" value="{{ request('search') }}">
+                    <button type="submit" class="border-0 bg-transparent p-0"><i class="bi bi-search text-muted fs-5"></i></button>
+                </form>
             </div>
             
             <button class="btn-filter flex-shrink-0 d-flex align-items-center gap-2">
@@ -333,9 +338,9 @@
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
                                     
-                                    <button class="icon-action icon-delete">
+                                    <a href="/admin/deleteTeam/{{ $team->team_id }}" class="icon-action icon-delete">
                                         <i class="bi bi-trash"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

@@ -54,6 +54,9 @@
                                     <input type="email" name="email"
                                         class="form-control border-start-0 shadow-none py-2" placeholder="Masukkan Email" />
                                 </div>
+                                @error('email')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
@@ -70,6 +73,9 @@
                                         {{-- Penambahan style inline di sini untuk memperkecil ukuran ikon mata --}}
                                         <img src="{{ asset('icons/auth/eye.svg') }}" alt="show password" class="icon-svg" id="eyeIconImage" style="width: 24px !important; height: 24px !important; object-fit: contain;">
                                     </span>
+                                    @error('password')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

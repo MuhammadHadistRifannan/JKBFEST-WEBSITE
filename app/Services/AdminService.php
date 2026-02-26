@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Models\Document;
 use App\Models\Team;
+use DB;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use PhpParser\Builder\Function_;
 use Response;
 
@@ -22,39 +24,51 @@ class AdminService
     public function GetInfoTeam()
     {
 
-        $documents = Document::all();
+        $data = Document::join('teams', 'document.team_id', '=', 'teams.id')
+            ->selectRaw('COUNT(status_document) as jumlah, status_document')
+            ->groupBy('status_document')
+            ->get();
 
-        $count = $documents->count();
-        $pending = $documents->where('status_document', 'pending')->count();
-        $approved = $documents->where('status_document', 'approved')->count();
-        $rejected = $documents->where('status_document', 'rejected')->count();
+        $total = Team::select('id')->count();
+
+        $pending = $data->where('status_document', 'pending')->count();
+        $approved = $data->where('status_document', 'approved')->count();
+        $rejected = $data->where('status_document', 'rejected')->count();
+
 
         return [
-            'total' => $count,
+            'total' => $total,
             'pending' => $pending,
             'approved' => $approved,
             'rejected' => $rejected
         ];
     }
 
-    public function GetTeams()
+    public function GetTeams($search = null)
     {
-        /**
-         * select * from document join teams on document.team_id = 1
-         * Joining table document and teams for get all team with their document and status document
-         */
-        $documents = Document::from('document as d') // Memberikan alias 'd' untuk tabel document
+        $documents = Document::from('document as d') // Pastikan nama tabel di DB memang 'document', bukan 'documents'
             ->select(
-                'd.*',                 // Ambil semua kolom dari tabel document
-                't.team_name',         // Ambil nama tim dari tabel teams
-                't.institution',       // Ambil institusi dari tabel teams
-                't.status_team',   // Ambil status tim dari tabel teams
-                'u.name',
-                'u.email',
+                'd.*',
+                't.team_name',
+                't.institution',
+                't.status_team',
+                'u.name as ketua_name', // Beri alias agar tidak bentrok jika tabel document punya kolom 'name'
+                'u.email'               // Koma berlebih di sini sudah dihapus
             )
             ->join('teams as t', 'd.team_id', '=', 't.id')
             ->join('users as u', 't.user_id', '=', 'u.id')
-            ->get(); // Eksekusi query
+
+            // 1. Logika Pencarian (Search)
+            ->when($search, function ($query, $search) {
+                // Gunakan nested where (function) agar pencarian OR tidak merusak query utama
+                return $query->where(function ($q) use ($search) {
+                    $q->where('t.team_name', 'like', "%{$search}%")
+                        ->orWhere('t.institution', 'like', "%{$search}%");
+                });
+            })
+
+            ->latest('d.created_at') // Opsional: Tampilkan data yang paling baru disubmit di urutan teratas
+            ->paginate(10); // Eksekusi query dengan 10 data per halaman
 
         return $documents;
     }
@@ -89,6 +103,8 @@ class AdminService
 
             $document = Document::where('team_id', $teamId)->first();
             $document->status_document = 'rejected';
+            $document->alasan_ditolak = $alasanPenolakan;
+            $document->has_payed = false;
             $document->save();
 
             Team::where('id', $document->team_id)->update([
@@ -103,11 +119,50 @@ class AdminService
 
     }
 
-    public function GetTeamList()
+    public function GetTeamList(Request $request)
     {
-        $teams = Team::with(['user', 'member'])->paginate(5);
+        $search = $request->input('search');
+
+        // Query Data
+        $teams = Team::with(['user', 'member']) // Pastikan eager loading agar tidak N+1 problem
+            ->when($search, function ($query, $search) {
+                // Logika pencarian: cari berdasarkan nama tim atau instansi
+                return $query->where('team_name', 'like', "%{$search}%")
+                    ->orWhere('institution', 'like', "%{$search}%");
+            })
+            ->paginate(10);
         return $teams;
     }
 
-    
+    public function DeleteTeam($id)
+    {
+        // 1. Cari document berdasarkan team_id
+        $document = Document::where('team_id', $id)->first();
+
+        // 2. Cek apakah dokumen ditemukan
+        if ($document && $document->document_path) {
+            // Hapus file fisik di storage/app/public/
+            // Pastikan value $document->document_path berformat seperti 'documents/nama_file.pdf'
+            Storage::disk('public')->delete($document->document_path);
+
+            // Opsional: Hapus juga data dokumen dari tabel documents (jika tidak menggunakan cascade delete)
+            // $document->delete(); 
+        }
+
+        // 3. Hapus team dari database
+        DB::table('teams')->delete($id);
+
+        return ResponseService::MakeResponse(200, 'Team Berhasil dihapus', status: 'Success');
+    }
+
+    public function GetListKarya()
+    {
+        $data = Team::select([
+            'team_name',
+            'waktu_submit',
+            'link_karya'
+        ])->where('link_karya', '!=', null)->get();
+        return $data;
+    }
+
 }

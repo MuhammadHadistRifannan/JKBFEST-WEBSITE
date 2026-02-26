@@ -83,15 +83,20 @@
 
                     {{-- Badge status --}}
                     @if (auth()->user()->team)
-                        @if (auth()->user()->team->status_team)
+                        @if (auth()->user()->team->document?->status_document === 'approved')
                             <span class="badge rounded-pill px-3 py-2" style="background-color: #00C851">
                                 <img src="{{ asset('icons/dashboard/shield-icon.svg') }}" alt="shield-icon" class="me-1">
                                 Terverifikasi
                             </span>
-                        @else
+                        @elseif (auth()->user()->team->document?->status_document === 'pending')
                             <span class="badge bg-danger rounded-pill px-3 py-2">
                                 <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon" class="me-1">
                                 Pending
+                            </span>
+                        @elseif (auth()->user()->team->document?->status_document === 'rejected')
+                            <span class="badge bg-danger rounded-pill px-3 py-2">
+                                <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon" class="me-1">
+                                Ditolak
                             </span>
                         @endif
                     @endif {{-- Ini @endif yang sebelumnya kurang --}}
@@ -168,7 +173,7 @@
                             class="icon-svg">
                         <span class="fw-light">Ketentuan Pengumpulan</span>
                     </a>
-                    <a href="#" class="btn btn-custom rounded-3 fw-bold py-2">
+                    <a href="/GuideBook_JKBFEST_WebDev.docx" class="btn btn-custom rounded-3 fw-bold py-2">
                         Download Guidebook
                     </a>
                 </div>

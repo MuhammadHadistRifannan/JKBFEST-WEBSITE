@@ -29,6 +29,7 @@ class TeamController extends Controller
         }
 
         $team = $response['data'];
+        Alert::success('Success' , $response['message']);
         return redirect()->route('dashboard');
     }
 
@@ -42,6 +43,29 @@ class TeamController extends Controller
 
         Alert::success('Success' , $response['message']);
         return redirect()->route('teamPeserta');
+    }
+
+    public function Payment(TeamService $service){
+        $response = $service->HasPayment();
+        if (!$response['status']){
+            Alert::alert('Galat' , $response['message']);
+            return redirect()->back();
+        }
+
+        Alert::success('Success' , $response['message']);
+        return redirect()->back(); 
+    }
+
+    public function UploadKarya(Request $request , TeamService $service){
+        $response = $service->UploadKarya($request);
+
+        if (!$response['status']){
+            Alert::alert('Alert' , $response['message']);
+            return redirect()->back();
+        }
+
+        Alert::success('Success' , $response['message']);
+        return redirect()->back();
     }
 
 

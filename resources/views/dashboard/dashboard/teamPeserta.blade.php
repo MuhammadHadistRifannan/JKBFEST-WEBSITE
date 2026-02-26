@@ -49,16 +49,21 @@
                     <small class="fw-light">Web Development</small>
 
                     @if (auth()->user()->team)
-                        @if (auth()->user()->team->status_team)
+                        @if (auth()->user()->team->document?->status_document === 'approved')
                             <span class="badge rounded-pill px-4 py-1 ms-0 ms-lg-3 d-inline-flex align-items-center justify-content-center" style="background-color: #00C851">
                                 <img src="{{ asset('icons/dashboard/shield-icon.svg') }}" alt="shield-icon" class="me-1">
                                 Terverifikasi
                             </span>
                         {{-- GUNAKAN NULLSAFE OPERATOR (?->) DI SINI --}}
-                        @elseif (auth()->user()->team->document?->document_path)
+                        @elseif (auth()->user()->team->document?->status_document === 'pending')
                             <span class="badge bg-danger rounded-pill px-4 py-1 ms-0 ms-lg-3 d-inline-flex align-items-center justify-content-center">
                                 <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon" class="me-1">
                                 Pending
+                            </span>
+                        @elseif (auth()->user()->team->document?->status_document === 'rejected')
+                            <span class="badge bg-danger rounded-pill px-4 py-1 ms-0 ms-lg-3 d-inline-flex align-items-center justify-content-center">
+                                <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon" class="me-1">
+                                Ditolak
                             </span>
                         @endif
                     @endif
@@ -158,7 +163,7 @@
                             <span class="fw-medium">Biaya Pendaftaran Rp 70.000,00</span>
                         </div>
 
-                        @if (auth()->user()->team && auth()->user()->team->document?->document_path)
+                        @if (auth()->user()->team && auth()->user()->team->document?->has_payed)
                             <button type="button" class="btn btn-custom-green w-100 py-2 fw-semibold rounded-3 shadow-sm">
                                 <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon"> Pending
                             </button>
@@ -292,7 +297,7 @@
                                 </div>
 
                                 <div class="w-100 w-sm-50">
-                                    <form action="/hasPayment" method="POST">
+                                    <form action="{{ route('hasPayment') }}" method="GET">
                                         @csrf
                                         <button type="submit" class="btn btn-custom w-100 rounded-3 py-2 fw-semibold">
                                             Saya Sudah Bayar

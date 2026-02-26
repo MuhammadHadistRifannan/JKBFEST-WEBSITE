@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ApiController;
 
+use App\Exports\KaryaExport;
 use App\Exports\TeamsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
@@ -20,9 +21,9 @@ class AdminController extends Controller
         return view('admin.dashboard.dashboard', compact(['data', 'logs']));
     }
 
-    public function verifikasi(AdminService $service)
+    public function verifikasi(Request $request ,AdminService $service)
     {
-        $data = $service->GetTeams();
+        $data = $service->GetTeams($request->input('search'));
         return view('admin.dashboard.verifikasi', compact('data'));
     }
 
@@ -57,14 +58,33 @@ class AdminController extends Controller
         return redirect()->back()->with('success', $response['message']);
     }
 
-    public function teamView(AdminService $service)
+    public function teamView(Request $request ,  AdminService $service)
     {
-        $data = $service->GetTeamList();
+        $data = $service->GetTeamList($request);
         return view('admin.dashboard.team', compact('data'));
     }
 
-    public function exportData(AdminService $service){
+    public function exportData(){
         return Excel::download(new TeamsExport() , 'Data_Peserta_Web_Dev.xlsx');
+    }
+
+    public function exportKarya(){
+        return Excel::download(new KaryaExport() , 'Karya_Web_Development.xlsx');
+    }
+
+    public function deleteTeam(string $id , AdminService $service){
+        $response = $service->DeleteTeam($id);
+        if (!$response['status']){
+            Alert::error('Error' , $response['message']);
+            return redirect()->back();
+        }
+        Alert::success('Success' , $response['message']);
+        return redirect()->back();
+    }
+
+    public function karyaView(AdminService $service){
+        $data = $service->GetListKarya();
+        return view('admin.dashboard.karya' , compact('data'));
     }
 
 }

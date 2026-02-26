@@ -5,10 +5,10 @@
 @section('content')
     <div class="d-flex flex-column gap-4">
 
-        {{-- JIKA TIM BELUM DAFTAR --}}
+        {{-- 1. BAGIAN BANNER STATUS (DIPERBAIKI STRUKTUR IF-ELSE NYA) --}}
         @if (!auth()->user()->team)
-            <div
-                class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
+            {{-- JIKA TIM BELUM DAFTAR --}}
+            <div class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center fs-2">
                     <i class="bi bi-exclamation-triangle-fill"></i>
                 </div>
@@ -20,10 +20,9 @@
                 </div>
             </div>
 
-            {{--  JIKA SUDAH DAFTAR TAPI BELUM LENGKAPI BERKAS --}}
-        @elseif(!auth()->user()->team->status_document)
-            <div
-                class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
+        @elseif (!auth()->user()->team->document)
+            {{-- JIKA SUDAH DAFTAR TAPI BELUM LENGKAPI BERKAS --}}
+            <div class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center fs-2">
                     <i class="bi bi-exclamation-triangle-fill"></i>
                 </div>
@@ -35,10 +34,9 @@
                 </div>
             </div>
 
+        @elseif (auth()->user()->team->document->status_document === 'pending')
             {{-- JIKA SUDAH KUMPUL BERKAS TAPI BELUM VERIFIKASI (PENDING) --}}
-        @elseif(!auth()->user()->team->status_team)
-            <div
-                class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
+            <div class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm" style="background-color: #E25A45;">
                 <div class="d-flex align-items-center justify-content-center fs-2">
                     <i class="bi bi-three-dots-circle-fill"></i>
                 </div>
@@ -50,10 +48,23 @@
                 </div>
             </div>
 
-            {{--  JIKA SUDAH DI VERIFIKASI  --}}
-        @else
-            <div
-                class="header-gradient-green card border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
+        @elseif (auth()->user()->team->document->status_document === 'rejected')
+            {{-- JIKA BERKAS DITOLAK --}}
+            <div class="card-red-custom border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
+                <div class="d-flex align-items-center justify-content-center fs-2">
+                    <i class="bi bi-x-circle-fill"></i>
+                </div>
+                <div>
+                    <h4 class="fw-bold mb-1">Berkas Ditolak</h4>
+                    <small class="d-block text-white-50">
+                        Saat ini data team anda ditolak. Silakan perbaiki berkas Anda.
+                    </small>
+                </div>
+            </div>
+
+        @elseif (auth()->user()->team->document->status_document === 'approved')
+            {{-- JIKA SUDAH DI VERIFIKASI --}}
+            <div class="header-gradient-green card border-0 rounded-4 text-white p-4 d-flex flex-row align-items-center gap-3 shadow-sm">
                 <div class="d-flex align-items-center justify-content-center">
                     <img src="{{ asset('icons/dashboard/check-icon.svg') }}" alt="check-icon">
                 </div>
@@ -67,9 +78,15 @@
             </div>
         @endif
 
+        <div style="display: none;">
+        {{ 
+            $submission =  auth()->user()->team->link_karya ?? null
+         }}
+        </div>
 
+        {{-- 2. BAGIAN DETAIL SUBMISSION --}}
         <div class="row g-4">
-            {{-- Detail Submission --}}
+            
             <div class="col-12 col-lg-8">
                 <div class="card rounded-4 shadow-sm h-100">
                     <div class="card-body p-4">
@@ -80,19 +97,19 @@
 
                         <div class="mb-4">
                             <small class="text-muted d-block mb-2 fw-semibold">Nama Tim</small>
-                            <h5 class="fw-bold text-dark mb-0">{{ auth()->user()->team->name ?? '-' }}</h5>
+                            {{-- Menggunakan nullsafe (?->) agar tidak error jika user belum buat tim --}}
+                            <h5 class="fw-bold text-dark mb-0">{{ auth()->user()->team?->team_name ?? '-' }}</h5>
                         </div>
 
+                        {{-- CEK STATUS TIM --}}
+                        @if (auth()->user()->team?->status_team)
 
-                        @if (auth()->user()->team && auth()->user()->team->status == 'verified')
-
-                            {{-- Jika Sudah Upload --}}
                             @if (isset($submission))
+                                {{-- Jika Sudah Upload Proposal --}}
                                 <div class="rounded-3 p-4 d-flex align-items-center gap-3"
                                     style="background-color: #F0FDF4; border: 1px solid #267228;">
                                     <div>
-                                        <img src="{{ asset('icons/dashboard/check-icon-green.svg') }}"
-                                            alt="check-icon-green" />
+                                        <img src="{{ asset('icons/dashboard/check-icon-green.svg') }}" alt="check-icon-green" />
                                     </div>
                                     <div>
                                         <h5 class="fw-semibold mb-1" style="color: #267228;">Link Proposal Dikirim</h5>
@@ -102,14 +119,13 @@
                                         </small>
                                     </div>
                                 </div>
-
-                                {{-- Jika Belum Upload  --}}
                             @else
-                                <form action="#" method="POST">
+                                {{-- Jika Tim Verified Tapi Belum Upload Proposal --}}
+                                <form action="{{ route('uploadKarya') }}" method="POST">
                                     @csrf
                                     <div class="mb-4">
                                         <small class="text-muted d-block mb-2 fw-semibold">Form Submission</small>
-                                        <input type="text" name="proposal_link" class="form-control p-3 rounded-3"
+                                        <input type="text" name="link_karya" class="form-control p-3 rounded-3"
                                             placeholder="Masukkan Link Proposal" required>
                                     </div>
                                     <button type="submit"
@@ -119,13 +135,28 @@
                                 </form>
                             @endif
 
+                        @elseif (auth()->user()->team?->document?->status_document === 'rejected')
+                            {{-- Jika Berkas Ditolak --}}
+                            <div class="d-flex flex-column gap-2 mb-4 border-bottom pb-3">
+                                <h5 class="text-danger fw-bold mb-0">Alasan Ditolak : </h5>
+                                {{-- Ubah "alasan_penolakan" sesuai nama kolom di database kamu --}}
+                                <p class="text-muted mb-0">
+                                    {{ auth()->user()->team->document->alasan_ditolak ?? 'Silakan cek kembali berkas pendaftaran tim Anda dan hubungi panitia.' }}
+                                </p>
+                            </div>
+                            
+                        @else
+                            {{-- Jika Belum Upload Berkas / Masih Pending --}}
+                            <div class="alert alert-warning rounded-3 border-0">
+                                Silakan selesaikan proses pendaftaran dan tunggu verifikasi tim dari admin untuk dapat mengunggah karya.
+                            </div>
                         @endif
 
                     </div>
                 </div>
             </div>
 
-            {{--  Informasi --}}
+            {{-- Informasi --}}
             <div class="col-12 col-lg-4">
                 <div class="card rounded-4 shadow-sm ">
                     <div class="card-body p-4">
@@ -168,4 +199,5 @@
         </div>
 
     </div>
+    @include('sweetalert::alert')
 @endsection

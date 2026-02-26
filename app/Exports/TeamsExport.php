@@ -48,11 +48,15 @@ class TeamsExport implements FromCollection, WithHeadings, WithMapping
         $membersString = implode(", ", $memberList);
 
         // Ubah status jadi bahasa manusia
-        $status = match($team->document->status_document){
-            'approved' => 'Terverifikasi',
-            'rejected' => 'Ditolak',
-            default => 'Pending'
-        };
+        if ($team->document){
+            $status = match($team->document->status_document){
+                'approved' => 'Terverifikasi',
+                'rejected' => 'Ditolak',
+                default => 'Pending'
+            };
+        }else {
+            $status = 'Pending';
+        }
 
         // Ini adalah urutan data yang dimasukkan ke setiap sel Excel
         return [

@@ -11,7 +11,9 @@ class Document extends Model
     protected $fillable = [
         'team_id',
         'document_path',
-        'status_document' 
+        'status_document' ,
+        'has_payed',
+        'alasan_ditolak'
     ];
 
 

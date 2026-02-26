@@ -9,6 +9,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Response;
 use Validator;
 
 
@@ -106,6 +107,7 @@ class TeamService
                 'team_id' => $team->id,
                 'document_path' => $filePath,
                 'status_document' => 'pending',
+                'has_payed' => false
             ]);
 
 
@@ -120,5 +122,41 @@ class TeamService
             // Kembalikan response error tanpa dd()
             return ResponseService::MakeResponse(500, 'Gagal mengunggah dokumen: ' . $e->getMessage());
         }
+    }
+
+    public function HasPayment(){
+        $team_id = auth()->user()->team->id; 
+        // add payment 
+        $document = Document::where('team_id' , $team_id)->first();
+
+        $document->has_payed = true;
+        $document->save();
+
+        if (!$document){
+            return ResponseService::MakeResponse(401 , 'Upload dokumen team terlebih dahulu , disertai bukti pembayaran');
+        }
+
+        $document->update([
+            'has_payed' => true
+        ]);
+
+        return ResponseService::MakeResponse(200 , 'Pembayaran Berhasil , Selanjutnya akan dicek oleh panitia', status: 'Success');
+    }
+
+    public function UploadKarya(Request $request){
+        //link karya 
+        $team_id = auth()->user()->team->id;
+        $team = Team::where('id' , $team_id)->first();
+
+        if (!$team){
+            return ResponseService::MakeResponse(401, 'Karya tidak bisa dikumpulkan');
+        }
+
+        $team->link_karya = $request->link_karya; 
+        $team->waktu_submit = now()->locale('id')->isoFormat('D MMMM Y, HH:mm [WIB]');
+        $team->save();
+
+        return ResponseService::MakeResponse(200 , 'Karya telah dikumpulkan' , status: 'success');
+
     }
 }

@@ -15,7 +15,9 @@ class Team extends Model
         'advisor_name',
         'advisor_phone',
         'institution',
-        'status_team'
+        'status_team',
+        'link_karya',
+        'waktu_submit'
     ];
 
     public $timestamps = false;
