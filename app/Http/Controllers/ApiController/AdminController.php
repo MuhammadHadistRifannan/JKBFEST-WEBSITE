@@ -14,6 +14,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 class AdminController extends Controller
 {
     //
+    public function loginView(){
+        return view('admin.auth.login');
+    }
+
     public function dashboard(AdminService $service, LogService $logService)
     {
         $data = $service->GetInfoTeam();

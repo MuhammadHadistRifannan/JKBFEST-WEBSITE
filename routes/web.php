@@ -12,6 +12,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         return redirect()->route('admin.dashboard');
     });
 
+    Route::get('/login', [AdminController::class , 'loginView'])->name('loginAdmin');
+
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
 
     Route::get('/verifikasi', [AdminController::class, 'verifikasi'])->name('verifikasi');
