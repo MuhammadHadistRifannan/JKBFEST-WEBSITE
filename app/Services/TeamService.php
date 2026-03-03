@@ -98,7 +98,10 @@ class TeamService
 
         // 3. Jika Team ada, baru kita Upload File
         $file = $request->file('document_file');
-        $filePath = $file->store('documents', 'public');
+        $filePath = $file->store('documents', 'public' , [
+            'visibility' => 'public'
+        ]);
+        
 
         // 4. Lakukan proses Update Database di dalam SATU blok Try-Catch
         try {
