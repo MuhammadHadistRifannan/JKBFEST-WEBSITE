@@ -183,7 +183,7 @@
                         Upload dokumen sesuai perintah yang ada di Guidebook untuk memverifikasi Team.
                     </p>
 
-                    @if (auth()->user()->team && auth()->user()->team->document?->document_path)
+                    @if (auth()->user()->team && auth()->user()->team->document?->document_path && auth()->user()->team->document?->document_path !== '')
                         <div class="bg-soft-pink border border-secondary p-3 rounded-3 d-flex align-items-center gap-3">
                             <div class="flex-shrink-0">
                                 <img src="{{ asset('icons/dashboard/pdf-icons.svg') }}" alt="PDF Icon">

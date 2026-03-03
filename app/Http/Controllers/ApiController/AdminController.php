@@ -23,8 +23,10 @@ class AdminController extends Controller
 
     public function verifikasi(Request $request ,AdminService $service)
     {
-        $data = $service->GetTeams($request->input('search'));
-        return view('admin.dashboard.verifikasi', compact('data'));
+        $search = $request->search;
+        $status = $request->status;
+        $data = $service->GetTeams($search , $status);
+        return view('admin.dashboard.verifikasi', $data);
     }
 
     public function updateStatus(Request $request, AdminService $service, LogService $logService)

@@ -98,20 +98,27 @@ class TeamService
 
         // 3. Jika Team ada, baru kita Upload File
         $file = $request->file('document_file');
-        $filePath = $file->store('documents', 'public' , [
-            'visibility' => 'public'
-        ]);
+        $filePath = $file->store('documents', 'public');
         
 
         // 4. Lakukan proses Update Database di dalam SATU blok Try-Catch
         try {
             // Update Team
-            $document = Document::create([
-                'team_id' => $team->id,
-                'document_path' => $filePath,
-                'status_document' => 'pending',
-                'has_payed' => false
-            ]);
+            if (!$team->document){
+                $document = Document::create([
+                    'team_id' => $team->id,
+                    'document_path' => $filePath,
+                    'status_document' => 'pending',
+                    'has_payed' => false
+                ]);
+            }
+            else {
+                $document = Document::where('team_id' , $team->id)->update([
+                    'document_path' => $filePath,
+                    'status_document' => 'pending',
+                    'has_payed' => false
+                ]);
+            }
 
 
             return ResponseService::MakeResponse(200, 'Dokumen berhasil diunggah', ['file_path' => $filePath], 'success');
@@ -131,13 +138,12 @@ class TeamService
         $team_id = auth()->user()->team->id; 
         // add payment 
         $document = Document::where('team_id' , $team_id)->first();
-
-        $document->has_payed = true;
-        $document->save();
-
-        if (!$document){
+        if (!$document || $document->document_path === ''){
             return ResponseService::MakeResponse(401 , 'Upload dokumen team terlebih dahulu , disertai bukti pembayaran');
         }
+        
+        $document->has_payed = true;
+        $document->save();
 
         $document->update([
             'has_payed' => true

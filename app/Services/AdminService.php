@@ -44,34 +44,50 @@ class AdminService
         ];
     }
 
-    public function GetTeams($search = null)
-    {
-        $documents = Document::from('document as d') // Pastikan nama tabel di DB memang 'document', bukan 'documents'
-            ->select(
-                'd.*',
-                't.team_name',
-                't.institution',
-                't.status_team',
-                'u.name as ketua_name', // Beri alias agar tidak bentrok jika tabel document punya kolom 'name'
-                'u.email'               // Koma berlebih di sini sudah dihapus
-            )
-            ->join('teams as t', 'd.team_id', '=', 't.id')
-            ->join('users as u', 't.user_id', '=', 'u.id')
+    public function GetTeams($search = null, $statusFilter = null)
+{
+    // 1. Bersihkan spasi
+    $search = $search ? trim($search) : null;
 
-            // 1. Logika Pencarian (Search)
-            ->when($search, function ($query, $search) {
-                // Gunakan nested where (function) agar pencarian OR tidak merusak query utama
-                return $query->where(function ($q) use ($search) {
-                    $q->where('t.team_name', 'like', "%{$search}%")
-                        ->orWhere('t.institution', 'like', "%{$search}%");
-                });
-            })
+    // 2. Hitung total data untuk sidebar
+    $totalAll = Document::count();
+    $totalPending = Document::where('status_document', 'pending')->count();
+    $totalRejected = Document::where('status_document', 'rejected')->count();
+    $totalApproved = Document::where('status_document', 'approved')->count();
 
-            ->latest('d.created_at') // Opsional: Tampilkan data yang paling baru disubmit di urutan teratas
-            ->paginate(10); // Eksekusi query dengan 10 data per halaman
+    // 3. Query Utama
+    $documents = Document::from('document as d')
+        ->select(
+            'd.*',
+            't.team_name',
+            't.institution',
+            't.status_team',
+            'u.name as ketua_name', 
+            'u.email'               
+        )
+        ->join('teams as t', 'd.team_id', '=', 't.id')
+        ->join('users as u', 't.user_id', '=', 'u.id')
 
-        return $documents;
-    }
+        ->when($search, function ($query, $search) {
+            return $query->whereRaw('LOWER(t.team_name) LIKE ?', ['%' . strtolower($search) . '%']);
+        })
+
+        ->when($statusFilter && $statusFilter !== 'all', function ($query) use ($statusFilter) {
+            return $query->where('d.status_document', $statusFilter);
+        })
+
+        // Gunakan withQueryString() agar pagination otomatis mengingat parameter URL (search & status)
+        ->paginate(10)->withQueryString(); 
+
+    // 4. Return array data murni (bukan view)
+    return [
+        'documents'     => $documents,
+        'totalAll'      => $totalAll,
+        'totalPending'  => $totalPending,
+        'totalRejected' => $totalRejected,
+        'totalApproved' => $totalApproved
+    ];
+}
 
     public function Accepted(Request $request)
     {
@@ -105,6 +121,10 @@ class AdminService
             $document->status_document = 'rejected';
             $document->alasan_ditolak = $alasanPenolakan;
             $document->has_payed = false;
+            
+            Storage::disk('public')->delete($document->document_path);
+            $document->document_path = '';
+
             $document->save();
 
             Team::where('id', $document->team_id)->update([
@@ -146,7 +166,7 @@ class AdminService
             Storage::disk('public')->delete($document->document_path);
 
             // Opsional: Hapus juga data dokumen dari tabel documents (jika tidak menggunakan cascade delete)
-            // $document->delete(); 
+            $document->delete(); 
         }
 
         // 3. Hapus team dari database

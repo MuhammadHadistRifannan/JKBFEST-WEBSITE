@@ -63,6 +63,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerate();
         $request->session()->regenerateToken();
+        Alert::success('Logout', 'Logout Berhasil');
         return redirect('/login');
     }
 
