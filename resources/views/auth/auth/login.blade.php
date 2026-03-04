@@ -51,8 +51,8 @@
                                     <span class="input-group-text bg-white border-end-0 py-2">
                                         <img src="{{ asset('icons/auth/mail.svg') }}" alt="mail" class="icon-svg">
                                     </span>
-                                    <input type="email" name="email"
-                                        class="form-control border-start-0 shadow-none py-2" placeholder="Masukkan Email" />
+                                    <input type="email" name="email" class="form-control border-start-0 shadow-none py-2"
+                                        placeholder="Masukkan Email" />
                                 </div>
                                 @error('email')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -71,12 +71,20 @@
                                     <span class="input-group-text bg-white border-start-0 cursor-pointer py-2"
                                         id="togglePassword">
                                         {{-- Penambahan style inline di sini untuk memperkecil ukuran ikon mata --}}
-                                        <img src="{{ asset('icons/auth/eye.svg') }}" alt="show password" class="icon-svg" id="eyeIconImage" style="width: 24px !important; height: 24px !important; object-fit: contain;">
+                                        <img src="{{ asset('icons/auth/eye.svg') }}" alt="show password" class="icon-svg"
+                                            id="eyeIconImage"
+                                            style="width: 24px !important; height: 24px !important; object-fit: contain;">
                                     </span>
                                     @error('password')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="d-flex justify-content-end mb-4">
+                                <a href="{{ route('password.request') }}"
+                                    class="text-custom-purple text-decoration-none fw-medium" style="font-size: 13px;">
+                                    Lupa Password?
+                                </a>
                             </div>
 
                             <button class="btn btn-register btn-gradient-custom py-2 shadow-sm">SIgn In</button>
@@ -90,18 +98,18 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const togglePasswordSpan = document.getElementById("togglePassword");
             const passwordInput = document.getElementById("passwordInput");
             const eyeIconImage = document.getElementById("eyeIconImage");
 
-            togglePasswordSpan.addEventListener("click", function() {
+            togglePasswordSpan.addEventListener("click", function () {
                 // 1. Cek tipe input saat ini apakah password atau text
                 const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                
+
                 // 2. Ubah tipe inputnya
                 passwordInput.setAttribute("type", type);
-                
+
                 // 3. Ubah gambar ikonnya berdasarkan tipe input baru
                 if (type === "text") {
                     // Menggunakan file eye-slash.svg persis seperti kode Anda
@@ -115,5 +123,5 @@
             });
         });
     </script>
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
 @endsection

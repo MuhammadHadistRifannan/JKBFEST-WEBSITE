@@ -63,6 +63,10 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/haspay' , [TeamController::class , 'Payment'])->name('hasPayment');
 });
 
+Route::get('/', function () {
+    return view('beranda'); 
+})->name('beranda');
+
 Route::post(Router::$registParam, [UserController::class, 'register'])->name('register');
 Route::post(Router::$registTeamParam, [TeamController::class, 'register'])->name('registerTeam');
 
@@ -76,3 +80,20 @@ Route::get(Router::$registParam, function () {
 Route::get(Router::$loginParam, function () {
     return view('auth.auth.login');
 })->name('login.view');
+
+
+Route::get('/forgot-password', function () {
+    return view('auth.auth.forgot-password');
+})->name('password.request');
+
+Route::post('/forgot-password', [UserController::class, 'sendResetLink'])->name('password.email');
+
+
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+
+
+Route::get('/verify-email', function () {
+    return view('auth.auth.verify-email');
+})->name('verification.notice');
