@@ -19,7 +19,7 @@ class AdminController extends Controller
         return view('admin.auth.login');
     }
 
-    public function login(Request $request , UserService $service){
+    public function login(Request $request , AdminService $service){
         $response = $service->loginService($request);
         if (!$response['status']){
             Alert::error('Error' , $response['message']);

@@ -15,10 +15,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        if (auth()->user() && auth()->user()->role === 0){
-            $rute = route('admin.dashboard');
-            return redirect()->to($rute);
+        if (!session()->get('special_user')){
+            return redirect()->route('admin.login');
         }
 
         return $next($request);

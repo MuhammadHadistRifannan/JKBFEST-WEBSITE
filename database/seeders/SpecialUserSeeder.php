@@ -3,24 +3,22 @@
 namespace Database\Seeders;
 
 use App\Models\SpecialUser;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class SpecialUserSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
+    use WithoutModelEvents;
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        //
         SpecialUser::factory()->create([
             'email' => 'adminjkbfest@gmail.com',
             'password' => password_hash('jkbfest2026Z@' , PASSWORD_DEFAULT)
         ]);
+
     }
 }

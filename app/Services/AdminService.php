@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Document;
+use App\Models\SpecialUser;
 use App\Models\Team;
 use DB;
 use Exception;
@@ -19,6 +20,25 @@ class AdminService
     public function __construct()
     {
         //
+    }
+
+    public function loginService(Request $request){
+        //validation special user
+        $validated = $request->validate([
+            'email' => 'required|email|max:30',
+            'password' => 'required'
+        ]);
+        $user = SpecialUser::where('email' , $validated['email'])->first();
+        if ($user){
+            $password_hash = password_verify($validated['password'] , $user->password);
+            if (!$password_hash){
+                ResponseService::MakeResponse(401 , 'Wrong Password');
+            }
+        }
+        else return ResponseService::MakeResponse(402,'User not Found');
+
+        return ResponseService::MakeResponse(200, 'Login Success' , null , 'success');
+
     }
 
     public function GetInfoTeam()
