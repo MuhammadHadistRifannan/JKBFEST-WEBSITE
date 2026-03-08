@@ -130,7 +130,7 @@
             <h4 class="fw-bold text-dark mb-1">Welcome Back, Admin!</h4>
             <p class="text-muted mb-4" style="font-size: 13px;">Silakan masukkan email dan password Anda.</p>
             
-            <form action="#" method="POST">
+            <form action="{{ route('admin.login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Email Address</label>
@@ -138,6 +138,11 @@
                         <span class="input-group-text border-end-0"><i class="bi bi-envelope"></i></span>
                         <input type="email" name="email" class="form-control border-start-0 ps-0" placeholder="admin@jkbfest.com" required>
                     </div>
+                        @error(
+                            'email'
+                        )
+                        {{ $message }}
+                        @enderror
                 </div>
                 
                 <div class="mb-4">
@@ -149,6 +154,9 @@
                             <i class="bi bi-eye-slash" id="eyeIcon"></i>
                         </span>
                     </div>
+                    @error('password')
+                    {{ $message }}
+                    @enderror
                 </div>
                 
                 <button type="submit" class="btn btn-login shadow-sm">

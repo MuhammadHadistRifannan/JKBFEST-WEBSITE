@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Team;
 use App\Services\AdminService;
 use App\Services\LogService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,6 +17,17 @@ class AdminController extends Controller
     //
     public function loginView(){
         return view('admin.auth.login');
+    }
+
+    public function login(Request $request , UserService $service){
+        $response = $service->loginService($request);
+        if (!$response['status']){
+            Alert::error('Error' , $response['message']);
+            return redirect()->back();
+        }
+
+        Alert::success('Success' , 'Berhasil Login admin');
+        return redirect()->route('admin.dashboard');
     }
 
     public function dashboard(AdminService $service, LogService $logService)

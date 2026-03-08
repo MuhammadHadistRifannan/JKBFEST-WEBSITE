@@ -3,6 +3,8 @@
 use App\Http\Controllers\ApiController\AdminController;
 use App\Http\Controllers\ApiController\TeamController;
 use App\Http\Controllers\ApiController\UserController;
+use App\Http\Controllers\biodataController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AuthMiddleware;
 use App\Route\Router;
 use Illuminate\Support\Facades\Route;
@@ -13,22 +15,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::get('/login', [AdminController::class , 'loginView'])->name('loginAdmin');
+    Route::post('/login',[AdminController::class, 'login'])->name('login');
 
-    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+    Route::middleware(AdminMiddleware::class)->group(function() {
 
-    Route::get('/verifikasi', [AdminController::class, 'verifikasi'])->name('verifikasi');
+        Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+    
+        Route::get('/verifikasi', [AdminController::class, 'verifikasi'])->name('verifikasi');
+    
+        Route::get('/team', [AdminController::class , 'teamView'])->name('team');
+    
+        Route::get('/karya', [AdminController::class , 'karyaView'])->name('karya');
+    
+        Route::get('/export', [AdminController::class , 'exportData'])->name('export');
+        Route::get('/exportKarya' , [AdminController::class , 'exportKarya'])->name('exportKarya');
+    
+        Route::get('/deleteTeam/{id}' , [AdminController::class , 'deleteTeam'] );
+    
+        Route::post('/updateStatus', [AdminController::class, 'updateStatus'])->name('updateStatus');
+        Route::post('/rejectDocument', [AdminController::class, 'rejectDocument'])->name('rejectDocument');
 
-    Route::get('/team', [AdminController::class , 'teamView'])->name('team');
+    });
 
-    Route::get('/karya', [AdminController::class , 'karyaView'])->name('karya');
-
-    Route::get('/export', [AdminController::class , 'exportData'])->name('export');
-    Route::get('/exportKarya' , [AdminController::class , 'exportKarya'])->name('exportKarya');
-
-    Route::get('/deleteTeam/{id}' , [AdminController::class , 'deleteTeam'] );
-
-    Route::post('/updateStatus', [AdminController::class, 'updateStatus'])->name('updateStatus');
-    Route::post('/rejectDocument', [AdminController::class, 'rejectDocument'])->name('rejectDocument');
 });
 
 Route::middleware([AuthMiddleware::class])->group(function () {
@@ -80,6 +88,7 @@ Route::get(Router::$registParam, function () {
 Route::get(Router::$loginParam, function () {
     return view('auth.auth.login');
 })->name('login.view');
+
 
 
 Route::get('/forgot-password', function () {

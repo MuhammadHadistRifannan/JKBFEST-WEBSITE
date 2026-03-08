@@ -85,7 +85,8 @@ class UserService
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'no_telp' => $validated['no_telepon'],
-                'password' => password_hash($validated['password'] , PASSWORD_DEFAULT)
+                'password' => password_hash($validated['password'] , PASSWORD_DEFAULT),
+                'role' => 0
             ]);
 
         }

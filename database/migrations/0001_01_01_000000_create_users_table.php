@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('no_telp')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role' , [1 , 0])->isNotEmpty();
             $table->rememberToken();
             $table->timestamps();
         });
