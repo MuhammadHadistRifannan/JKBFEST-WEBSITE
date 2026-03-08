@@ -45,7 +45,7 @@
 
                     <div class="padding-custom pt-4">
                         {{-- Ganti action route dengan route penanganan lupa password Anda nantinya --}}
-                        <form method="post" action="#">
+                        <form method="post" action="{{ route('forgotpassword') }}">
                             @csrf
                             
                             <div class="mb-4">

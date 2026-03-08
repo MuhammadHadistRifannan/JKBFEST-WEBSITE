@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
+use App\Services\AdminService;
 use App\Services\UserService;
 use App\Services\ResponseService;
 use App\UserDto;
@@ -10,8 +11,10 @@ use Auth;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+use Mail;
 use Password;
 use RealRashid\SweetAlert\Facades\Alert;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class UserController extends Controller
 {
@@ -114,6 +117,29 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function sendResetLink(Request $request , UserService $service){
+        $response = $service->SendResetPassword($request);
+        if (!$response['status']){
+            Alert::error('Error' , $response['message']);
+            return redirect()->back();
+        }
+
+        Alert::success('success' , $response['message']);
+        return redirect()->route('login');
+    }
+
+    public function resetPassword(Request $request , UserService $service){
+        //reset password 
+        $response = $service->ResetPassword($request);
+        if (!$response['status']){
+            Alert::error('Error' , $response['message']);
+            return redirect()->back();
+        }
+
+        Alert::success('success' , $response['message']);;
+        return redirect()->route('login');
     }
 
 }

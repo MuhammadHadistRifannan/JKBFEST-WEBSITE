@@ -6,8 +6,10 @@ use App\Http\Controllers\ApiController\UserController;
 use App\Http\Controllers\biodataController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AuthMiddleware;
+use App\Models\ResetToken;
 use App\Route\Router;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {
@@ -34,7 +36,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     
         Route::post('/updateStatus', [AdminController::class, 'updateStatus'])->name('updateStatus');
         Route::post('/rejectDocument', [AdminController::class, 'rejectDocument'])->name('rejectDocument');
-
+        Route::post('/logout' , [AdminController::class , 'logout'])->name('logout');
     });
 
 });
@@ -95,11 +97,17 @@ Route::get('/forgot-password', function () {
     return view('auth.auth.forgot-password');
 })->name('password.request');
 
-Route::post('/forgot-password', [UserController::class, 'sendResetLink'])->name('password.email');
-
+Route::post('/forgot-password', [UserController::class, 'sendResetLink'])->name('forgotpassword');
+Route::post('/reset-password' , [UserController::class, 'resetPassword'])->name('reset-password');
 
 Route::get('/reset-password/{token}', function ($token) {
-    return view('auth.auth.reset-password', ['token' => $token]);
+    $res_token = ResetToken::where('token' , $token)->first();
+    if (!$res_token)
+    {
+        Alert::error('Error' , 'Token not found');
+        return redirect()->route('login');
+    }
+    return view('auth.auth.reset-password', ['token' => $token , 'email' => $res_token->email]);
 })->name('password.reset');
 
 

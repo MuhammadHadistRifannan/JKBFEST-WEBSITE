@@ -2,13 +2,18 @@
 
 namespace App\Services;
 
+use App\Mail\SendMail;
+use App\Models\ResetToken;
 use App\Models\User;
 use App\Services\ResponseService;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+use Mail;
+use Ramsey\Uuid\Guid\Guid;
 use RealRashid\SweetAlert\Facades\Alert;
 use Response;
+use Str;
 
 
 class UserService
@@ -134,6 +139,58 @@ class UserService
     
             return ResponseService::MakeResponse(200 , 'Edit data berhasil' , $user , 'success');
 
+    }
+
+    public function SendResetPassword(Request $request){
+        $validated = $request->validate([
+            'email' => 'required|email'
+        ]);
+        $user = User::where('email' , $validated['email'])->first();
+        if (!$user){
+            return ResponseService::MakeResponse(402 , 'Email not found');
+        }
+        
+        //Generate new token 
+        $token = str_replace('-', '' , (string) Str::uuid());
+        
+        //Send Email And Token
+        try {
+            Mail::to($validated['email'])->send(new SendMail($token));
+            ResetToken::insert([
+                'email' => $validated['email'],
+                'token' => $token
+            ]);
+        }catch(Exception $e){
+            return ResponseService::MakeResponse(401 , $e->getMessage());
+        }
+
+        return ResponseService::MakeResponse(200 , 'Silahkan cek email anda' , null , 'success');
+
+    }
+
+    public function ResetPassword(Request $request){
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/',
+            'password_confirmation' => 'required|same:password',
+            'token' => 'required'
+        ]);
+
+        $hashed = password_hash($validated['password'] , PASSWORD_DEFAULT);
+        try {
+            $user = User::where('email' , $validated['email'])->first();
+            $user->update([
+                'password' => $hashed
+            ]);
+            $user->save();
+
+            ResetToken::where('token' , $validated['token'])->delete();
+            
+        }catch(Exception $e){
+            return ResponseService::MakeResponse(401 , $e->getMessage());
+        } 
+
+        return ResponseService::MakeResponse(200 , 'Password Berhasil diganti , Silahkan login kembali' , null , 'success');
     }
 
 

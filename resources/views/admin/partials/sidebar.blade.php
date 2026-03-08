@@ -40,7 +40,7 @@
         </ul>
 
         <div class="mt-auto mb-3 sidebar-signout">
-            <form action="{{ route('logout') }}" method="POST" id="logout-form">
+            <form action="{{ route('admin.logout') }}" method="POST" id="logout-form">
                 @csrf
                 <button type="submit" class="btn w-100 py-2 px-3 d-flex align-items-center justify-content-center gap-2 shadow-sm sidebar-signout-btn" style="background-color: #FF3B3B; color: white; border-radius: 12px; border: none;" title="Sign Out">
                     <i class="bi bi-box-arrow-right fs-5 flex-shrink-0"></i>

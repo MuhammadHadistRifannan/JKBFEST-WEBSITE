@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="padding-custom pt-4">
-                        <form method="post" action="#">
+                        <form method="post" action="{{ route('reset-password') }}">
                             @csrf
                             <input type="hidden" name="token" value="{{ request()->route('token') }}">
 
@@ -56,7 +56,7 @@
                                     </span>
                                     <input type="email" name="email"
                                         class="form-control border-start-0 shadow-none py-2 @error('email') is-invalid @enderror" 
-                                        value="{{ request()->email ?? old('email') }}" placeholder="Masukkan Email" required readonly/>
+                                        value="{{ $email ?? old('email') }}" placeholder="Masukkan Email" required readonly/>
                                 </div>
                                 @error('email')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -88,12 +88,15 @@
                                         <img src="{{ asset('icons/auth/password.svg') }}" alt="password" class="icon-svg">
                                     </span>
                                     <input type="password" name="password_confirmation" id="newPasswordInput"
-                                        class="form-control border-start-0 border-end-0 shadow-none py-2" 
+                                        class="form-control border-start-0 border-end-0 shadow-none py-2 @error('password_confirmation') is-invalid @enderror" 
                                         placeholder="Masukkan Password Baru" required />
                                     <span class="input-group-text bg-white border-start-0 cursor-pointer py-2" id="toggleNewPassword">
                                         <img src="{{ asset('icons/auth/eye.svg') }}" alt="show password" class="icon-svg" id="eyeIconNewImage" style="width: 24px !important; height: 24px !important; object-fit: contain;">
                                     </span>
                                 </div>
+                                @error('password_confirmation')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <button type="submit" class="btn btn-register btn-gradient-custom w-100 py-2 shadow-sm mb-2" style="font-size: 15px;">

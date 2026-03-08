@@ -15,8 +15,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->get('special_user')){
-            return redirect()->route('admin.login');
+        if (!session('special_user')){
+            return redirect()->route('admin.loginAdmin');
         }
 
         return $next($request);

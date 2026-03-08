@@ -30,6 +30,12 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard');
     }
 
+    public function logout(){
+        session()->forget('special_user');
+        session()->flush();
+        return redirect()->route('admin.loginAdmin');
+    }
+
     public function dashboard(AdminService $service, LogService $logService)
     {
         $data = $service->GetInfoTeam();

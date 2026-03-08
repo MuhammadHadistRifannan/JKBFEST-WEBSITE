@@ -32,13 +32,16 @@ class AdminService
         if ($user){
             $password_hash = password_verify($validated['password'] , $user->password);
             if (!$password_hash){
-                ResponseService::MakeResponse(401 , 'Wrong Password');
+                return ResponseService::MakeResponse(401 , 'Wrong Password');
             }
         }
         else return ResponseService::MakeResponse(402,'User not Found');
 
-        return ResponseService::MakeResponse(200, 'Login Success' , null , 'success');
-
+        session([
+            'special_user' => $user
+        ]);
+        
+        return ResponseService::MakeResponse(200 , 'Login Admin Berhasil' , null , 'success');
     }
 
     public function GetInfoTeam()
