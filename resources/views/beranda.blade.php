@@ -533,7 +533,7 @@
                     <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
                         <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook" class="img-fluid mb-4"
                             style="height: 90px;">
-                        <h6 class="fw-bold text-dark mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
+                        <h6 class="fw-bold text-purple mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
                         <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
                             style="background-color: #5b1456; font-size: 14px;">Download</button>
                     </div>
@@ -542,7 +542,7 @@
                     <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
                         <img src="{{ asset('images/icon-logo-pack.png') }}" alt="Logo Pack" class="img-fluid mb-4"
                             style="height: 90px;">
-                        <h6 class="fw-bold text-dark mb-4">LOGO PACK<br>& ASSETS</h6>
+                        <h6 class="fw-bold text-purple mb-4">LOGO PACK<br>& ASSETS</h6>
                         <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
                             style="background-color: #5b1456; font-size: 14px;">Download</button>
                     </div>
@@ -669,13 +669,14 @@
         </div>
     </section>
 
-    <section id="sponsor" class="text-center position-relative"
-        style="padding-top: 15rem; padding-bottom: 15rem; margin-top: -40px; z-index: 3;">
+    <section id="sponsor" class="text-center position-relative d-flex align-items-center w-100"
+        style="min-height: 550px; z-index: 3;">
+
         <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background-image: url('{{ asset('images/vektor-gelombang-ungu.png') }}'); background-size: cover; background-position: center; transform: scaleX(-1); z-index: -1;">
+            style="background-image: url('{{ asset('images/gelombang-ungu.png') }}'); background-size: 100% 100%; background-position: center; background-repeat: no-repeat; z-index: -1;">
         </div>
 
-        <div class="container position-relative z-2">
+        <div class="container position-relative z-2 w-100" style="margin-top: -80px;">
             <h2 class="fw-bolder text-white mb-5 d-inline-block pb-2" style="border-bottom: 3px solid #FF9933;"
                 data-aos="fade-up">Sponsor By</h2>
 
@@ -700,7 +701,7 @@
     </section>
 
     <section id="faq"
-        style="background-color: #FAFAFA; border-top-left-radius: 80px; border-top-right-radius: 80px; padding: 6rem 0; margin-top: -60px; position: relative; z-index: 4;">
+        style="background-color: #FAFAFA; border-top-left-radius: 80px; border-top-right-radius: 80px; position: relative; z-index: 4;">
         <div class="container px-4">
             <div class="text-center" data-aos="fade-up">
                 <h2 class="fw-bolder text-dark mb-2">Pertanyaan Umum</h2>
