@@ -41,12 +41,11 @@
 
         /* PERBAIKAN: Padding Web Dev ditingkatkan drastis dan size jadi cover agar menutup semuanya */
         .webdev-pad {
-            padding-top: 15rem;
-            /* Meningkat dari 10rem */
-            padding-bottom: 15rem;
-            /* Meningkat dari 12rem */
-            background-size: cover;
-            /* Pastikan cover menutup penuh */
+            min-height: 550px;
+            background-size: 100% 100%;
+            /* Ubah dari 'cover' menjadi '100% 100%' */
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .about-title {
@@ -195,6 +194,27 @@
             box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
         }
 
+        /* elips */
+        .elips-left {
+            top: 50%;
+            left: 0;
+            transform: translate(10%, -70%);
+            width: 350px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .elips-right {
+            top: 50%;
+            right: 0;
+            transform: translate(-20%, -90%);
+            width: 350px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
         /* =========================================
            MEDIA QUERIES (RESPONSIVE HP)
            ========================================= */
@@ -222,12 +242,12 @@
                 text-align: center !important;
             }
 
-            /* .hero-big-logo {
+            .hero-big-logo {
                 width: 100% !important;
                 max-width: 400px !important;
                 margin-left: 0 !important;
                 margin-top: 3rem;
-            } */
+            }
 
             .countdown-container {
                 width: 100%;
@@ -257,6 +277,20 @@
                 padding-bottom: 10rem;
                 background-size: cover;
             }
+        }
+
+        /* text custom gradient */
+        .text-gradient-custom {
+            background: linear-gradient(to right, #FFF7AD 0%, #FFB3AE 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        /* text purple */
+        .text-purple {
+            color: #44113E;
         }
 
         @media (max-width: 768px) {
@@ -335,6 +369,12 @@
         #mainNavbar {
             transition: all 0.3s ease-in-out;
         }
+
+        /* elips */
+        .elips-left,
+        .elips-right {
+            width: 180px;
+        }
     </style>
 </head>
 
@@ -372,7 +412,7 @@
     </nav>
 
     <section class="position-relative overflow-hidden hero-pad"
-        style="background-image: url('{{ asset('images/hero-background.png') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
+        style="background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
 
         <div class="container position-relative z-2">
             <div class="row align-items-center">
@@ -430,15 +470,15 @@
         </div>
     </section>
 
-    <section id="tentang" class="position-relative z-1 py-5"
+    <section id="tentang" class="position-relative z-1 pb-5"
         style="background-color: #FFFFFF; background-image: radial-gradient(#e0e0e0 2px, transparent 2px); background-size: 30px 30px;">
-        <div class="container py-5 my-md-5">
+        <div class="container">
             <div class="row align-items-center g-5">
 
                 <div class="col-lg-5 text-center" data-aos="fade-right" data-aos-duration="1000">
                     <div
-                        class="bg-white rounded-circle shadow-lg d-flex align-items-center justify-content-center mx-auto about-circle-wrapper">
-                        <img src="{{ asset('images/vektor-code.png') }}" class="img-fluid w-50" alt="Code Vector">
+                        class="rounded-circle d-flex align-items-center justify-content-center mx-auto about-circle-wrapper">
+                        <img src="{{ asset('svg/code-logo.svg') }}" class="img-fluid w-100" alt="Code Vector">
                     </div>
                 </div>
 
@@ -446,13 +486,13 @@
                     <h2 class="fw-bolder mb-4 about-title" style="color: #5b1456;">Apa itu JKB FESTIVAL <span
                             class="fw-bold">?</span></h2>
 
-                    <p class="text-secondary mb-4" style="font-size: 15px; line-height: 1.9;">
+                    <p class="text-purple fw-medium mb-4" style="font-size: 16px; line-height: 1.9;">
                         JKB FEST hadir sebagai agenda tahunan HIMATRIS Politeknik Negeri Cilacap untuk memeriahkan Dies
                         Natalis Jurusan Komputer dan Bisnis. Perayaan ini dirancang sebagai wadah inovasi serta
                         kreativitas bagi mahasiswa dan masyarakat luas di bidang teknologi maupun bisnis.
                     </p>
 
-                    <p class="text-secondary mb-0" style="font-size: 15px; line-height: 1.9;">
+                    <p class="text-purple fw-medium mb-0" style="font-size: 16px; line-height: 1.9;">
                         Melalui rangkaian kompetisi dan seminar, festival ini menjadi ruang untuk mempererat kolaborasi
                         serta kebersamaan antar civitas akademika. Semangat kami adalah menjadikan momen ini sebagai
                         pusat pengembangan potensi yang lebih hidup, bermakna, dan penuh inspirasi.
@@ -462,10 +502,14 @@
         </div>
     </section>
 
-    <section class="text-white text-center webdev-pad"
-        style="background-image: url('{{ asset('images/vektor-gelombang-ungu.png') }}'); background-position: center; background-repeat: no-repeat;">
-        <div class="container" data-aos="zoom-in-up" data-aos-duration="1000">
-            <h1 class="fw-bolder mb-4" style="font-size: 36px;">Web Development</h1>
+    <section class="text-white text-center webdev-pad position-relative overflow-hidden d-flex align-items-center"
+        style="background-image: url('{{ asset('images/vektor-gelombang-ungu.png') }}');">
+
+        <img src="{{ asset('svg/elips.svg') }}" class="position-absolute elips-left" alt="Dekorasi Elips Kiri">
+        <img src="{{ asset('svg/elips.svg') }}" class="position-absolute elips-right" alt="Dekorasi Elips Kanan">
+
+        <div class="container position-relative z-2 mb-5" data-aos="zoom-in-up" data-aos-duration="1000">
+            <h1 class="text-gradient-custom fw-bolder mb-4" style="font-size: 36px;">Web Development</h1>
             <p class="mx-auto" style="max-width: 900px; font-size: 15px; line-height: 1.9; opacity: 0.9;">
                 Kompetisi Web Development JKB Festival Himatris hadir sebagai wadah mahasiswa untuk mengasah kreativitas
                 dan kompetensi digital. Mengusung tema "D-CORE: Digital Competency and Innovation Arena", ajang ini
@@ -475,8 +519,8 @@
         </div>
     </section>
 
-    <section id="asset" class="py-5 text-center" style="background-color: #FAFAFA;">
-        <div class="container py-5">
+    <section id="asset" class="text-center" style="background-color: #FAFAFA;">
+        <div class="container pb-4" data-aos="fade-up">
             <div class="d-inline-block position-relative mb-5" data-aos="fade-up">
                 <h2 class="fw-bolder mb-0" style="color: #5b1456; font-size: 32px;">Download Assets</h2>
                 <div class="position-absolute bottom-0 start-50 translate-middle-x"
@@ -503,7 +547,9 @@
                             style="background-color: #5b1456; font-size: 14px;">Download</button>
                     </div>
                 </div>
+                <img src="{{ asset('svg/line-svg.svg') }}" class="line" style="margin-top: 5rem">
             </div>
+        </div>
         </div>
     </section>
 
