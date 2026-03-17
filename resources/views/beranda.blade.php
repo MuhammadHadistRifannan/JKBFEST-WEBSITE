@@ -18,7 +18,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #FFFFFF;
+            /* background-color: #fff7fd; */
             overflow-x: hidden;
             color: #333;
         }
@@ -203,10 +203,15 @@
                 margin-top: 10px;
             }
 
+            .navbar-brand img {
+                height: 30px;
+                width: auto;
+            }
+
 
             .hero-pad {
                 padding-top: 8rem;
-                padding-bottom: 4rem;
+                padding-bottom: 10rem;
             }
 
             .hero-title {
@@ -222,10 +227,13 @@
             }
 
             .hero-big-logo {
-                width: 80% !important;
-                max-width: 300px !important;
-                margin-left: 0 !important;
-                margin-top: 2rem;
+                width: 60% !important;
+                max-width: 220px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                margin-top: 0 !important;
+                display: block;
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
             }
 
             .countdown-container {
@@ -294,7 +302,7 @@
 
             .hero-pad {
                 padding-top: 6rem;
-                padding-bottom: 3rem;
+                /* padding-bottom: 3rem; */
             }
 
             .about-title {
@@ -377,9 +385,6 @@
                 font-size: 22px !important;
             }
 
-            #faq {
-                padding: 4rem 0 !important;
-            }
         }
 
         /* Navbar */
@@ -429,12 +434,12 @@
     </nav>
 
     <section class="position-relative overflow-hidden hero-pad"
-        style="background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; ">
+        style="background-color: #fff7fd; background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; ">
 
         <div class="container position-relative z-2">
             <div class="row align-items-center">
 
-                <div class="col-lg-6 text-white text-center text-lg-start">
+                <div class="col-lg-6 text-white text-center text-lg-start order-2 order-lg-1">
                     <p class="fw-semibold mb-2" style="font-size: 10px; letter-spacing: 1.5px;" data-aos="fade-right"
                         data-aos-delay="200">COMPUTER AND BUSINESS DEPARTMENT PRESENT</p>
                     <h1 class="fw-bolder mb-3 hero-title" data-aos="fade-right" data-aos-delay="400">JKB
@@ -478,10 +483,10 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 position-relative mt-5 mt-lg-0" style="z-index: 10;" data-aos="zoom-in"
-                    data-aos-duration="1500">
-                    <img src="{{ asset('svg/hero-JKB-mini.svg') }}" class="img-fluid hero-big-logo ms-auto"
-                        alt="JKB Fest Big Logo">
+                <div class="col-lg-6 position-relative mt-lg-0 order-1 order-lg-2 text-center mb-3 mb-lg-0"
+                    style="z-index: 10;" data-aos="zoom-in" data-aos-duration="1500">
+                    <img src="{{ asset('svg/hero-JKB-mini.svg') }}"
+                        class="img-fluid hero-big-logo mx-auto mx-lg-0 ms-lg-auto" alt="JKB Fest Big Logo">
                 </div>
             </div>
         </div>
@@ -492,7 +497,7 @@
         <div class="container">
             <div class="row align-items-center g-5">
 
-                <div class="col-lg-5 text-center" data-aos="fade-right" data-aos-duration="1000">
+                <div class="col-lg-5 text-center d-none d-lg-block" data-aos="fade-right" data-aos-duration="1000">
                     <div
                         class="rounded-circle d-flex align-items-center justify-content-center mx-auto about-circle-wrapper">
                         <img src="{{ asset('svg/code-logo.svg') }}" class="img-fluid w-100" alt="Code Vector">
@@ -571,7 +576,7 @@
         </div>
     </section>
 
-    <section id="timeline" class="py-5 text-center">
+    <section id="timeline" class="py-5 text-center" style="background-color: #fff7fd;">
         <div class="container position-relative z-2 pb-4" data-aos="fade-up">
             <div class="d-inline-block position-relative mb-4">
                 <h2 class="fw-bolder mb-0" style="color: #5b1456; font-size: 32px;">Timeline Lomba</h2>
@@ -688,7 +693,7 @@
     </section>
 
     <section id="sponsor" class="text-center position-relative d-flex align-items-center w-100"
-        style="min-height: 550px; z-index: 3;">
+        style="min-height: 550px; z-index: 3; background-color: #fff7fd">
 
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background-image: url('{{ asset('images/gelombang-ungu.png') }}'); background-size: 100% 100%; background-position: center; background-repeat: no-repeat; z-index: -1;">
@@ -718,9 +723,8 @@
         </div>
     </section>
 
-    <section id="faq"
-        style="background-color: #FAFAFA; border-top-left-radius: 80px; border-top-right-radius: 80px; position: relative; z-index: 4;">
-        <div class="container px-4">
+    <section id="faq" class="pb-5" style="background-color: #fff7fd; position: relative; z-index: 4;">
+        <div class="container">
             <div class="text-center" data-aos="fade-up">
                 <h2 class="fw-bolder text-dark mb-2">Pertanyaan Umum</h2>
                 <p class="text-muted small mx-auto mb-4" style="max-width: 600px;">Informasi dan jawaban atas
