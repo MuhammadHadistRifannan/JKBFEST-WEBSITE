@@ -23,14 +23,9 @@
             color: #333;
         }
 
-        /* =========================================
-           RESPONSIVE TYPOGRAPHY & PADDING
-           ========================================= */
         .hero-pad {
             padding-top: 6rem;
-            /* Dorong konten ke bawah menjauhi navbar */
             padding-bottom: 6rem;
-            /* Beri ruang di bawah agar tidak menabrak lengkungan */
         }
 
         .hero-title {
@@ -39,11 +34,9 @@
             letter-spacing: -1px;
         }
 
-        /* PERBAIKAN: Padding Web Dev ditingkatkan drastis dan size jadi cover agar menutup semuanya */
         .webdev-pad {
             min-height: 550px;
             background-size: 100% 100%;
-            /* Ubah dari 'cover' menjadi '100% 100%' */
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -64,7 +57,6 @@
         .hero-big-logo {
             width: 120% !important;
             max-width: 120% !important;
-            margin-left: -10% !important;
             margin-top: -5% !important;
             filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.4));
         }
@@ -73,9 +65,7 @@
             background-color: rgba(0, 0, 0, 0.15);
         }
 
-        /* =========================================
-           FAQ & ASSET CARDS
-           ========================================= */
+
         .accordion-faq .accordion-item {
             border: 1px solid #D81E76;
             border-radius: 50px !important;
@@ -109,9 +99,7 @@
             box-shadow: 0 15px 30px rgba(91, 20, 86, 0.15) !important;
         }
 
-        /* =========================================
-           TIMELINE SECTION
-           ========================================= */
+
         #timeline {
             position: relative;
             background-color: #FAFAFA;
@@ -148,7 +136,7 @@
 
         .timeline-card-wrapper {
             background: linear-gradient(135deg, #FF9933 0%, #D81E76 100%);
-            border-radius: 166px;
+            border-radius: 16px;
             padding: 2px;
             width: 100%;
             max-width: 380px;
@@ -158,21 +146,33 @@
         .timeline-card-body {
             background: white;
             border-radius: 14px;
-            padding: 20px;
+            padding: 0;
             height: 100%;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+        }
+
+        .timeline-card-body h5 {
+            margin-top: 25px;
+            padding: 0 20px;
+        }
+
+        .timeline-card-body p {
+            padding: 0 20px;
+            margin-bottom: 25px !important;
         }
 
         .timeline-date-badge {
             background-color: #5b1456;
             color: white;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-weight: 600;
-            font-size: 14px;
+            border-radius: 0;
+            padding: 15px 20px;
+            font-weight: 700;
+            font-size: 18px;
             margin-top: auto;
             width: 100%;
+            text-align: center;
         }
 
         .timeline-circle {
@@ -194,30 +194,7 @@
             box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
         }
 
-        /* elips */
-        .elips-left {
-            top: 50%;
-            left: 0;
-            transform: translate(10%, -70%);
-            width: 350px;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.8;
-        }
 
-        .elips-right {
-            top: 50%;
-            right: 0;
-            transform: translate(-20%, -90%);
-            width: 350px;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        /* =========================================
-           MEDIA QUERIES (RESPONSIVE HP)
-           ========================================= */
         @media (max-width: 991px) {
             .navbar-collapse {
                 background: rgba(91, 20, 86, 0.95);
@@ -228,14 +205,16 @@
 
 
             .hero-pad {
-                padding-top: 12rem;
-                /* Dorong konten ke bawah menjauhi navbar */
-                padding-bottom: 8rem;
-                /* Beri ruang di bawah agar tidak menabrak lengkungan */
+                padding-top: 8rem;
+                padding-bottom: 4rem;
             }
 
             .hero-title {
-                font-size: 3.5rem;
+                font-size: 3rem;
+            }
+
+            p.fs-5 {
+                font-size: 1rem !important;
             }
 
             .text-lg-start {
@@ -243,10 +222,10 @@
             }
 
             .hero-big-logo {
-                width: 100% !important;
-                max-width: 400px !important;
+                width: 80% !important;
+                max-width: 300px !important;
                 margin-left: 0 !important;
-                margin-top: 3rem;
+                margin-top: 2rem;
             }
 
             .countdown-container {
@@ -270,12 +249,27 @@
                 margin-bottom: 30px;
             }
 
-            /* Web Dev Mobile adjustment */
             .webdev-pad {
-                padding-top: 10rem;
-                /* Tetap besar di mobile */
+                padding-top: 8rem;
                 padding-bottom: 10rem;
-                background-size: cover;
+                min-height: auto;
+            }
+
+            .webdev-pad .position-absolute {
+                background-size: cover !important;
+            }
+
+            #sponsor {
+                min-height: auto !important;
+                padding: 6rem 0 10rem 0;
+            }
+
+            #sponsor .position-absolute {
+                background-size: cover !important;
+            }
+
+            #sponsor .container {
+                margin-top: 0 !important;
             }
         }
 
@@ -295,21 +289,46 @@
 
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
+            }
+
+            .hero-pad {
+                padding-top: 6rem;
+                padding-bottom: 3rem;
             }
 
             .about-title {
-                font-size: 28px;
+                font-size: 24px;
             }
 
             .about-title span {
-                font-size: 32px;
+                font-size: 28px;
             }
 
             .about-circle-wrapper {
-                width: 200px;
-                height: 200px;
+                width: 180px;
+                height: 180px;
             }
+
+            p.text-purple {
+                font-size: 14px !important;
+            }
+
+            .webdev-pad h1 {
+                font-size: 24px !important;
+            }
+
+            .webdev-pad p {
+                font-size: 13px !important;
+                padding: 0 20px;
+                line-height: 1.7 !important;
+            }
+
+            .webdev-pad {
+                padding-top: 6rem;
+                padding-bottom: 8rem;
+            }
+
 
             .timeline-line::before {
                 left: 20px;
@@ -351,11 +370,15 @@
             }
 
             .countdown-box {
-                min-width: 60px;
+                min-width: 50px;
             }
 
             .countdown-number {
-                font-size: 26px !important;
+                font-size: 22px !important;
+            }
+
+            #faq {
+                padding: 4rem 0 !important;
             }
         }
 
@@ -368,12 +391,6 @@
 
         #mainNavbar {
             transition: all 0.3s ease-in-out;
-        }
-
-        /* elips */
-        .elips-left,
-        .elips-right {
-            width: 180px;
         }
     </style>
 </head>
@@ -412,7 +429,7 @@
     </nav>
 
     <section class="position-relative overflow-hidden hero-pad"
-        style="background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
+        style="background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; ">
 
         <div class="container position-relative z-2">
             <div class="row align-items-center">
@@ -461,9 +478,9 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 text-center position-relative mt-5 mt-lg-0" style="z-index: 10;"
-                    data-aos="zoom-in" data-aos-duration="1500">
-                    <img src="{{ asset('svg/hero-JKB-mini.svg') }}" class="img-fluid hero-big-logo"
+                <div class="col-lg-6 position-relative mt-5 mt-lg-0" style="z-index: 10;" data-aos="zoom-in"
+                    data-aos-duration="1500">
+                    <img src="{{ asset('svg/hero-JKB-mini.svg') }}" class="img-fluid hero-big-logo ms-auto"
                         alt="JKB Fest Big Logo">
                 </div>
             </div>
@@ -471,7 +488,7 @@
     </section>
 
     <section id="tentang" class="position-relative z-1 pb-5"
-        style="background-color: #FFFFFF; background-image: radial-gradient(#e0e0e0 2px, transparent 2px); background-size: 30px 30px;">
+        style="background-color: #fff7fd; background-image: radial-gradient(#e0e0e0 2px, transparent 2px); background-size: 30px 30px;">
         <div class="container">
             <div class="row align-items-center g-5">
 
@@ -503,10 +520,11 @@
     </section>
 
     <section class="text-white text-center webdev-pad position-relative overflow-hidden d-flex align-items-center"
-        style="background-image: url('{{ asset('images/vektor-gelombang-ungu.png') }}');">
+        style="background-color: #fff7fd; z-index: 3;">
 
-        <img src="{{ asset('svg/elips.svg') }}" class="position-absolute elips-left" alt="Dekorasi Elips Kiri">
-        <img src="{{ asset('svg/elips.svg') }}" class="position-absolute elips-right" alt="Dekorasi Elips Kanan">
+        <div class="position-absolute top-0 start-0 w-100 h-100"
+            style="background-image: url('{{ asset('images/gelombang-ungu.png') }}'); background-size: 100% 100%; background-position: center; background-repeat: no-repeat; transform: scaleX(-1); z-index: -1;">
+        </div>
 
         <div class="container position-relative z-2 mb-5" data-aos="zoom-in-up" data-aos-duration="1000">
             <h1 class="text-gradient-custom fw-bolder mb-4" style="font-size: 36px;">Web Development</h1>
@@ -519,7 +537,7 @@
         </div>
     </section>
 
-    <section id="asset" class="text-center" style="background-color: #FAFAFA;">
+    <section id="asset" class="text-center" style="background-color: #fff7fd; position: relative; z-index: 4;">
         <div class="container pb-4" data-aos="fade-up">
             <div class="d-inline-block position-relative mb-5" data-aos="fade-up">
                 <h2 class="fw-bolder mb-0" style="color: #5b1456; font-size: 32px;">Download Assets</h2>
