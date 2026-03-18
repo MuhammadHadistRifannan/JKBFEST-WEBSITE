@@ -16,9 +16,7 @@
         rel="stylesheet">
 
     <style>
-        html {
-            overflow-x: hidden;
-        }
+
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -409,9 +407,7 @@
 
         /* Navbar */
         #mainNavbar {
-            background-color: rgba(101, 20, 79, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background-color: #65144F;
             transition: all 0.3s ease-in-out;
             padding: 8px 0;
         }
@@ -463,6 +459,8 @@
             </div>
         </div>
     </nav>
+
+    <div style="overflow-x: hidden;">
 
     <section class="position-relative overflow-hidden hero-pad"
         style="background-color: #fff7fd; background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; ">
@@ -842,6 +840,8 @@
     </section>
 
     @include('layouts.footer')
+
+    </div> {{-- end overflow-x wrapper --}}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
