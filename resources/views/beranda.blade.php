@@ -16,10 +16,13 @@
         rel="stylesheet">
 
     <style>
+        html {
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             /* background-color: #fff7fd; */
-            overflow-x: hidden;
             color: #333;
         }
 
@@ -201,6 +204,23 @@
                 padding: 15px;
                 border-radius: 12px;
                 margin-top: 10px;
+            }
+
+            #mainNavbar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                background-color: #65144F !important;
+                padding: 10px 15px !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+
+            #mainNavbar .container {
+                display: flex;
+                align-items: center;
             }
 
             .navbar-brand img {
@@ -388,22 +408,33 @@
         }
 
         /* Navbar */
-        .navbar-scrolled {
-            background-color: #65144F;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        #mainNavbar {
+            background-color: rgba(101, 20, 79, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease-in-out;
+            padding: 8px 0;
         }
 
-        #mainNavbar {
-            transition: all 0.3s ease-in-out;
+        .navbar-scrolled {
+            background-color: #65144F !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 991px) {
+
+            #mainNavbar .navbar-collapse.show,
+            #mainNavbar .navbar-collapse.collapsing {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top w-100 z-3 shadow p-0" data-aos="fade-down" data-aos-duration="1000"
-        id="mainNavbar">
+    <nav class="navbar navbar-expand-lg fixed-top w-100 shadow p-0" style="z-index: 9999;" id="mainNavbar">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <img src="{{ asset('svg/logo-jkb-navbar.svg') }}" alt="JKB Fest">
