@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Auth;
 use Closure;
 use Illuminate\Http\Request;
+use Route;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthMiddleware
@@ -19,6 +20,7 @@ class AuthMiddleware
         if (!Auth::user()){
             return redirect()->to('/login');
         }
+        
         return $next($request);
     }
 }

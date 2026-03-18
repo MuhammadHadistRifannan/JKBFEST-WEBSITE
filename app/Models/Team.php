@@ -27,7 +27,7 @@ class Team extends Model
     }
 
     public function document(){
-        return $this->hasOne(Document::class, 'team_id');
+        return $this->hasOne(Documents::class, 'team_id');
     }
 
     public function member(){

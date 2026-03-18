@@ -4,10 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Documents extends Model
 {
     //
-    protected $table = 'document';
     protected $fillable = [
         'team_id',
         'document_path',

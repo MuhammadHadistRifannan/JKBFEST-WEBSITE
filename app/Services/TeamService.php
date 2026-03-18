@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Document;
+use App\Models\Documents;
 use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
@@ -105,7 +106,7 @@ class TeamService
         try {
             // Update Team
             if (!$team->document){
-                $document = Document::create([
+                $document = Documents::create([
                     'team_id' => $team->id,
                     'document_path' => $filePath,
                     'status_document' => 'pending',
@@ -113,7 +114,7 @@ class TeamService
                 ]);
             }
             else {
-                $document = Document::where('team_id' , $team->id)->update([
+                $document = Documents::where('team_id' , $team->id)->update([
                     'document_path' => $filePath,
                     'status_document' => 'pending',
                     'has_payed' => false
@@ -137,7 +138,7 @@ class TeamService
     public function HasPayment(){
         $team_id = auth()->user()->team->id; 
         // add payment 
-        $document = Document::where('team_id' , $team_id)->first();
+        $document = Documents::where('team_id' , $team_id)->first();
         if (!$document || $document->document_path === ''){
             return ResponseService::MakeResponse(401 , 'Upload dokumen team terlebih dahulu , disertai bukti pembayaran');
         }

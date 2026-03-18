@@ -32,7 +32,7 @@ return new class extends Migration
 
         });
 
-           Schema::create('document', function (Blueprint $table) {
+           Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('team_id')

@@ -15,6 +15,7 @@
 
     {{-- FORM EDIT PROFILE --}}
     <div class="card p-4 rounded-4 shadow-sm">
+
         <form action={{ route('updateProfile') }} method="POST">
             @csrf
             <div class="row g-4">
@@ -29,7 +30,7 @@
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Role</label>
                     <input type="text" class="form-control rounded-3 input-readonly-custom py-2"
-                        value="{{ auth()->user()->role ?? 'Ketua' }}" readonly>
+                        value="Ketua" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Email</label>
@@ -42,7 +43,7 @@
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Status Team</label>
                     <input type="text" class="form-control rounded-3 input-readonly-custom py-2"
-                        value="{{ auth()->user()->team->status_team ? 'Terverifikasi' :  'Belum Terverifikasi' }}" readonly>
+                        value="{{auth()->user()->team ? (auth()->user()->team->status_team ? 'Terverifikasi' :  'Belum Terverifikasi') : "Anda belum mendaftarkan team" }}" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Nomor HP</label>
@@ -68,6 +69,7 @@
             </div>
 
         </form>
+
     </div>
     @include('sweetalert::alert')
 @endsection

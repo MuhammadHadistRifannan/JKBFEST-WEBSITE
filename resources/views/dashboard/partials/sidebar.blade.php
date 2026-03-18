@@ -13,7 +13,7 @@
         {{-- Menu --}}
         <ul class="nav nav-pills flex-column mb-auto sidebar-menu gap-1">
             <li class="nav-item">
-                <a href="#" class="nav-link text-white d-flex align-items-center sidebar-nav-link" title="Home">
+                <a href="/" class="nav-link text-white d-flex align-items-center sidebar-nav-link" title="Home">
                     <img src="{{ asset('icons/dashboard/home.svg') }}" alt="Home" class="icon-svg flex-shrink-0">
                     <span class="sidebar-label">Home</span>
                 </a>

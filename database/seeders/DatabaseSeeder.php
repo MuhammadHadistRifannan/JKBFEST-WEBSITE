@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         SpecialUser::factory()->create([
-            'email' => 'adminjkbfest@gmail.com',
-            'password' => password_hash('jkbfest2026Z@' , PASSWORD_DEFAULT)
+            'email' => env('ADMIN_EMAIL'),
+            'password' => password_hash(env('ADMIN_PASSWORD') , PASSWORD_DEFAULT)
         ]);
     }
 }

@@ -115,5 +115,5 @@ Route::get('/verify-email', function () {
     return view('auth.auth.verify-email');
 })->name('verification.notice');
 
-Route::post('/verif-email' , [UserController::class , 'verifyEmail'])->name('verify_email');
+Route::post('/verify-email' , [UserController::class , 'verifyEmail'])->name('verify_email');
 Route::post('/resend_otp' , [UserController::class , 'resendOtp'])->name('resend_otp');

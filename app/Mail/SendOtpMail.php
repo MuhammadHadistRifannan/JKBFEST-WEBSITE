@@ -30,6 +30,7 @@ class SendOtpMail extends Mailable
     {
         return new Envelope(
             subject: 'Kode OTP Akun',
+            
         );
     }
 

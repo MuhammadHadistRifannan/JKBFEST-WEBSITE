@@ -1,6 +1,7 @@
 @extends('auth.layouts.app')
 @section('title', 'Verifikasi Email')
 @section('styles')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .otp-wrapper {
             display: flex;

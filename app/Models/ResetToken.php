@@ -10,6 +10,6 @@ class ResetToken extends Model
     public $table = 'token_reset_password';
     protected $fillable = [
         'token',
-        'user_id'
+        'email'
     ];
 }

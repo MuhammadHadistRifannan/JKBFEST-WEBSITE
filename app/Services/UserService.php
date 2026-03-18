@@ -16,8 +16,10 @@ use DB;
 use Exception;
 use Hash;
 use Illuminate\Http\Request;
+use Log;
 use Mail;
 use Ramsey\Uuid\Guid\Guid;
+use RateLimiter;
 use RealRashid\SweetAlert\Facades\Alert;
 use Response;
 use Str;
@@ -57,7 +59,7 @@ class UserService
         }
 
         //verifying hashing password
-        if (!password_verify($validated['password'], $user->password)) {
+        if (!Hash::check($validated['password'], $user->password)) {
             return ResponseService::MakeResponse(402, 'Kata sandi salah');
         }
 
@@ -179,6 +181,13 @@ class UserService
         $validated = $request->validate([
             'email' => 'required|email'
         ]);
+
+        $limit = $this->LimitRequest($validated['email']);
+
+        if ($limit['httpCode'] == 429){
+            return $limit;
+        }
+
         $user = User::where('email', $validated['email'])->first();
         if (!$user) {
             return ResponseService::MakeResponse(402, 'Email not found');
@@ -195,7 +204,8 @@ class UserService
                 'token' => $token
             ]);
         } catch (Exception $e) {
-            return ResponseService::MakeResponse(401, $e->getMessage());
+            Log::error($e->getMessage());
+            return ResponseService::MakeResponse(500, "Server Error");
         }
 
         return ResponseService::MakeResponse(200, 'Silahkan cek email anda', null, 'success');
@@ -211,7 +221,7 @@ class UserService
             'token' => 'required'
         ]);
 
-        $hashed = password_hash($validated['password'], PASSWORD_DEFAULT);
+        $hashed = Hash::make($validated['password']);
         try {
             $user = User::where('email', $validated['email'])->first();
             $user->update([
@@ -228,12 +238,28 @@ class UserService
         return ResponseService::MakeResponse(200, 'Password Berhasil diganti , Silahkan login kembali', null, 'success');
     }
 
+    public function LimitRequest($key){
+
+        if (RateLimiter::tooManyAttempts($key , 3)){
+            $seconds = RateLimiter::availableIn($key );
+            return ResponseService::MakeResponse(429 , "Terlalu banyak request silahkan coba lagi dalam " . $seconds . " detik.");
+        }
+
+        RateLimiter::hit($key , 300);
+        return ResponseService::MakeResponse(200 , "Request success" , status: 'Success');
+    }
+
     public function SendOtp($data)
     {
 
         //generate random OTP 
         $otp = random_int(100000, 999999);
         $expires = Carbon::now()->addMinutes(5);
+
+        $limit = $this->LimitRequest($data['email']);
+        if ($limit['httpCode'] == 429){
+            return $limit;
+        }
 
         //write to database 
         try {
@@ -268,14 +294,16 @@ class UserService
         return ResponseService::MakeResponse(200, 'Sent OTP', status: 'success');
     }
 
-    public function otpisExpired($email)
-    {
-
-    }
+    
 
     public function ResendOtp(Request $request)
     {
         $email = $request->email;
+
+        $limit = $this->LimitRequest($email);
+        if ($limit['httpCode'] == 429){
+            return $limit;
+        }
 
         try {
             //Check Otp in DB 
@@ -298,7 +326,7 @@ class UserService
                 if ($data->isOtpExpired($email)) {
 
                     $data->update([
-                        'expires_at' => now()->addMinutes(5)
+                        'expired_at' => now()->addMinutes(5)
                     ]);
 
                     Mail::to($email)->send(new SendOtpMail($data->otp));

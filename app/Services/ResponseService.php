@@ -27,7 +27,7 @@ class ResponseService
                 'data' => $data,
                 'token' => $token,
                 'status' => $status,
-                'httpcode' => $httpCode
+                'httpCode' => $httpCode
             ];
         }
         
@@ -35,7 +35,7 @@ class ResponseService
             'message' => $message,
             'data' => $data,
             'status' => $status,
-            'httpcode' => $httpCode
+            'httpCode' => $httpCode
         ];
     }
 }
