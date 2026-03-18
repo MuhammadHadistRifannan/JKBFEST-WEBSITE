@@ -451,8 +451,8 @@
 
                     <li class="nav-item mt-3 mt-lg-0">
                         <a class="btn bg-white rounded-pill px-4 py-2 fw-bold text-decoration-none d-flex align-items-center gap-2 shadow-sm" 
-                           style="color: #5b1456; font-size: 13px;" href="{{ route('login.view') }}">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
+                           style="color: #5b1456; font-size: 13px;" href="{{ auth()->user() ? route('dashboard') : route('login.view') }}">
+                            <i class="bi bi-box-arrow-in-right"></i> {{ auth()->user() ? auth()->user()->name : 'Login' }}
                         </a>
                     </li>
                 </ul>
