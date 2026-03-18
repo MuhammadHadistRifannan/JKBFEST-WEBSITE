@@ -18,51 +18,82 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class UserController extends Controller
 {
-    
+
     /**
      * LOGIN USER
      * @param Request $request
      * @return void
      */
-    public function login(Request $request , UserService $service){
+    public function login(Request $request, UserService $service)
+    {
         $response = $service->loginService($request);
 
-        if (!$response['status']){
-            Alert::error('Error' , $response['message']);
+        if (!$response['status']) {
+            Alert::error('Error', $response['message']);
             return redirect()->back()->withInput();
         }
 
         $user = $response['data'];
         Auth::login($user);
-        
+
         $request->session()->regenerate();
-        Alert::success('Success' , $response['message']);
-        
+        Alert::success('Success', $response['message']);
+
         return redirect()->route('dashboard');
     }
     /**
      * REGISTER USER.
-    */
-    public function register(Request $request , UserService $service)
+     */
+    public function register(Request $request, UserService $service)
     {
         $response = $service->registerService($request);
-        
+
         if (!$response['status']) {
 
-            Alert::error('Error' , $response['message']);
+            Alert::error('Error', $response['message']);
             return redirect()->back()->withInput();
         }
 
-        $user = $response['data'];
-        Auth::login($user);
-        
-        $request->session()->regenerate();
-        Alert::success('Success' , $response['message']);
+        $data = $response['data'];
 
-        return redirect()->route('dashboard');
+        session()->put('verification_data', $data);
+        Alert::success('Success', 'OTP has sent to email');
+
+        return redirect()->route('verification.notice');
     }
 
-    public function logout(Request $request){
+    public function verifyEmail(Request $request, UserService $service)
+    {
+        $response = $service->registUser($request);
+        if (!$response['status']) {
+            // Gunakan Session Flash secara manual sebelum redirect
+            session()->put('error_verifikasi', $response['message']);
+
+            return redirect()->back()->with('error_verifikasi' , $response['message']);
+        }
+        Alert::success('Success', 'Email anda telah berhasil diverifikasi');
+        return redirect()->route('login');
+    }
+
+    public function resendOtp(Request $request, UserService $service)
+    {
+        $response = $service->ResendOtp($request);
+
+        if (!$response['status']) {
+            return response()->json([
+                'status' => false,
+                'message' => $response['message']
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'OTP has sent to email'
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
         $request->session()->invalidate();
         $request->session()->regenerate();
         $request->session()->regenerateToken();
@@ -76,17 +107,19 @@ class UserController extends Controller
     public function show(string $id)
     {
         //validate type
-        if (!is_numeric($id)){return response()->json(['message'=>'id harus integer' , 'status' => null]);}
+        if (!is_numeric($id)) {
+            return response()->json(['message' => 'id harus integer', 'status' => null]);
+        }
 
         $user = DB::table('users')
-                ->where('id' , $id)
-                ->first();
-        if (!$user){
-            return response()->json(['message' => 'user tidak ditemukan' , 'status'=> null]);
+            ->where('id', $id)
+            ->first();
+        if (!$user) {
+            return response()->json(['message' => 'user tidak ditemukan', 'status' => null]);
         }
-        
+
         $dto = new UserDto();
-        $dto->MapUser($user->name , $user->email , $user->no_telp);
+        $dto->MapUser($user->name, $user->email, $user->no_telp);
 
         return response()->json([
             'data' => $dto
@@ -98,16 +131,16 @@ class UserController extends Controller
     /**
      * UPDATE USER BY ID
      */
-    public function update(Request $request , UserService $service)
+    public function update(Request $request, UserService $service)
     {
         //
         $response = $service->updateService($request);
 
-        if (!$response['status']){
-            Alert::error('Error' , $response['message']);
+        if (!$response['status']) {
+            Alert::error('Error', $response['message']);
             return redirect()->back()->withInput();
         }
-        Alert::success('Success' , $response['message']);
+        Alert::success('Success', $response['message']);
         return redirect()->route('dashboard');
     }
 
@@ -119,26 +152,29 @@ class UserController extends Controller
         //
     }
 
-    public function sendResetLink(Request $request , UserService $service){
+    public function sendResetLink(Request $request, UserService $service)
+    {
         $response = $service->SendResetPassword($request);
-        if (!$response['status']){
-            Alert::error('Error' , $response['message']);
+        if (!$response['status']) {
+            Alert::error('Error', $response['message']);
             return redirect()->back();
         }
 
-        Alert::success('success' , $response['message']);
+        Alert::success('success', $response['message']);
         return redirect()->route('login');
     }
 
-    public function resetPassword(Request $request , UserService $service){
+    public function resetPassword(Request $request, UserService $service)
+    {
         //reset password 
         $response = $service->ResetPassword($request);
-        if (!$response['status']){
-            Alert::error('Error' , $response['message']);
+        if (!$response['status']) {
+            Alert::error('Error', $response['message']);
             return redirect()->back();
         }
 
-        Alert::success('success' , $response['message']);;
+        Alert::success('success', $response['message']);
+        ;
         return redirect()->route('login');
     }
 

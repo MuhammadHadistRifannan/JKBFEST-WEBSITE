@@ -171,4 +171,5 @@
             setupPasswordToggle("togglePasswordConfirm", "passwordConfirmInput", "eyeIconConfirmImage");
         });
     </script>
+    @include('sweetalert::alert')
 @endsection
