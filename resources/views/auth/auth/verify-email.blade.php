@@ -55,11 +55,20 @@
 
 $data =session('verification_data') ?? [];
 
-if (session('error_verifikasi')){
-    dd(session()->all());
-}
-
 @endphp
+
+@if(session('error_verifikasi'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Verifikasi',
+            text: '{{ session('error_verifikasi') }}',
+            confirmButtonText: 'OK'
+        });
+    });
+</script>
+@endif
 
     <div class="container-fluid vh-100">
         <div class="row h-100">
