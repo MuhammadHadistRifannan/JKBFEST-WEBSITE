@@ -141,6 +141,7 @@ class UserService
         } catch (Exception $e) {
 
             DB::rollBack();
+            Log::error($e->getMessage());
 
             return ResponseService::MakeResponse(402, 'Input not valid');
         }

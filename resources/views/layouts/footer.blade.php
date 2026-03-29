@@ -11,7 +11,7 @@
                 </p>
                 
                 <div class="d-flex gap-3 mt-4">
-                    <a href="#" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
+                    <a href="https://www.instagram.com/jkbfest/" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
                        style="width: 40px; height: 40px; background-color: #D81E76;">
                         <i class="bi bi-instagram fs-5"></i>
                     </a>
@@ -70,11 +70,11 @@
                     </li>
                     <li class="d-flex align-items-start gap-3">
                         <i class="bi bi-envelope fs-5 mt-1"></i>
-                        <span style="font-size: 14px; opacity: 0.9; line-height: 1.6;">loremipsum@gmail.com</span>
+                        <span style="font-size: 14px; opacity: 0.9; line-height: 1.6;">jkbfest@gmail.com</span>
                     </li>
                     <li class="d-flex align-items-start gap-3">
                         <i class="bi bi-telephone fs-5 mt-1"></i>
-                        <span style="font-size: 14px; opacity: 0.9; line-height: 1.6;">+62 851 5651 5151</span>
+                        <span style="font-size: 14px; opacity: 0.9; line-height: 1.6;">+62 813 2728 0676</span>
                     </li>
                 </ul>
             </div>
