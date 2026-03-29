@@ -127,6 +127,11 @@ class UserController extends Controller
 
     }
 
+    public function sendQuestion(){
+        Alert::success('Success' , 'Pertanyaan anda telah terkirim');
+        return redirect()->back();
+    }
+
 
     /**
      * UPDATE USER BY ID

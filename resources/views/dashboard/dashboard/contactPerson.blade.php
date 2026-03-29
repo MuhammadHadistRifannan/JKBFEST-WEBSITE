@@ -17,7 +17,7 @@
 
             {{--  FORM PESAN --}}
             <div class="col-lg-7">
-                <form action="#" method="POST">
+                <form action="{{ route('send_question') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-bold">Nama</label>
@@ -62,12 +62,12 @@
                         </div>
 
                         <p class="text-muted fs-5 mb-1 mt-5">Contact Person</p>
-                        <h4 class="fw-medium text-dark mb-2">Draco Malfoy Potter</h4>
+                        <h4 class="fw-medium text-dark mb-2">Adhitya Putra</h4>
                         <p class="text-secondary mb-5 fs-5">
-                            <i class="bi bi-telephone-fill me-2 fs-5"></i> +62 869 555 4329
+                            <i class="bi bi-telephone-fill me-2 fs-5"></i> +62 851 8370 0720
                         </p>
 
-                        <a href="https://wa.me/628695554329" target="_blank"
+                        <a href="https://wa.me/6285183700720" target="_blank"
                             class="btn btn-custom w-100 rounded-3 fw-bold py-3 mb-3 mb-sm-4">
                             <i class="bi bi-whatsapp me-2"></i> Hubungi Via WhatsApp
                         </a>
@@ -77,5 +77,5 @@
         </div>
     </div>
 
-
+@include('sweetalert::alert')
 @endsection

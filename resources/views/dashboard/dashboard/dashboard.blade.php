@@ -173,7 +173,7 @@
                             class="icon-svg">
                         <span class="fw-light">Ketentuan Pengumpulan</span>
                     </a>
-                    <a href="/GuideBook_JKBFEST_WebDev.docx" class="btn btn-custom rounded-3 fw-bold py-2">
+                    <a href="/GuideBook_JKBFEST_WebDev.pdf" class="btn btn-custom rounded-3 fw-bold py-2">
                         Download Guidebook
                     </a>
                 </div>

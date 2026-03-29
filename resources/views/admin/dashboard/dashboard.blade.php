@@ -115,6 +115,14 @@
     </style>
 @endsection
 
+@php 
+
+session([
+    'total_penghasilan' => \App\Models\Penghasilan::sum('uang_masuk')
+]);
+
+@endphp
+
 @section('content')
     <div class="row g-4">
         <div class="col-lg-8">
@@ -147,7 +155,7 @@
                     <div
                         class="card stat-card border-0 shadow-sm rounded-4 p-4 text-center h-100 d-flex flex-column justify-content-center align-items-center">
                         <i class="bi bi-wallet-fill text-custom-purple mb-2" style="font-size: 2.5rem;"></i>
-                        <h4 class="fw-bold text-dark mb-1 mt-2">Rp 4.500.000</h4>
+                        <h4 class="fw-bold text-dark mb-1 mt-2">Rp {{ number_format(session('total_penghasilan') , 0 , thousands_separator: '.') }}</h4>
                         <span class="text-muted small fw-medium">Total Pendapatan</span>
                     </div>
                 </div>

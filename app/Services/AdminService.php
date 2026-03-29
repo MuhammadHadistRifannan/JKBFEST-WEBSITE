@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Document;
 use App\Models\Documents;
+use App\Models\Penghasilan;
 use App\Models\SpecialUser;
 use App\Models\Team;
 use DB;
@@ -132,6 +133,10 @@ class AdminService
 
             Team::where('id', $document->team_id)->update([
                 'status_team' => true
+            ]);
+
+            Penghasilan::insert([
+                'uang_masuk' => 70000
             ]);
 
         } catch (Exception $e) {

@@ -117,3 +117,4 @@ Route::get('/verify-email', function () {
 
 Route::post('/verify-email' , [UserController::class , 'verifyEmail'])->name('verify_email');
 Route::post('/resend_otp' , [UserController::class , 'resendOtp'])->name('resend_otp');
+Route::post('/send_question' , [UserController::class , 'sendQuestion'])->name('send_question');
