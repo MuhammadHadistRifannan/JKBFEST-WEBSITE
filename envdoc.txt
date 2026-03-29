@@ -1,0 +1,40 @@
+# GANTI ENV SESUAI KEBUTUHAN
+
+#KONFIGURASI EMAIL DAN PASSWORD DEFAULT ADMIN 
+ADMIN_EMAIL=adminjkbfest@gmail.com
+ADMIN_PASSWORD=jkbfest2026Z
+
+
+QUEUE_CONNECTION=sync
+
+# KONFIGURASI UNTUK MAIL 
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_FROM_NAME=ADMINJKBFEST
+MAIL_USERNAME=muhammadhadistrifannan@gmail.com
+MAIL_PASSWORD=ylzdnsdannqeviyc # Use an App Password for Gmail
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="muhammadhadistrifannan@gmail.com"
+
+APP_NAME="jkbfest-website"
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=""
+
+LOG_CHANNEL=laravel-cloud-socket
+LOG_STDERR_FORMATTER=Monolog\Formatter\JsonFormatter
+
+DB_CONNECTION=pgsql
+DB_HOST=
+DB_PORT=5432
+DB_DATABASE=main
+DB_USERNAME=laravel
+DB_PASSWORD=
+
+SESSION_DRIVER=cookie
+
+CACHE_STORE=database
+SCHEDULE_CACHE_DRIVER=database
+
+VITE_APP_NAME="${APP_NAME}"
