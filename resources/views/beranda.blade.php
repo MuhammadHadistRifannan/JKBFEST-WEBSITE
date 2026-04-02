@@ -16,8 +16,6 @@
         rel="stylesheet">
 
     <style>
-
-
         body {
             font-family: 'Poppins', sans-serif;
             /* background-color: #fff7fd; */
@@ -26,7 +24,7 @@
 
         .hero-pad {
             padding-top: 6rem;
-            padding-bottom: 6rem;
+            padding-bottom: 16rem;
         }
 
         .hero-title {
@@ -56,9 +54,9 @@
         }
 
         .hero-big-logo {
-            width: 120% !important;
-            max-width: 120% !important;
-            margin-top: -5% !important;
+            width: 80% !important;
+            max-width: 80% !important;
+            margin-top: 8% !important;
             filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.4));
         }
 
@@ -229,7 +227,7 @@
 
             .hero-pad {
                 padding-top: 8rem;
-                padding-bottom: 10rem;
+                padding-bottom: 20rem;
             }
 
             .hero-title {
@@ -249,7 +247,7 @@
                 max-width: 220px !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
-                margin-top: 0 !important;
+                margin-top: 3rem !important;
                 display: block;
                 filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
             }
@@ -320,7 +318,7 @@
 
             .hero-pad {
                 padding-top: 6rem;
-                /* padding-bottom: 3rem; */
+                padding-bottom: 14rem;
             }
 
             .about-title {
@@ -432,8 +430,8 @@
 
     <nav class="navbar navbar-expand-lg fixed-top w-100 shadow p-0" style="z-index: 9999;" id="mainNavbar">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{{ asset('svg/logo-jkb-navbar.svg') }}" alt="JKB Fest">
+            <a class="navbar-brand d-flex align-items-center py-3" href="#">
+                <img src="{{ asset('images/logo-jkb-navbar.png') }}" alt="JKB Fest" style="width: 64px; height: 64px;">
             </a>
 
             <button class="navbar-toggler border-0 shadow-none text-white" type="button" data-bs-toggle="collapse"
@@ -450,9 +448,11 @@
                     <li class="nav-item"><a class="nav-link text-white fw-medium" href="#faq">FAQ</a></li>
 
                     <li class="nav-item mt-3 mt-lg-0">
-                        <a class="btn bg-white rounded-pill px-4 py-2 fw-bold text-decoration-none d-flex align-items-center gap-2 shadow-sm" 
-                           style="color: #5b1456; font-size: 13px;" href="{{ auth()->user() ? route('dashboard') : route('login.view') }}">
-                            <i class="bi bi-box-arrow-in-right"></i> {{ auth()->user() ? auth()->user()->name : 'Login' }}
+                        <a class="btn bg-white rounded-pill px-4 py-2 fw-bold text-decoration-none d-flex align-items-center gap-2 shadow-sm"
+                            style="color: #5b1456; font-size: 13px;"
+                            href="{{ auth()->user() ? route('dashboard') : route('login.view') }}">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            {{ auth()->user() ? auth()->user()->name : 'Login' }}
                         </a>
                     </li>
                 </ul>
@@ -460,149 +460,155 @@
         </div>
     </nav>
 
-    <div style="overflow-x: hidden;">
+    <div style="">
 
-    <section class="position-relative overflow-hidden hero-pad"
-        style="background-color: #fff7fd; background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; ">
+        <section id="hero" class="position-relative overflow-hidden hero-pad"
+            style="background-color: #fff7fd; background-image: url('{{ asset('svg/hero-background.svg') }}'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; ">
 
-        <div class="container position-relative z-2">
-            <div class="row align-items-center">
+            <div class="container position-relative z-2">
+                <div class="row align-items-center">
 
-                <div class="col-lg-6 text-white text-center text-lg-start order-2 order-lg-1">
-                    <p class="fw-semibold mb-2" style="font-size: 10px; letter-spacing: 1.5px;" data-aos="fade-right"
-                        data-aos-delay="200">COMPUTER AND BUSINESS DEPARTMENT PRESENT</p>
-                    <h1 class="fw-bolder mb-3 hero-title" data-aos="fade-right" data-aos-delay="400">JKB
-                        Festival<br>2026</h1>
-                    <p class="fs-5 fw-normal mb-4" data-aos="fade-right" data-aos-delay="600">JKB Innovate, Create, and
-                        Impact</p>
+                    <div class="col-lg-6 text-white text-center text-lg-start order-2 order-lg-1">
+                        <p class="fw-semibold mb-2" style="font-size: 10px; letter-spacing: 1.5px;"
+                            data-aos="fade-right" data-aos-delay="200">COMPUTER AND BUSINESS DEPARTMENT PRESENT</p>
+                        <h1 class="fw-bolder mb-3 hero-title" data-aos="fade-right" data-aos-delay="400">JKB
+                            Festival<br>2026</h1>
+                        <p class="fs-5 fw-normal mb-4" data-aos="fade-right" data-aos-delay="600">JKB Innovate, Create,
+                            and
+                            Impact</p>
 
-                    <div class="d-inline-block rounded-4 p-4 mb-4 text-start countdown-container" data-aos="fade-up"
-                        data-aos-delay="800">
-                        <p class="fw-bold mb-3" style="font-size: 12px;">Pendaftaran Terakhir</p>
-                        <div class="d-flex gap-3 gap-md-4 countdown-items">
-                            <div class="text-center countdown-box">
-                                <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="days">00
+                        <div class="d-inline-block rounded-4 p-4 mb-4 text-start countdown-container" data-aos="fade-up"
+                            data-aos-delay="800">
+                            <p class="fw-bold mb-3" style="font-size: 12px;">Pendaftaran Terakhir</p>
+                            <div class="d-flex gap-3 gap-md-4 countdown-items">
+                                <div class="text-center countdown-box">
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="days">00
+                                    </div>
+                                    <div class="fw-normal" style="font-size: 11px;">Hari</div>
                                 </div>
-                                <div class="fw-normal" style="font-size: 11px;">Hari</div>
-                            </div>
-                            <div class="text-center countdown-box">
-                                <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="hours">00
+                                <div class="text-center countdown-box">
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="hours">00
+                                    </div>
+                                    <div class="fw-normal" style="font-size: 11px;">Jam</div>
                                 </div>
-                                <div class="fw-normal" style="font-size: 11px;">Jam</div>
-                            </div>
-                            <div class="text-center countdown-box">
-                                <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="minutes">00
+                                <div class="text-center countdown-box">
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="minutes">00
+                                    </div>
+                                    <div class="fw-normal" style="font-size: 11px;">Menit</div>
                                 </div>
-                                <div class="fw-normal" style="font-size: 11px;">Menit</div>
-                            </div>
-                            <div class="text-center countdown-box">
-                                <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="seconds">00
+                                <div class="text-center countdown-box">
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="seconds">00
+                                    </div>
+                                    <div class="fw-normal" style="font-size: 11px;">Detik</div>
                                 </div>
-                                <div class="fw-normal" style="font-size: 11px;">Detik</div>
                             </div>
+                        </div>
+
+                        <div class="d-flex gap-3 justify-content-center justify-content-lg-start flex-wrap"
+                            data-aos="fade-up" data-aos-delay="1000">
+                            <a href="{{ route('register.view') }}" class="btn bg-white rounded-pill px-4 py-3 fw-bold"
+                                style="color: #5b1456; font-size: 14px;">Daftar Sekarang</a>
+                            <a href="#tentang" class="btn rounded-pill px-4 py-3 fw-semibold text-white"
+                                style="border: 1.5px solid white; font-size: 14px;">Pelajari lebih lanjut</a>
                         </div>
                     </div>
 
-                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start flex-wrap"
-                        data-aos="fade-up" data-aos-delay="1000">
-                        <a href="{{ route('register.view') }}" class="btn bg-white rounded-pill px-4 py-3 fw-bold"
-                            style="color: #5b1456; font-size: 14px;">Daftar Sekarang</a>
-                        <a href="#tentang" class="btn rounded-pill px-4 py-3 fw-semibold text-white"
-                            style="border: 1.5px solid white; font-size: 14px;">Pelajari lebih lanjut</a>
+                    <div class="col-lg-6 position-relative mt-lg-0 order-1 order-lg-2 text-center mb-3 mb-lg-0 py-5"
+                        style="z-index: 10;" data-aos="zoom-in" data-aos-duration="1500">
+                        <img src="{{ asset('images/logo-fiks.png') }}"
+                            class="img-fluid hero-big-logo mx-auto mx-lg-0 ms-lg-auto" alt="JKB Fest Big Logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tentang" class="position-relative z-1 pb-5"
+            style="background-color: #fff7fd; background-image: radial-gradient(#e0e0e0 2px, transparent 2px); background-size: 30px 30px;">
+            <div class="container">
+                <div class="row align-items-center g-5">
+
+                    <div class="relative z-20 col-lg-5 text-center d-none d-lg-block" data-aos="fade-right"
+                        data-aos-duration="1000">
+                        <div
+                            class="rounded-circle d-flex align-items-center justify-content-center mx-auto about-circle-wrapper">
+                            <img src="{{ asset('svg/code-logo.svg') }}" class="img-fluid w-100" alt="Code Vector">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 text-center text-lg-start" data-aos="fade-left" data-aos-duration="1000">
+                        <h2 class="fw-bolder mb-4 about-title" style="color: #5b1456;">Apa itu JKB FESTIVAL <span
+                                class="fw-bold">?</span></h2>
+
+                        <p class="text-purple fw-medium mb-4" style="font-size: 16px; line-height: 1.9;">
+                            JKB FEST hadir sebagai agenda tahunan HIMATRIS Politeknik Negeri Cilacap untuk memeriahkan
+                            Dies
+                            Natalis Jurusan Komputer dan Bisnis. Perayaan ini dirancang sebagai wadah inovasi serta
+                            kreativitas bagi mahasiswa dan masyarakat luas di bidang teknologi maupun bisnis.
+                        </p>
+
+                        <p class="text-purple fw-medium mb-0" style="font-size: 16px; line-height: 1.9;">
+                            Melalui rangkaian kompetisi dan seminar, festival ini menjadi ruang untuk mempererat
+                            kolaborasi
+                            serta kebersamaan antar civitas akademika. Semangat kami adalah menjadikan momen ini sebagai
+                            pusat pengembangan potensi yang lebih hidup, bermakna, dan penuh inspirasi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-white text-center webdev-pad position-relative overflow-hidden d-flex align-items-center"
+            style="background-color: #fff7fd; z-index: 3;">
+
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+                style="background-image: url('{{ asset('images/gelombang-ungu.png') }}'); background-size: 100% 100%; background-position: center; background-repeat: no-repeat; transform: scaleX(-1); z-index: -1;">
+            </div>
+
+            <div class="container position-relative z-2 mb-5" data-aos="zoom-in-up" data-aos-duration="1000">
+                <h1 class="text-gradient-custom fw-bolder mb-4" style="font-size: 36px;">Web Development</h1>
+                <p class="mx-auto" style="max-width: 900px; font-size: 15px; line-height: 1.9; opacity: 0.9;">
+                    Kompetisi Web Development JKB Festival Himatris hadir sebagai wadah mahasiswa untuk mengasah
+                    kreativitas
+                    dan kompetensi digital. Mengusung tema "D-CORE: Digital Competency and Innovation Arena", ajang ini
+                    mendorong lahirnya inovasi web yang kolaboratif dan berdampak, sekaligus membuka ruang bagi talenta
+                    muda
+                    untuk berjejaring dan berkontribusi dalam ekosistem teknologi masa depan.
+                </p>
+            </div>
+        </section>
+
+        <section id="asset" class="text-center" style="background-color: #fff7fd; position: relative; z-index: 4;">
+            <div class="container pb-4" data-aos="fade-up">
+                <div class="d-inline-block position-relative mb-5" data-aos="fade-up">
+                    <h2 class="fw-bolder mb-0" style="color: #5b1456; font-size: 32px;">Download Assets</h2>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x"
+                        style="width: 80%; height: 4px; background: linear-gradient(135deg, #D81E76 0%, #FF9933 100%); border-radius: 10px; margin-bottom: -15px;">
                     </div>
                 </div>
 
-                <div class="col-lg-6 position-relative mt-lg-0 order-1 order-lg-2 text-center mb-3 mb-lg-0"
-                    style="z-index: 10;" data-aos="zoom-in" data-aos-duration="1500">
-                    <img src="{{ asset('svg/hero-JKB-mini.svg') }}"
-                        class="img-fluid hero-big-logo mx-auto mx-lg-0 ms-lg-auto" alt="JKB Fest Big Logo">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="tentang" class="position-relative z-1 pb-5"
-        style="background-color: #fff7fd; background-image: radial-gradient(#e0e0e0 2px, transparent 2px); background-size: 30px 30px;">
-        <div class="container">
-            <div class="row align-items-center g-5">
-
-                <div class="col-lg-5 text-center d-none d-lg-block" data-aos="fade-right" data-aos-duration="1000">
-                    <div
-                        class="rounded-circle d-flex align-items-center justify-content-center mx-auto about-circle-wrapper">
-                        <img src="{{ asset('svg/code-logo.svg') }}" class="img-fluid w-100" alt="Code Vector">
+                <div class="row justify-content-center g-4 mt-3">
+                    <div class="col-12 col-sm-8 col-md-5 col-lg-4" data-aos="flip-left" data-aos-delay="100">
+                        <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
+                            <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook" class="img-fluid mb-4"
+                                style="height: 90px;">
+                            <h6 class="fw-bold text-purple mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
+                            <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                                style="background-color: #5b1456; font-size: 14px;">Download</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-7 text-center text-lg-start" data-aos="fade-left" data-aos-duration="1000">
-                    <h2 class="fw-bolder mb-4 about-title" style="color: #5b1456;">Apa itu JKB FESTIVAL <span
-                            class="fw-bold">?</span></h2>
-
-                    <p class="text-purple fw-medium mb-4" style="font-size: 16px; line-height: 1.9;">
-                        JKB FEST hadir sebagai agenda tahunan HIMATRIS Politeknik Negeri Cilacap untuk memeriahkan Dies
-                        Natalis Jurusan Komputer dan Bisnis. Perayaan ini dirancang sebagai wadah inovasi serta
-                        kreativitas bagi mahasiswa dan masyarakat luas di bidang teknologi maupun bisnis.
-                    </p>
-
-                    <p class="text-purple fw-medium mb-0" style="font-size: 16px; line-height: 1.9;">
-                        Melalui rangkaian kompetisi dan seminar, festival ini menjadi ruang untuk mempererat kolaborasi
-                        serta kebersamaan antar civitas akademika. Semangat kami adalah menjadikan momen ini sebagai
-                        pusat pengembangan potensi yang lebih hidup, bermakna, dan penuh inspirasi.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="text-white text-center webdev-pad position-relative overflow-hidden d-flex align-items-center"
-        style="background-color: #fff7fd; z-index: 3;">
-
-        <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background-image: url('{{ asset('images/gelombang-ungu.png') }}'); background-size: 100% 100%; background-position: center; background-repeat: no-repeat; transform: scaleX(-1); z-index: -1;">
-        </div>
-
-        <div class="container position-relative z-2 mb-5" data-aos="zoom-in-up" data-aos-duration="1000">
-            <h1 class="text-gradient-custom fw-bolder mb-4" style="font-size: 36px;">Web Development</h1>
-            <p class="mx-auto" style="max-width: 900px; font-size: 15px; line-height: 1.9; opacity: 0.9;">
-                Kompetisi Web Development JKB Festival Himatris hadir sebagai wadah mahasiswa untuk mengasah kreativitas
-                dan kompetensi digital. Mengusung tema "D-CORE: Digital Competency and Innovation Arena", ajang ini
-                mendorong lahirnya inovasi web yang kolaboratif dan berdampak, sekaligus membuka ruang bagi talenta muda
-                untuk berjejaring dan berkontribusi dalam ekosistem teknologi masa depan.
-            </p>
-        </div>
-    </section>
-
-    <section id="asset" class="text-center" style="background-color: #fff7fd; position: relative; z-index: 4;">
-        <div class="container pb-4" data-aos="fade-up">
-            <div class="d-inline-block position-relative mb-5" data-aos="fade-up">
-                <h2 class="fw-bolder mb-0" style="color: #5b1456; font-size: 32px;">Download Assets</h2>
-                <div class="position-absolute bottom-0 start-50 translate-middle-x"
-                    style="width: 80%; height: 4px; background: linear-gradient(135deg, #D81E76 0%, #FF9933 100%); border-radius: 10px; margin-bottom: -15px;">
-                </div>
-            </div>
-
-            <div class="row justify-content-center g-4 mt-3">
-                <div class="col-12 col-sm-8 col-md-5 col-lg-4" data-aos="flip-left" data-aos-delay="100">
-                    <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
-                        <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook" class="img-fluid mb-4"
-                            style="height: 90px;">
-                        <h6 class="fw-bold text-purple mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
-                        <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
-                            style="background-color: #5b1456; font-size: 14px;">Download</button>
+                    <div class="col-12 col-sm-8 col-md-5 col-lg-4" data-aos="flip-right" data-aos-delay="300">
+                        <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
+                            <img src="{{ asset('images/icon-logo-pack.png') }}" alt="Logo Pack" class="img-fluid mb-4"
+                                style="height: 90px;">
+                            <h6 class="fw-bold text-purple mb-4">LOGO PACK<br>& ASSETS</h6>
+                            <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                                style="background-color: #5b1456; font-size: 14px;">Download</button>
+                        </div>
                     </div>
+                    <img src="{{ asset('svg/line-svg.svg') }}" class="line" style="margin-top: 5rem">
                 </div>
-                <div class="col-12 col-sm-8 col-md-5 col-lg-4" data-aos="flip-right" data-aos-delay="300">
-                    <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
-                        <img src="{{ asset('images/icon-logo-pack.png') }}" alt="Logo Pack" class="img-fluid mb-4"
-                            style="height: 90px;">
-                        <h6 class="fw-bold text-purple mb-4">LOGO PACK<br>& ASSETS</h6>
-                        <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
-                            style="background-color: #5b1456; font-size: 14px;">Download</button>
-                    </div>
-                </div>
-                <img src="{{ asset('svg/line-svg.svg') }}" class="line" style="margin-top: 5rem">
             </div>
-        </div>
-        </div>
+    </div>
     </section>
 
     <section id="timeline" class="py-5 text-center" style="background-color: #fff7fd;">
@@ -617,8 +623,7 @@
                 Festival</p>
         </div>
 
-        <div class="container position-relative timeline-line mt-4 mx-auto pb-5"
-            style="max-width: 900px; z-index: 2;">
+        <div class="container position-relative timeline-line mt-4 mx-auto pb-5" style="max-width: 900px; z-index: 2;">
 
             <div class="row timeline-row mb-4 position-relative" data-aos="fade-right">
                 <div class="col-md-6 pe-md-5 timeline-col d-flex justify-content-end">
@@ -774,8 +779,8 @@
                             </button>
                         </h2>
                         <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                            <div class="accordion-body">Penggantian anggota tim diperbolehkan maksimal H-3 sebelum
-                                penutupan pendaftaran dengan menghubungi panitia resmi.</div>
+                            <div class="accordion-body">Penggantian anggota tim <b>tidak</b> diperbolehkan setelah
+                                melakukan pendaftaran.</div>
                         </div>
                     </div>
 
@@ -857,7 +862,7 @@
 
         // SCRIPT COUNTDOWN
         const countDownDate = new Date("Apr 26, 2026 23:59:59").getTime();
-        const x = setInterval(function() {
+        const x = setInterval(function () {
             const now = new Date().getTime();
             const distance = countDownDate - now;
 
@@ -881,10 +886,10 @@
         }, 1000);
 
         // Navbar Change on Scroll
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const navbar = document.getElementById("mainNavbar");
 
-            window.addEventListener("scroll", function() {
+            window.addEventListener("scroll", function () {
                 if (window.scrollY > 50) {
                     navbar.classList.add("navbar-scrolled");
 

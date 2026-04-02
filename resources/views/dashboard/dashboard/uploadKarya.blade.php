@@ -70,7 +70,7 @@
                 </div>
                 <h3 class="fw-bold mb-0">
                     @if (isset($submission))
-                        Karya Telah Dikumpulkan
+                        Karya Telah Dikumpulkan — Anda masih bisa mengedit
                     @else
                         Team anda sudah terverifikasi
                     @endif
@@ -105,20 +105,38 @@
                         @if (auth()->user()->team?->status_team)
 
                             @if (isset($submission))
-                                {{-- Jika Sudah Upload Proposal --}}
-                                <div class="rounded-3 p-4 d-flex align-items-center gap-3"
+                                {{-- Jika Sudah Upload Proposal - Tampilkan link dan form edit --}}
+                                <div class="rounded-3 p-4 d-flex align-items-center gap-3 mb-4"
                                     style="background-color: #F0FDF4; border: 1px solid #267228;">
                                     <div>
                                         <img src="{{ asset('icons/dashboard/check-icon-green.svg') }}" alt="check-icon-green" />
                                     </div>
                                     <div>
                                         <h5 class="fw-semibold mb-1" style="color: #267228;">Link Proposal Dikirim</h5>
-                                        <small class="fw-light d-block " style="color: #267228;">
-                                            Terima kasih, link proposal telah kami terima. Mohon menunggu informasi
-                                            selanjutnya.
+                                        <small class="fw-light d-block" style="color: #267228;">
+                                            Terima kasih, link proposal telah kami terima. Anda masih bisa mengubah link di bawah ini.
                                         </small>
                                     </div>
                                 </div>
+
+                                <form action="{{ route('uploadKarya') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <small class="text-muted d-block mb-2 fw-semibold">Link Saat Ini</small>
+                                        <a href="{{ $submission }}" target="_blank" class="text-decoration-underline d-block mb-3" style="color: #5b1456; word-break: break-all;">
+                                            {{ $submission }}
+                                        </a>
+                                    </div>
+                                    <div class="mb-4">
+                                        <small class="text-muted d-block mb-2 fw-semibold">Edit Link Proposal</small>
+                                        <input type="text" name="link_karya" class="form-control p-3 rounded-3"
+                                            placeholder="Masukkan Link Proposal Baru" value="{{ $submission }}" required>
+                                    </div>
+                                    <button type="submit"
+                                        class="btn btn-custom w-100 py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 fw-semibold">
+                                        <i class="bi bi-pencil-square"></i> Perbarui Link
+                                    </button>
+                                </form>
                             @else
                                 {{-- Jika Tim Verified Tapi Belum Upload Proposal --}}
                                 <form action="{{ route('uploadKarya') }}" method="POST">

@@ -178,11 +178,11 @@
                             <small class="text-muted" style="font-size: 11px;">Kategori : Web Development</small>
                         </td>
                         <td>
-                            <a href="{{ $team->link_karya }}" class="drive-link">
+                            <a href="{{ $team->link_karya }}" target="_blank" class="drive-link">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                   <path d="M15.96 7.328c-.14-.236-.341-.429-.586-.554l-5.6-3.136a1.5 1.5 0 0 0-1.549 0l-5.6 3.136c-.245.125-.446.318-.586.554L.19 10.665c-.14.236-.211.5-.211.77 0 .269.071.534.211.77l1.85 3.134c.14.236.341.429.586.554.245.125.52.19.805.19h11.12c.285 0 .56-.065.805-.19.245-.125.446-.318.586-.554l1.85-3.134c.14-.236.211-.5.211-.77 0-.269-.071-.534-.211-.77l-1.849-3.337zM4.328 13.918L1.6 8.355l4.8-2.688 2.728 5.563-4.8 2.688zm5.553 0L7.153 8.355l4.8-2.688 2.728 5.563-4.8 2.688z"/>
                                 </svg>
-                                Link Google Drive
+                                Link Karya
                             </a>
                         </td>
                         <td class="fw-medium">{{ $team->waktu_submit }}</td>

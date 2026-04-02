@@ -37,12 +37,24 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('uploadKarya') }}"
-                    class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('uploadKarya') ? 'active' : '' }}"
-                    title="Upload">
-                    <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0">
-                    <span class="sidebar-label">Upload</span>
-                </a>
+                @if (auth()->user()->team && auth()->user()->team->status_team)
+                    <a href="{{ route('uploadKarya') }}"
+                        class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('uploadKarya') ? 'active' : '' }}"
+                        title="Upload">
+                        <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0">
+                        <span class="sidebar-label">Upload</span>
+                    </a>
+                @else
+                    <a href="javascript:void(0)"
+                        class="nav-link text-white-50 d-flex align-items-center sidebar-nav-link disabled"
+                        style="opacity: 0.5; cursor: not-allowed; pointer-events: auto;"
+                        title="Pembayaran belum terverifikasi oleh admin"
+                        onclick="event.preventDefault(); Swal.fire({icon: 'warning', title: 'Akses Terkunci', text: 'Pembayaran anda belum terverifikasi oleh admin. Silakan selesaikan pembayaran terlebih dahulu.', confirmButtonColor: '#5b1456'});">
+                        <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0" style="opacity: 0.5;">
+                        <span class="sidebar-label">Upload</span>
+                        <i class="bi bi-lock-fill ms-auto" style="font-size: 14px;"></i>
+                    </a>
+                @endif
             </li>
             <li class="nav-item">
                 <a href="{{ route('contact') }}"

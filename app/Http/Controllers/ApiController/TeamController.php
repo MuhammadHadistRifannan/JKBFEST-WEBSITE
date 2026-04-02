@@ -45,8 +45,14 @@ class TeamController extends Controller
         return redirect()->route('teamPeserta');
     }
 
-    public function Payment(TeamService $service){
+    public function Payment(Request $request, TeamService $service){
         $response = $service->HasPayment();
+
+        // If called via AJAX, return JSON response
+        if ($request->ajax()) {
+            return response()->json($response);
+        }
+
         if (!$response['status']){
             Alert::alert('Galat' , $response['message']);
             return redirect()->back();

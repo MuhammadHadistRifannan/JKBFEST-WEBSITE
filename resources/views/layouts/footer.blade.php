@@ -15,18 +15,18 @@
                        style="width: 40px; height: 40px; background-color: #D81E76;">
                         <i class="bi bi-instagram fs-5"></i>
                     </a>
-                    <a href="#" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
+                    <a href="https://www.youtube.com/@JKBFESTIVAL" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
                        style="width: 40px; height: 40px; background-color: #D81E76;">
                         <i class="bi bi-youtube fs-5"></i>
                     </a>
-                    <a href="#" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
+                    <!-- <a href="#" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
                        style="width: 40px; height: 40px; background-color: #D81E76;">
                         <i class="bi bi-facebook fs-5"></i>
-                    </a>
-                    <a href="#" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
+                    </a> -->
+                    <!-- <a href="#" class="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle transition-all" 
                        style="width: 40px; height: 40px; background-color: #D81E76;">
                         <i class="bi bi-linkedin fs-5"></i>
-                    </a>
+                    </a> -->
                 </div>
             </div>
 
@@ -64,17 +64,17 @@
             <div class="col-lg-4 col-md-6">
                 <h5 class="fw-bold mb-4" style="font-size: 18px;">Kontak</h5>
                 <ul class="list-unstyled d-flex flex-column gap-4 mb-0">
-                    <li class="d-flex align-items-start gap-3">
-                        <i class="bi bi-instagram fs-5 mt-1"></i>
-                        <span style="font-size: 14px; opacity: 0.9; line-height: 1.6;">@jkbfest</span>
+                    <li class="d-flex align-items-center gap-3">
+                        <i class="bi bi-instagram fs-5"></i>
+                        <a href="https://instagram.com/jkbfest" target="_blank" style="text-decoration: none; color: inherit; font-size: 14px; opacity: 0.9; line-height: 1.6;">@jkbfest</a>
                     </li>
-                    <li class="d-flex align-items-start gap-3">
-                        <i class="bi bi-envelope fs-5 mt-1"></i>
-                        <span style="font-size: 14px; opacity: 0.9; line-height: 1.6;">jkbfest@gmail.com</span>
+                    <li class="d-flex align-items-center gap-3">
+                        <i class="bi bi-envelope fs-5"></i>
+                        <a href="mailto:" target="_blank" style="text-decoration: none; color: inherit; font-size: 14px; opacity: 0.9; line-height: 1.6;">jkbfest@gmail.com</a>
                     </li>
-                    <li class="d-flex align-items-start gap-3">
-                        <i class="bi bi-telephone fs-5 mt-1"></i>
-                        <span style="font-size: 14px; opacity: 0.9; line-height: 1.6;">+62 813 2728 0676</span>
+                    <li class="d-flex align-items-center gap-3"target="_blank">
+                        <i class="bi bi-telephone fs-5"></i>
+                        <a href="https://wa.me/6285183700720" target="_blank" style="text-decoration: none; color: inherit; font-size: 14px; opacity: 0.9; line-height: 1.6;">+62 85-183-700-720</a>
                     </li>
                 </ul>
             </div>
