@@ -45,7 +45,7 @@ class UserService
         //validate
         $validated = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/'
+            'password' => 'required|min:8'
         ]);
 
         //read database
