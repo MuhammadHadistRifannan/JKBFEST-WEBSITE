@@ -168,7 +168,7 @@
                                 <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon"> Pending
                             </button>
                         @else
-                            <button type="button" class="btn btn-custom-green w-100 py-2 fw-semibold rounded-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                            <button type="button" class="btn btn-custom-green w-100 py-2 fw-semibold rounded-3 shadow-sm" id="btnBayar">
                                 Bayar
                             </button>
                         @endif
@@ -289,21 +289,10 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-column flex-sm-row gap-2">
-                                <div class="w-100 w-sm-50">
-                                    <button type="button" class="btn btn-cancel-custom w-100 rounded-3 py-2" style="height: 40px" data-bs-dismiss="modal">
-                                        Batalkan
-                                    </button>
-                                </div>
-
-                                <div class="w-100 w-sm-50">
-                                    <form action="{{ route('hasPayment') }}" method="GET">
-                                        @csrf
-                                        <button type="submit" class="btn btn-custom w-100 rounded-3 py-2 fw-semibold">
-                                            Saya Sudah Bayar
-                                        </button>
-                                    </form>
-                                </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-cancel-custom w-100 rounded-3 py-2" style="height: 40px" data-bs-dismiss="modal" onclick="window.location.reload();">
+                                    Batalkan
+                                </button>
                             </div>
 
                         </div>
@@ -314,4 +303,46 @@
 
     @endif 
     @include('sweetalert::alert')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnBayar = document.getElementById('btnBayar');
+            if (btnBayar) {
+                btnBayar.addEventListener('click', function() {
+                    // Trigger hasPayment via AJAX
+                    fetch('{{ route('hasPayment') }}', {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status) {
+                            // Payment recorded successfully, open the modal
+                            var paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                            paymentModal.show();
+                        } else {
+                            // Show error (e.g., document not uploaded yet)
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Tidak Dapat Melanjutkan',
+                                text: data.message || 'Upload dokumen team terlebih dahulu, disertai bukti pembayaran.',
+                                confirmButtonColor: '#5b1456'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: 'Gagal memproses pembayaran. Silakan coba lagi.',
+                            confirmButtonColor: '#5b1456'
+                        });
+                    });
+                });
+            }
+        });
+    </script>
 @endsection

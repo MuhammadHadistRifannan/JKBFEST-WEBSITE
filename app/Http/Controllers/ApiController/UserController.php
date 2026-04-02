@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\AdminService;
 use App\Services\UserService;
 use App\Services\ResponseService;
+use App\Models\SpecialUser;
 use App\UserDto;
 use Auth;
 use DB;
@@ -26,6 +27,20 @@ class UserController extends Controller
      */
     public function login(Request $request, UserService $service)
     {
+        // Check if the user is an admin (SpecialUser) first
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $specialUser = SpecialUser::where('email', $validated['email'])->first();
+        if ($specialUser && password_verify($validated['password'], $specialUser->password)) {
+            session(['special_user' => $specialUser]);
+            Alert::success('Success', 'Berhasil Login admin');
+            return redirect()->route('admin.dashboard');
+        }
+
+        // Otherwise, proceed with normal user login
         $response = $service->loginService($request);
 
         if (!$response['status']) {

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -16,7 +17,8 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!session('special_user')){
-            return redirect()->route('admin.loginAdmin');
+            Alert::warning('Akses Ditolak', 'Silakan login dengan akun admin.');
+            return redirect()->route('login.view');
         }
 
         return $next($request);

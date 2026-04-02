@@ -118,7 +118,7 @@
 @php 
 
 session([
-    'total_penghasilan' => \App\Models\Penghasilan::sum('uang_masuk')
+    'total_penghasilan' => \App\Models\Team::where('status_team', 1)->count() * 70000
 ]);
 
 @endphp

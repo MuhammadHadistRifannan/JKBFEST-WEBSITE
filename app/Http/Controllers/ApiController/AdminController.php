@@ -33,7 +33,8 @@ class AdminController extends Controller
     public function logout(){
         session()->forget('special_user');
         session()->flush();
-        return redirect()->route('admin.loginAdmin');
+        Alert::success('Logout', 'Logout Admin Berhasil');
+        return redirect()->route('login.view');
     }
 
     public function dashboard(AdminService $service, LogService $logService)

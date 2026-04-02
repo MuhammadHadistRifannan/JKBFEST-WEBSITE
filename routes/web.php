@@ -16,8 +16,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         return redirect()->route('admin.dashboard');
     });
 
-    Route::get('/login', [AdminController::class , 'loginView'])->name('loginAdmin');
-    Route::post('/login',[AdminController::class, 'login'])->name('login');
+    Route::get('/login', function () {
+        return redirect()->route('login.view');
+    })->name('loginAdmin');
+    Route::post('/login', function () {
+        return redirect()->route('login.view');
+    })->name('login');
 
     Route::middleware(AdminMiddleware::class)->group(function() {
 
@@ -65,6 +69,11 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     })->name('contact');
 
     Route::get('/uploadKarya', function () {
+        $team = auth()->user()->team;
+        if (!$team || !$team->status_team) {
+            Alert::warning('Akses Terkunci', 'Pembayaran anda belum terverifikasi oleh admin. Silakan selesaikan pembayaran terlebih dahulu.');
+            return redirect()->route('teamPeserta');
+        }
         return view('dashboard.dashboard.uploadKarya');
     })->name('uploadKarya');
 
