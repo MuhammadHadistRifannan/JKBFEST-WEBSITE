@@ -92,19 +92,15 @@ class UserController extends Controller
 
     public function resendOtp(Request $request, UserService $service)
     {
-        $response = $service->ResendOtp($request);
+        $response = $service->SendOtp(['email' => $request->email]);
 
         if (!$response['status']) {
-            return response()->json([
-                'status' => false,
-                'message' => $response['message']
-            ]);
+            Alert::error('Gagal', $response['message']);
+            return redirect()->back();
         }
 
-        return response()->json([
-            'status' => true,
-            'message' => 'OTP has sent to email'
-        ]);
+        Alert::success('Berhasil', 'Kode OTP baru telah dikirim ke email Anda.');
+        return redirect()->back();
     }
 
     public function logout(Request $request)

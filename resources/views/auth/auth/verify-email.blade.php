@@ -158,118 +158,39 @@ $data =session('verification_data') ?? [];
 
                             <div class="mt-3">
                                 <span class="text-muted" style="font-size: 14px;">Tidak Menerima Kode?</span>
-                                <a id="resendBtn" href="{{ route('resend_otp') . '?email=' . $data['email'] }}"
-                                    class="text-custom-purple fw-bold text-decoration-none" style="font-size: 14px;">
-                                    Kirim Ulang
-                                </a>
-                                <span id="countdown" style="font-size:14px; margin-left:10px;"></span>
-                                <input type="hidden" id="email" value="{{ $data['email'] }}">
-                                <script>
-                                    let resendBtn = document.getElementById("resendBtn");
-                                    let countdownText = document.getElementById("countdown");
-
-                                    let isProcessing = false; // anti spam
-
-                                    resendBtn.addEventListener("click", function (e) {
-
-                                        e.preventDefault();
-
-                                        if (isProcessing) return; // jika sedang proses, hentikan
-
-                                        isProcessing = true;
-
-                                        resendBtn.style.pointerEvents = "none";
-                                        resendBtn.style.opacity = "0.5";
-
-                                        let email = document.getElementById("email").value;
-
-                                        fetch("{{ route('resend_otp') }}", {
-                                            method: "POST",
-                                            headers: {
-                                                "Content-Type": "application/json",
-                                                "Accept": "application/json",
-                                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                                            },
-                                            body: JSON.stringify({
-                                                email: email
-                                            })
-                                        })
-                                            .then(res => {
-                                                if (!res.ok) {
-                                                    // Jika 419 = CSRF expired, atau error lain
-                                                    throw new Error('HTTP ' + res.status);
-                                                }
-                                                return res.json();
-                                            })
-                                            .then(data => {
-
-                                                if (data.status) {
-
-                                                    Swal.fire({
-                                                        icon: 'success',
-                                                        title: 'Success',
-                                                        text: data.message
-                                                    });
-
-                                                    startCountdown();
-
-                                                } else {
-
-                                                    Swal.fire({
-                                                        icon: 'error',
-                                                        title: 'Error',
-                                                        text: data.message
-                                                    });
-
-                                                    resendBtn.style.pointerEvents = "auto";
-                                                    resendBtn.style.opacity = "1";
-                                                    isProcessing = false;
-                                                }
-
-                                            })
-                                            .catch(error => {
-                                                console.error('Resend OTP Error:', error);
-                                                Swal.fire({
-                                                    icon: 'error',
-                                                    title: 'Gagal',
-                                                    text: 'Sesi habis atau terjadi kesalahan. Muat ulang halaman lalu coba lagi.'
-                                                }).then(() => {
-                                                    location.reload();
-                                                });
-                                                resendBtn.style.pointerEvents = "auto";
-                                                resendBtn.style.opacity = "1";
-                                                isProcessing = false;
-                                            });
-
-                                    });
-
-
-                                    function startCountdown() {
-
-                                        let timeLeft = 60;
-
-                                        let timer = setInterval(function () {
-
-                                            countdownText.innerText = " (" + timeLeft + "s)";
-                                            timeLeft--;
-
-                                            if (timeLeft < 0) {
-
-                                                clearInterval(timer);
-
-                                                resendBtn.style.pointerEvents = "auto";
-                                                resendBtn.style.opacity = "1";
-                                                countdownText.innerText = "";
-
-                                                isProcessing = false;
-                                            }
-
-                                        }, 1000);
-
-                                    }
-                                </script>
                             </div>
                         </form>
+
+                        {{-- Form terpisah untuk Kirim Ulang OTP --}}
+                        <form action="{{ route('resend_otp') }}" method="POST" class="mt-2">
+                            @csrf
+                            <input type="hidden" name="email" value="{{ $data['email'] ?? '' }}">
+                            <button type="submit" id="resendBtn"
+                                class="btn btn-link text-custom-purple fw-bold text-decoration-none p-0"
+                                style="font-size: 14px;">
+                                Kirim Ulang
+                            </button>
+                            <span id="countdown" style="font-size:14px; margin-left:10px;"></span>
+                        </form>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                let resendBtn = document.getElementById("resendBtn");
+                                let resendForm = resendBtn.closest('form');
+                                let countdownText = document.getElementById("countdown");
+                                let isProcessing = false;
+
+                                resendForm.addEventListener("submit", function(e) {
+                                    if (isProcessing) {
+                                        e.preventDefault();
+                                        return;
+                                    }
+                                    isProcessing = true;
+                                    resendBtn.disabled = true;
+                                    resendBtn.style.opacity = "0.5";
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
