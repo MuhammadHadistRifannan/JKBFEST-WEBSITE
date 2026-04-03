@@ -11,11 +11,11 @@
         </div>
 
         {{-- Menu --}}
-        <ul class="nav nav-pills flex-column mb-auto sidebar-menu gap-1">
+        <ul class="nav nav-pills flex-column mb-auto sidebar-menu gap-2">
             <li class="nav-item">
                 <a href="/" class="nav-link text-white d-flex align-items-center sidebar-nav-link" title="Home">
                     <img src="{{ asset('icons/dashboard/home.svg') }}" alt="Home" class="icon-svg flex-shrink-0">
-                    <span class="sidebar-label">Home</span>
+                    <span class="sidebar-label ms-3">Home</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -24,7 +24,7 @@
                     title="Home">
                     <img src="{{ asset('icons/dashboard/dashboard.svg') }}" alt="Dashboard"
                         class="icon-svg flex-shrink-0">
-                    <span class="sidebar-label">Dashboard</span>
+                    <span class="sidebar-label ms-3">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -33,7 +33,7 @@
                     title="Team">
                     <img src="{{ asset('icons/dashboard/team-nav-icon.svg') }}" alt="Team"
                         class="icon-svg flex-shrink-0">
-                    <span class="sidebar-label">Team</span>
+                    <span class="sidebar-label ms-3">Team</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -42,7 +42,7 @@
                         class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('uploadKarya') ? 'active' : '' }}"
                         title="Upload">
                         <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0">
-                        <span class="sidebar-label">Upload</span>
+                        <span class="sidebar-label ms-3">Upload</span>
                     </a>
                 @else
                     <a href="javascript:void(0)"
@@ -51,7 +51,7 @@
                         title="Pembayaran belum terverifikasi oleh admin"
                         onclick="event.preventDefault(); Swal.fire({icon: 'warning', title: 'Akses Terkunci', text: 'Pembayaran anda belum terverifikasi oleh admin. Silakan selesaikan pembayaran terlebih dahulu.', confirmButtonColor: '#5b1456'});">
                         <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0" style="opacity: 0.5;">
-                        <span class="sidebar-label">Upload</span>
+                        <span class="sidebar-label ms-3">Upload</span>
                         <i class="bi bi-lock-fill ms-auto" style="font-size: 14px;"></i>
                     </a>
                 @endif
@@ -62,7 +62,7 @@
                     title="Contact">
                     <img src="{{ asset('icons/dashboard/contact.svg') }}" alt="Contact Person"
                         class="icon-svg flex-shrink-0">
-                    <span class="sidebar-label">Contact Person</span>
+                    <span class="sidebar-label ms-3">Contact Person</span>
                 </a>
             </li>
         </ul>
@@ -72,11 +72,11 @@
             <form action="{{ route('logout') }}" method="POST" id="logout-form">
                 @csrf
                 <button type="submit"
-                    class="btn btn-signout w-100 py-2 ps-4 d-flex align-items-center justify-content-start gap-2 shadow sidebar-signout-btn"
+                    class="btn btn-signout w-100 py-2 px-3 d-flex align-items-center justify-content-center gap-2 shadow-sm sidebar-signout-btn"
                     title="Sign Out">
                     <img src="{{ asset('icons/dashboard/sign-out.svg') }}" alt="Sign Out"
                         class="icon-svg flex-shrink-0">
-                    <span class="sidebar-label">Sign Out</span>
+                    <span class="sidebar-label fw-bold">Sign Out</span>
                 </button>
             </form>
         </div>

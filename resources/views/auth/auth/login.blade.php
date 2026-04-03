@@ -31,6 +31,12 @@
                 </div>
 
                 <div class="register-card border-custom position-relative">
+                    <a href="/" class="position-absolute text-custom-purple text-decoration-none d-flex align-items-center gap-2" 
+                       style="top: 24px; right: 28px; z-index: 10; font-weight: 600; opacity: 0.7; transition: 0.3s;" 
+                       onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'" title="Kembali ke Beranda">
+                        <span style="font-size: 14px;">Kembali</span>
+                        <i class="bi bi-arrow-right-short fs-4"></i>
+                    </a>
                     <div class="decoration-top-right position-absolute top-0 end-0">
                         <img src="{{ asset('icons/auth/top-corner-auth.svg') }}" alt="top-corner-decoration" />
                     </div>

@@ -201,6 +201,12 @@
         /* Collapsed sidebar on desktop */
         body.sb-sidenav-toggled #sidebar-wrapper {
             width: 80px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body.sb-sidenav-toggled #sidebar-wrapper::-webkit-scrollbar {
+            display: none;
         }
 
         body.sb-sidenav-toggled #page-content-wrapper {
@@ -304,14 +310,9 @@
 
     .sidebar-nav-link .icon-svg {
         display: inline-block;
-        padding: 6px;
-        border-radius: 8px;
-        transition: background-color 180ms ease, transform 180ms ease;
+        width: 24px;
+        text-align: center;
         background: transparent;
-    }
-
-    .sidebar-nav-link:hover .icon-svg {
-        background: rgba(255, 255, 255, 0.08);
     }
 
     .nav-pills .sidebar-nav-link.active {
