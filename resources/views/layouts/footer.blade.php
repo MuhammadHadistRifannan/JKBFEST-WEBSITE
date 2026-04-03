@@ -70,7 +70,7 @@
                     </li>
                     <li class="d-flex align-items-center gap-3">
                         <i class="bi bi-envelope fs-5"></i>
-                        <a href="mailto:jkbfestvol3@gmail.com" target="_blank" style="text-decoration: none; color: inherit; font-size: 14px; opacity: 0.9; line-height: 1.6;">jkbfest@gmail.com</a>
+                        <a href="mailto:jkbfestvol3@gmail.com" target="_blank" style="text-decoration: none; color: inherit; font-size: 14px; opacity: 0.9; line-height: 1.6;">jkbfestvol3@gmail.com</a>
                     </li>
                     <li class="d-flex align-items-center gap-3"target="_blank">
                         <i class="bi bi-telephone fs-5"></i>
