@@ -112,9 +112,9 @@
                                         <img src="{{ asset('icons/dashboard/check-icon-green.svg') }}" alt="check-icon-green" />
                                     </div>
                                     <div>
-                                        <h5 class="fw-semibold mb-1" style="color: #267228;">Link Proposal Dikirim</h5>
+                                        <h5 class="fw-semibold mb-1" style="color: #267228;">Link Google Drive Dikirim</h5>
                                         <small class="fw-light d-block" style="color: #267228;">
-                                            Terima kasih, link proposal telah kami terima. Anda masih bisa mengubah link di bawah ini.
+                                            Terima kasih, Link Google Drive Proposal telah kami terima. Anda masih bisa mengubah link di bawah ini.
                                         </small>
                                     </div>
                                 </div>
@@ -128,9 +128,9 @@
                                         </a>
                                     </div>
                                     <div class="mb-4">
-                                        <small class="text-muted d-block mb-2 fw-semibold">Edit Link Proposal</small>
+                                        <small class="text-muted d-block mb-2 fw-semibold">Edit Link Google Drive Proposal</small>
                                         <input type="text" name="link_karya" class="form-control p-3 rounded-3"
-                                            placeholder="Masukkan Link Proposal Baru" value="{{ $submission }}" required>
+                                            placeholder="Masukkan Link Google Drive Proposal Baru" value="{{ $submission }}" required>
                                     </div>
                                     <button type="submit"
                                         class="btn btn-custom w-100 py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 fw-semibold">
@@ -144,7 +144,7 @@
                                     <div class="mb-4">
                                         <small class="text-muted d-block mb-2 fw-semibold">Form Submission</small>
                                         <input type="text" name="link_karya" class="form-control p-3 rounded-3"
-                                            placeholder="Masukkan Link Proposal" required>
+                                            placeholder="Masukkan Link Google Drive Proposal" required>
                                     </div>
                                     <button type="submit"
                                         class="btn btn-custom w-100 py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 fw-semibold">
