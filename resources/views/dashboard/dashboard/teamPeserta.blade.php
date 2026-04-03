@@ -293,7 +293,7 @@
                                         <img src="{{ asset('icons/dashboard/dana-icon.svg') }}" class="mb-2" alt="DANA">
                                         <p class="fw-light mb-0" style="font-size: 10px;">No Dana</p>
                                         <p class="mb-0 small ">081327280676</p>
-                                        <small class="fw-light d-block mb-2" style="font-size: 10px;">a.n Ahmed Amirul Azmi</small>
+                                        <small class="fw-light d-block mb-2" style="font-size: 10px;">a.n Ahmad Amirul Azmi</small>
                                         <button class="btn btn-sm btn-outline-secondary w-100 py-1 mt-2 copy-btn" data-copy="081327280676" style="font-size: 12px; border-radius: 8px;">
                                             Salin Nomor
                                         </button>
@@ -304,7 +304,7 @@
                                         <img src="{{ asset('icons/dashboard/bni-icon.svg') }}" class="mb-3 mt-1" alt="BNI">
                                         <p class="fw-light mb-0" style="font-size: 10px;">No Rekening</p>
                                         <p class="mb-0 small">1952571644</p>
-                                        <small class="fw-light d-block mb-2" style="font-size: 10px;">a.n Ahmed Amirul Azmi</small>
+                                        <small class="fw-light d-block mb-2" style="font-size: 10px;">a.n Ahmad Amirul Azmi</small>
                                         <button class="btn btn-sm btn-outline-secondary w-100 py-1 mt-2 copy-btn" data-copy="1952571644" style="font-size: 12px; border-radius: 8px;">
                                             Salin Nomor
                                         </button>

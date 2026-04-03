@@ -593,7 +593,7 @@
                             <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook" class="img-fluid mb-4"
                                 style="height: 90px;">
                             <h6 class="fw-bold text-purple mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
-                            <a href="https://drive.google.com/file/d/111YsYj0yBBJSneoyCI0y927W5M0-pSOW/view?usp=drive_link" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                            <a href="https://drive.google.com/file/d/1YQ_8Tge1ybQto79cSpAjOU7ipZsoDQwc/view?usp=sharing" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
                                 style="background-color: #5b1456; font-size: 14px;">Download</a>
                         </div>
                     </div>
@@ -602,7 +602,7 @@
                             <img src="{{ asset('images/icon-logo-pack.png') }}" alt="Logo Pack" class="img-fluid mb-4"
                                 style="height: 90px;">
                             <h6 class="fw-bold text-purple mb-4">LOGO PACK<br>& ASSETS</h6>
-                            <a href="https://drive.google.com/drive/folders/1Eo1KygmKDyir63SWWRW0TmGWdvOwYfdG?usp=drive_link" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                            <a href="https://drive.google.com/drive/folders/1Eo1KygmKDyir63SWWRW0TmGWdvOwYfdG?usp=sharing" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
                                 style="background-color: #5b1456; font-size: 14px;">Download</a>
                         </div>
                     </div>
