@@ -197,7 +197,7 @@
                                 </div>
                                 <div class="overflow-hidden">
                                     <h6 class="mb-0 fw-normal text-truncate">
-                                        {{ auth()->user()->team->team_name ?? 'Team' }}_Web jkb fest.pdf
+                                        {{ basename(auth()->user()->team->document->document_path) }}
                                     </h6>
                                 </div>
                             </div>
