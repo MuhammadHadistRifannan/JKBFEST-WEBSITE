@@ -154,7 +154,7 @@
                         @if (auth()->user()->team && !auth()->user()->team->status_team && !auth()->user()->team->document?->document_path && $isAlmostClosed)
                             <div class="rounded-3 p-3 mb-3" style="background:#FFE3E0; border:1px solid #EB5243;">
                                 <small class="fw-light alert-custom">
-                                    Segera lakukan pembayaran dan unggah bukti pembayaran sebelum batas waktu pendaftaran ditutup.
+                                    Unggah bukti terlebih dahulu sebelum konfirmasi pembayaran!
                                 </small>
                             </div>
                         @endif

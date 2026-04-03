@@ -191,7 +191,7 @@
 
                         <div>
                             <small class="text-muted d-block mb-1 fw-semibold">Grup Whatsapp Lomba</small>
-                            <a href="#" class="text-decoration-underline fw-medium d-flex align-items-center gap-2"
+                            <a href="https://chat.whatsapp.com/Kn4kZzqlXIa8KYotys7dxQ?mode=gi_t" target="_blank" class="text-decoration-underline fw-medium d-flex align-items-center gap-2"
                                 style="color: #27AE60;">
                                 <i class="bi bi-whatsapp fs-5"></i>
                                 Bergabung Grup WhatsApp
