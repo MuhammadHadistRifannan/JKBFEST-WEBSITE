@@ -598,7 +598,7 @@
                             <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook"
                                 class="img-fluid mb-4" style="height: 90px;">
                             <h6 class="fw-bold text-purple mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
-                            <a href="https://drive.google.com/file/d/1YQ_8Tge1ybQto79cSpAjOU7ipZsoDQwc/view?usp=sharing"
+                            <a href="https://drive.google.com/drive/folders/120Q771pWmsFCsiBc1yCoA0M9u73KfMuy?usp=drive_link"
                                 target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
                                 style="background-color: #5b1456; font-size: 14px;">Download</a>
                         </div>
