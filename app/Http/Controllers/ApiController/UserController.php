@@ -142,8 +142,27 @@ class UserController extends Controller
 
     }
 
-    public function sendQuestion(){
-        Alert::success('Success' , 'Pertanyaan anda telah terkirim');
+    public function sendQuestion(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+        ]);
+
+        try {
+            Mail::to('ukm.pemrograman@pnc.ac.id')->send(
+                new \App\Mail\SendQuestionMail(
+                    $request->name,
+                    $request->email,
+                    $request->message
+                )
+            );
+
+            Alert::success('Terkirim!', 'Pertanyaan anda telah berhasil dikirim ke panitia.');
+        } catch (\Exception $e) {
+            Alert::error('Gagal', 'Terjadi kesalahan saat mengirim pesan. Silakan coba lagi.');
+        }
+
         return redirect()->back();
     }
 
