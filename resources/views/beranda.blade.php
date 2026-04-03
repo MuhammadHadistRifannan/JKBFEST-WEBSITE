@@ -431,7 +431,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top w-100 shadow p-0" style="z-index: 9999;" id="mainNavbar">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center py-3" href="#">
+            <a class="navbar-brand d-flex align-items-center py-0 py-md-3 " href="#">
                 <img src="{{ asset('images/logo-jkb-navbar.png') }}" alt="JKB Fest" style="width: 64px; height: 64px;">
             </a>
 
@@ -441,7 +441,7 @@
             </button>
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav align-items-center gap-4">
+                <div class="navbar-nav align-items-center gap-4">
                     <li class="nav-item"><a class="nav-link text-white fw-medium" href="#">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link text-white fw-medium" href="#tentang">Tentang</a></li>
                     <li class="nav-item"><a class="nav-link text-white fw-medium" href="#asset">Asset</a></li>
@@ -456,9 +456,9 @@
                             {{ auth()->user() ? auth()->user()->name : 'Login' }}
                         </a>
                     </li>
-                </ul>
+                    </ ul>
+                </div>
             </div>
-        </div>
     </nav>
 
     <div style="">
@@ -483,22 +483,26 @@
                             <p class="fw-bold mb-3" style="font-size: 12px;">Pendaftaran Terakhir</p>
                             <div class="d-flex gap-3 gap-md-4 countdown-items">
                                 <div class="text-center countdown-box">
-                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="days">00
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="days">
+                                        00
                                     </div>
                                     <div class="fw-normal" style="font-size: 11px;">Hari</div>
                                 </div>
                                 <div class="text-center countdown-box">
-                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="hours">00
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="hours">
+                                        00
                                     </div>
                                     <div class="fw-normal" style="font-size: 11px;">Jam</div>
                                 </div>
                                 <div class="text-center countdown-box">
-                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="minutes">00
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="minutes">
+                                        00
                                     </div>
                                     <div class="fw-normal" style="font-size: 11px;">Menit</div>
                                 </div>
                                 <div class="text-center countdown-box">
-                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="seconds">00
+                                    <div class="fw-bold lh-1 countdown-number" style="font-size: 36px;" id="seconds">
+                                        00
                                     </div>
                                     <div class="fw-normal" style="font-size: 11px;">Detik</div>
                                 </div>
@@ -578,7 +582,8 @@
             </div>
         </section>
 
-        <section id="asset" class="text-center" style="background-color: #fff7fd; position: relative; z-index: 4;">
+        <section id="asset" class="text-center"
+            style="background-color: #fff7fd; position: relative; z-index: 4;">
             <div class="container pb-4" data-aos="fade-up">
                 <div class="d-inline-block position-relative mb-5" data-aos="fade-up">
                     <h2 class="fw-bolder mb-0" style="color: #5b1456; font-size: 32px;">Download Assets</h2>
@@ -590,19 +595,21 @@
                 <div class="row justify-content-center g-4 mt-3">
                     <div class="col-12 col-sm-8 col-md-5 col-lg-4" data-aos="flip-left" data-aos-delay="100">
                         <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
-                            <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook" class="img-fluid mb-4"
-                                style="height: 90px;">
+                            <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook"
+                                class="img-fluid mb-4" style="height: 90px;">
                             <h6 class="fw-bold text-purple mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
-                            <a href="https://drive.google.com/file/d/1YQ_8Tge1ybQto79cSpAjOU7ipZsoDQwc/view?usp=sharing" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                            <a href="https://drive.google.com/file/d/1YQ_8Tge1ybQto79cSpAjOU7ipZsoDQwc/view?usp=sharing"
+                                target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
                                 style="background-color: #5b1456; font-size: 14px;">Download</a>
                         </div>
                     </div>
                     <div class="col-12 col-sm-8 col-md-5 col-lg-4" data-aos="flip-right" data-aos-delay="300">
                         <div class="bg-white asset-card-custom p-4 p-md-5 h-100 shadow-sm">
-                            <img src="{{ asset('images/icon-logo-pack.png') }}" alt="Logo Pack" class="img-fluid mb-4"
-                                style="height: 90px;">
+                            <img src="{{ asset('images/icon-logo-pack.png') }}" alt="Logo Pack"
+                                class="img-fluid mb-4" style="height: 90px;">
                             <h6 class="fw-bold text-purple mb-4">LOGO PACK<br>& ASSETS</h6>
-                            <a href="https://drive.google.com/drive/folders/1Eo1KygmKDyir63SWWRW0TmGWdvOwYfdG?usp=sharing" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                            <a href="https://drive.google.com/drive/folders/1Eo1KygmKDyir63SWWRW0TmGWdvOwYfdG?usp=sharing"
+                                target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
                                 style="background-color: #5b1456; font-size: 14px;">Download</a>
                         </div>
                     </div>
@@ -624,7 +631,8 @@
                 Festival</p>
         </div>
 
-        <div class="container position-relative timeline-line mt-4 mx-auto pb-5" style="max-width: 900px; z-index: 2;">
+        <div class="container position-relative timeline-line mt-4 mx-auto pb-5"
+            style="max-width: 900px; z-index: 2;">
 
             <div class="row timeline-row mb-4 position-relative" data-aos="fade-right">
                 <div class="col-md-6 pe-md-5 timeline-col d-flex justify-content-end">
@@ -863,7 +871,7 @@
 
         // SCRIPT COUNTDOWN
         const countDownDate = new Date("Apr 26, 2026 23:59:59").getTime();
-        const x = setInterval(function () {
+        const x = setInterval(function() {
             const now = new Date().getTime();
             const distance = countDownDate - now;
 
@@ -887,10 +895,10 @@
         }, 1000);
 
         // Navbar Change on Scroll
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const navbar = document.getElementById("mainNavbar");
 
-            window.addEventListener("scroll", function () {
+            window.addEventListener("scroll", function() {
                 if (window.scrollY > 50) {
                     navbar.classList.add("navbar-scrolled");
 
