@@ -201,8 +201,11 @@
                                     </h6>
                                 </div>
                             </div>
-                            @if(!auth()->user()->team->document?->has_payed && auth()->user()->team->document?->status_document !== 'approved')
                             <div class="flex-shrink-0 d-flex gap-2 align-items-center">
+                                <a href="{{ asset('storage/' . auth()->user()->team->document->document_path) }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Lihat Dokumen">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
+                                @if(!auth()->user()->team->document?->has_payed && auth()->user()->team->document?->status_document !== 'approved')
                                 <form action="{{ route('uploadDocument') }}" method="POST" enctype="multipart/form-data" class="m-0">
                                     @csrf
                                     <input type="file" name="document_file" id="documentUpdateInput" accept="application/pdf" hidden onchange="this.form.submit()">
@@ -210,12 +213,12 @@
                                 </form>
                                 <form action="{{ route('deleteDocument') }}" method="POST" class="m-0">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm text-danger border-0 p-0" title="Hapus Dokumen">
-                                        <i class="bi bi-x-circle-fill" style="font-size: 1.2rem;"></i>
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary p-1" title="Hapus Dokumen">
+                                        <i class="bi bi-x-circle-fill" style="font-size: 1rem;"></i> Hapus
                                     </button>
                                 </form>
+                                @endif
                             </div>
-                            @endif
                         </div>
                     @else
                         @if (auth()->user()->team && $isAlmostClosed)
