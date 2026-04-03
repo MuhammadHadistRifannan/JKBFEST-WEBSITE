@@ -20,6 +20,7 @@
             font-family: 'Poppins', sans-serif;
             /* background-color: #fff7fd; */
             color: #333;
+            overflow-x: hidden;
         }
 
         .hero-pad {
