@@ -336,7 +336,8 @@ class UserService
             }
 
         } catch (Exception $e) {
-            return ResponseService::MakeResponse(401, 'Server Error');
+            Log::error('ResendOtp Error: ' . $e->getMessage());
+            return ResponseService::MakeResponse(401, 'Server Error: ' . $e->getMessage());
         }
 
     }
