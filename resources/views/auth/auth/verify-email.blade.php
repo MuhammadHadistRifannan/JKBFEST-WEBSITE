@@ -219,6 +219,17 @@ $data =session('verification_data') ?? [];
                                                     isProcessing = false;
                                                 }
 
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error',
+                                                    text: 'Terjadi kesalahan sistem atau sesi habis. Coba muat ulang halaman.'
+                                                });
+                                                resendBtn.style.pointerEvents = "auto";
+                                                resendBtn.style.opacity = "1";
+                                                isProcessing = false;
                                             });
 
                                     });

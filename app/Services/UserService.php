@@ -307,8 +307,7 @@ class UserService
         }
 
         try {
-            //Check Otp in DB 
-            $data = EmailVerification::select('otp')->where('email', $email)->first();
+            $data = EmailVerification::where('email', $email)->first();
 
             if (!$data) {
                 $newOtp = random_int(100000, 999999);
@@ -324,19 +323,16 @@ class UserService
                 return ResponseService::MakeResponse(200, 'Otp has sent to email', status: 'success');
 
             } else {
-                if ($data->isOtpExpired($email)) {
+                $newOtp = random_int(100000, 999999);
+                
+                // Jika data sudah ada (expired atau belum), kita buat ulang OTP-nya saja agar aman
+                $data->update([
+                    'otp' => $newOtp,
+                    'expired_at' => now()->addMinutes(5)
+                ]);
 
-                    $data->update([
-                        'expired_at' => now()->addMinutes(5)
-                    ]);
-
-                    Mail::to($email)->send(new SendOtpMail($data->otp));
-                    return ResponseService::MakeResponse(200, 'Otp has sent to email', status: 'success');
-                } else {
-
-                    Mail::to($email)->send(new SendOtpMail($data->otp));
-                    return ResponseService::MakeResponse(200, 'Otp has sent to email', status: 'success');
-                }
+                Mail::to($email)->send(new SendOtpMail($newOtp));
+                return ResponseService::MakeResponse(200, 'Otp has sent to email', status: 'success');
             }
 
         } catch (Exception $e) {
