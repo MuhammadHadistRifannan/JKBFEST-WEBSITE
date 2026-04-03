@@ -345,7 +345,7 @@
             if (btnBayar) {
                 btnBayar.addEventListener('click', function() {
                     // Trigger hasPayment via AJAX
-                    fetch('{{ route('hasPayment') }}', {
+                    fetch('/haspay', {
                         method: 'GET',
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
