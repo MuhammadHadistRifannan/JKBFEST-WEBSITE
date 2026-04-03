@@ -147,11 +147,7 @@ class TeamService
         $document->has_payed = true;
         $document->save();
 
-        $document->update([
-            'has_payed' => true
-        ]);
-
-        return ResponseService::MakeResponse(200 , 'Pembayaran Berhasil , Selanjutnya akan dicek oleh panitia', status: 'Success');
+        return ResponseService::MakeResponse(200 , 'Pembayaran Berhasil, Selanjutnya akan dicek oleh panitia.', status: 'success');
     }
 
     public function CancelPayment(){

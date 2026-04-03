@@ -372,14 +372,14 @@
                             });
                         }
                     })
-                    .catch(error => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Terjadi Kesalahan',
-                            text: 'Gagal memproses pembayaran. Silakan coba lagi.',
-                            confirmButtonColor: '#5b1456'
-                        });
-                    });
+                    // .catch(error => {
+                    //     Swal.fire({
+                    //         icon: 'error',
+                    //         title: 'Terjadi Kesalahan',
+                    //         text: 'Gagal memproses pembayaran. Silakan coba lagi.',
+                    //         confirmButtonColor: '#5b1456'
+                        // });
+                    // });
                 });
             }
         });

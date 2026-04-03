@@ -48,8 +48,8 @@ class TeamController extends Controller
     public function Payment(Request $request, TeamService $service){
         $response = $service->HasPayment();
 
-        // If called via AJAX, return JSON response
-        if ($request->ajax()) {
+        // If called via AJAX (expects JSON), return JSON response
+        if ($request->expectsJson() || $request->ajax()) {
             return response()->json($response);
         }
 
