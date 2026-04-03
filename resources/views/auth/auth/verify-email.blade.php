@@ -187,13 +187,20 @@ $data =session('verification_data') ?? [];
                                             method: "POST",
                                             headers: {
                                                 "Content-Type": "application/json",
+                                                "Accept": "application/json",
                                                 "X-CSRF-TOKEN": "{{ csrf_token() }}"
                                             },
                                             body: JSON.stringify({
                                                 email: email
                                             })
                                         })
-                                            .then(res => res.json())
+                                            .then(res => {
+                                                if (!res.ok) {
+                                                    // Jika 419 = CSRF expired, atau error lain
+                                                    throw new Error('HTTP ' + res.status);
+                                                }
+                                                return res.json();
+                                            })
                                             .then(data => {
 
                                                 if (data.status) {
@@ -221,11 +228,13 @@ $data =session('verification_data') ?? [];
 
                                             })
                                             .catch(error => {
-                                                console.error(error);
+                                                console.error('Resend OTP Error:', error);
                                                 Swal.fire({
                                                     icon: 'error',
-                                                    title: 'Error',
-                                                    text: 'Terjadi kesalahan sistem atau sesi habis. Coba muat ulang halaman.'
+                                                    title: 'Gagal',
+                                                    text: 'Sesi habis atau terjadi kesalahan. Muat ulang halaman lalu coba lagi.'
+                                                }).then(() => {
+                                                    location.reload();
                                                 });
                                                 resendBtn.style.pointerEvents = "auto";
                                                 resendBtn.style.opacity = "1";
