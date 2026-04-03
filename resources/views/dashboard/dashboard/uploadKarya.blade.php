@@ -144,7 +144,7 @@
                                     <div class="mb-4">
                                         <small class="text-muted d-block mb-2 fw-semibold">Form Submission</small>
                                         <input type="text" name="link_karya" class="form-control p-3 rounded-3"
-                                            placeholder="Masukkan Link Google Drive Proposal" required>
+                                            placeholder="https://drive.google.com/drive/..." required>
                                     </div>
                                     <button type="submit"
                                         class="btn btn-custom w-100 py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 fw-semibold">
