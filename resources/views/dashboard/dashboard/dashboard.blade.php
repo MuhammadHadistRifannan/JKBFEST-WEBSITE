@@ -173,7 +173,7 @@
                             class="icon-svg">
                         <span class="fw-light">Ketentuan Pengumpulan</span>
                     </a>
-                    <a href="https://drive.google.com/drive/folders/1Eo1KygmKDyir63SWWRW0TmGWdvOwYfdG?usp=sharing" target="_blank" class="btn btn-custom rounded-3 fw-bold py-2">
+                    <a href="https://drive.google.com/drive/folders/120Q771pWmsFCsiBc1yCoA0M9u73KfMuy?usp=drive_link" target="_blank" class="btn btn-custom rounded-3 fw-bold py-2">
                         Download Guidebook
                     </a>
                 </div>
