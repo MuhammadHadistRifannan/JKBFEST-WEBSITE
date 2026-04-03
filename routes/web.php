@@ -80,6 +80,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/uploadDocument', [TeamController::class, 'UploadDocument'])->name('uploadDocument');
     Route::post('/uploadKarya', [TeamController::class , 'UploadKarya'])->name('uploadKarya');
     Route::get('/haspay' , [TeamController::class , 'Payment'])->name('hasPayment');
+    Route::post('/cancelPayment', [TeamController::class , 'CancelPayment'])->name('cancelPayment');
+    Route::post('/deleteDocument', [TeamController::class , 'DeleteDocument'])->name('deleteDocument');
 });
 
 Route::get('/', function () {

@@ -62,6 +62,18 @@ class TeamController extends Controller
         return redirect()->back(); 
     }
 
+    public function CancelPayment(Request $request, TeamService $service){
+        $response = $service->CancelPayment();
+
+        if (!$response['status']){
+            Alert::alert('Galat' , $response['message']);
+            return redirect()->back();
+        }
+
+        Alert::success('Berhasil' , $response['message']);
+        return redirect()->back();
+    }
+
     public function UploadKarya(Request $request , TeamService $service){
         $response = $service->UploadKarya($request);
 
@@ -71,6 +83,18 @@ class TeamController extends Controller
         }
 
         Alert::success('Success' , $response['message']);
+        return redirect()->back();
+    }
+
+    public function DeleteDocument(Request $request, TeamService $service)
+    {
+        $response = $service->DeleteDocument();
+        if (!$response['status']) {
+            Alert::error('Gagal', $response['message']);
+            return redirect()->back();
+        }
+
+        Alert::success('Berhasil', $response['message']);
         return redirect()->back();
     }
 

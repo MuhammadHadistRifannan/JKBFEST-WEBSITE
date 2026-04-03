@@ -153,6 +153,17 @@ class TeamService
         return ResponseService::MakeResponse(200 , 'Pembayaran Berhasil , Selanjutnya akan dicek oleh panitia', status: 'Success');
     }
 
+    public function CancelPayment(){
+        $team_id = auth()->user()->team->id; 
+        $document = Documents::where('team_id' , $team_id)->first();
+        if ($document){
+            $document->update([
+                'has_payed' => false
+            ]);
+        }
+        return ResponseService::MakeResponse(200 , 'Pembayaran dibatalkan, Anda dapat mengubah dokumen team.', status: 'Success');
+    }
+
     public function UploadKarya(Request $request){
         //link karya 
         $team_id = auth()->user()->team->id;
@@ -168,5 +179,24 @@ class TeamService
 
         return ResponseService::MakeResponse(200 , 'Karya telah dikumpulkan' , status: 'success');
 
+    }
+
+    public function DeleteDocument()
+    {
+        $team = Team::where('user_id', auth()->user()->id)->first();
+        if (!$team) {
+            return ResponseService::MakeResponse(404, 'Team tidak ditemukan');
+        }
+
+        $document = Documents::where('team_id', $team->id)->first();
+        if ($document) {
+            if ($document->document_path && Storage::disk('public')->exists($document->document_path)) {
+                Storage::disk('public')->delete($document->document_path);
+            }
+            $document->delete();
+            return ResponseService::MakeResponse(200, 'Dokumen berhasil dihapus', status: 'success');
+        }
+
+        return ResponseService::MakeResponse(400, 'Dokumen tidak ditemukan');
     }
 }

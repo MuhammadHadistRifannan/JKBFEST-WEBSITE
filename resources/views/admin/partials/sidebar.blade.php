@@ -1,6 +1,6 @@
-<div class="sidebar-gradient text-white d-flex flex-column position-relative h-100 sidebar-container" style="flex-shrink: 0;">
+<div class="sidebar-gradient text-white d-flex flex-column position-relative min-vh-100 sidebar-container" style="flex-shrink: 0;">
     <img src="{{ asset('images/corner-dash.png') }}" alt="Corner Decoration" class="position-absolute top-0 end-0 w-100 sidebar-decoration">
-    <div class="d-flex flex-column h-100 p-4 position-relative sidebar-content" style="z-index: 2;">
+    <div class="d-flex flex-column min-vh-100 p-4 position-relative sidebar-content" style="z-index: 2;">
         
         <div class="text-center mb-5 mt-2 pt-2 sidebar-logo">
             <img src="{{ asset('images/logo-dashboard.png') }}" alt="Logo" class="img-fluid logo-img">
@@ -39,7 +39,7 @@
             </li>
         </ul>
 
-        <div class="mt-auto mb-3 sidebar-signout">
+        <div class="mt-auto mb-3 sidebar-signout pt-3">
             <form action="{{ route('admin.logout') }}" method="POST" id="logout-form">
                 @csrf
                 <button type="submit" class="btn w-100 py-2 px-3 d-flex align-items-center justify-content-center gap-2 shadow-sm sidebar-signout-btn" style="background-color: #FF3B3B; color: white; border-radius: 12px; border: none;" title="Sign Out">

@@ -592,8 +592,8 @@
                             <img src="{{ asset('images/icon-guidebook.png') }}" alt="Guidebook" class="img-fluid mb-4"
                                 style="height: 90px;">
                             <h6 class="fw-bold text-purple mb-4">GUIDEBOOK<br>JKB FESTIVAL</h6>
-                            <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
-                                style="background-color: #5b1456; font-size: 14px;">Download</button>
+                            <a href="https://drive.google.com/drive/folders/1mNYSBJhHumpnUT7nyDT-R5uYKTMcufRK?usp=sharing" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                                style="background-color: #5b1456; font-size: 14px;">Download</a>
                         </div>
                     </div>
                     <div class="col-12 col-sm-8 col-md-5 col-lg-4" data-aos="flip-right" data-aos-delay="300">
@@ -601,8 +601,8 @@
                             <img src="{{ asset('images/icon-logo-pack.png') }}" alt="Logo Pack" class="img-fluid mb-4"
                                 style="height: 90px;">
                             <h6 class="fw-bold text-purple mb-4">LOGO PACK<br>& ASSETS</h6>
-                            <button class="btn text-white rounded-3 w-100 py-2 fw-semibold"
-                                style="background-color: #5b1456; font-size: 14px;">Download</button>
+                            <a href="https://drive.google.com/drive/folders/1mNYSBJhHumpnUT7nyDT-R5uYKTMcufRK?usp=sharing" target="_blank" class="btn text-white rounded-3 w-100 py-2 fw-semibold"
+                                style="background-color: #5b1456; font-size: 14px;">Download</a>
                         </div>
                     </div>
                     <img src="{{ asset('svg/line-svg.svg') }}" class="line" style="margin-top: 5rem">
@@ -726,7 +726,7 @@
         </div>
     </section>
 
-    <section id="sponsor" class="text-center position-relative d-flex align-items-center w-100"
+    <!-- <section id="sponsor" class="text-center position-relative d-flex align-items-center w-100"
         style="min-height: 550px; z-index: 3; background-color: #fff7fd">
 
         <div class="position-absolute top-0 start-0 w-100 h-100"
@@ -755,7 +755,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <section id="faq" class="pb-5" style="background-color: #fff7fd; position: relative; z-index: 4;">
         <div class="container">
@@ -808,7 +808,7 @@
                         </h2>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
                             <div class="accordion-body">Informasi resmi akan dipublikasikan di website ini dan
-                                Instagram @himatris.pnc.</div>
+                                Instagram @jkbfest</div>
                         </div>
                     </div>
 

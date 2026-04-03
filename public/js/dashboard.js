@@ -3,12 +3,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const sidebarBackdrop = document.body.querySelector("#sidebarBackdrop");
     const sidebarWrapper = document.body.querySelector("#sidebar-wrapper");
 
+    // Restore sidebar state from localStorage on desktop
+    if (window.innerWidth >= 768) {
+        if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+            document.body.classList.add("sb-sidenav-toggled");
+        }
+    } else {
+        document.body.classList.remove("sb-sidenav-toggled");
+    }
+
     if (sidebarToggle) {
         sidebarToggle.addEventListener("click", (event) => {
             event.preventDefault();
 
             if (window.innerWidth >= 768) {
                 document.body.classList.toggle("sb-sidenav-toggled");
+                localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains("sb-sidenav-toggled"));
             } else {
                 document.body.classList.toggle("sb-sidenav-toggled");
                 if (sidebarBackdrop) {

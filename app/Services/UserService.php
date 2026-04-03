@@ -80,7 +80,7 @@ class UserService
             'name' => 'required|string|min:3|max:100',
             'email' => 'required|email',
             'no_telepon' => 'required|min:8',
-            'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/'
+            'password' => 'required|min:8'
         ]);
 
 

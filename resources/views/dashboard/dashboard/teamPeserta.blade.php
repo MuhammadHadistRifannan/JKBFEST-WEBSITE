@@ -164,12 +164,18 @@
                         </div>
 
                         @if (auth()->user()->team && auth()->user()->team->document?->has_payed)
-                            <button type="button" class="btn btn-custom-green w-100 py-2 fw-semibold rounded-3 shadow-sm">
+                            <button type="button" class="btn btn-custom-green w-100 py-2 fw-semibold rounded-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#paymentModal">
                                 <img src="{{ asset('icons/dashboard/pending-icon.svg') }}" alt="pending-icon"> Pending
                             </button>
-                        @else
+                        @elseif (auth()->user()->team && auth()->user()->team->document?->document_path && auth()->user()->team->document?->document_path !== '')
+                            {{-- Document uploaded, but not yet paid --}}
                             <button type="button" class="btn btn-custom-green w-100 py-2 fw-semibold rounded-3 shadow-sm" id="btnBayar">
-                                Bayar
+                                Konfirmasi Pembayaran
+                            </button>
+                        @else
+                            {{-- Not uploaded yet --}}
+                            <button type="button" class="btn btn-custom-green w-100 py-2 fw-semibold rounded-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                Lihat Info Rekening
                             </button>
                         @endif
                     @endif
@@ -184,15 +190,32 @@
                     </p>
 
                     @if (auth()->user()->team && auth()->user()->team->document?->document_path && auth()->user()->team->document?->document_path !== '')
-                        <div class="bg-soft-pink border border-secondary p-3 rounded-3 d-flex align-items-center gap-3">
-                            <div class="flex-shrink-0">
-                                <img src="{{ asset('icons/dashboard/pdf-icons.svg') }}" alt="PDF Icon">
+                        <div class="bg-soft-pink border border-secondary p-3 rounded-3 d-flex align-items-center justify-content-between gap-3">
+                            <div class="d-flex align-items-center gap-3 overflow-hidden">
+                                <div class="flex-shrink-0">
+                                    <img src="{{ asset('icons/dashboard/pdf-icons.svg') }}" alt="PDF Icon">
+                                </div>
+                                <div class="overflow-hidden">
+                                    <h6 class="mb-0 fw-normal text-truncate">
+                                        {{ auth()->user()->team->team_name ?? 'Team' }}_Web jkb fest.pdf
+                                    </h6>
+                                </div>
                             </div>
-                            <div class="overflow-hidden">
-                                <h6 class="mb-0 fw-normal">
-                                    {{ auth()->user()->team->team_name ?? 'Team' }}_Web jkb fest.pdf
-                                </h6>
+                            @if(!auth()->user()->team->document?->has_payed && auth()->user()->team->document?->status_document !== 'approved')
+                            <div class="flex-shrink-0 d-flex gap-2 align-items-center">
+                                <form action="{{ route('uploadDocument') }}" method="POST" enctype="multipart/form-data" class="m-0">
+                                    @csrf
+                                    <input type="file" name="document_file" id="documentUpdateInput" accept="application/pdf" hidden onchange="this.form.submit()">
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.getElementById('documentUpdateInput').click()">Ubah</button>
+                                </form>
+                                <form action="{{ route('deleteDocument') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm text-danger border-0 p-0" title="Hapus Dokumen">
+                                        <i class="bi bi-x-circle-fill" style="font-size: 1.2rem;"></i>
+                                    </button>
+                                </form>
                             </div>
+                            @endif
                         </div>
                     @else
                         @if (auth()->user()->team && $isAlmostClosed)
@@ -290,9 +313,18 @@
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-cancel-custom w-100 rounded-3 py-2" style="height: 40px" data-bs-dismiss="modal" onclick="window.location.reload();">
-                                    Batalkan
+                                @if (auth()->user()->team && auth()->user()->team->document?->has_payed)
+                                <form action="{{ route('cancelPayment') }}" method="POST" class="w-100">
+                                    @csrf
+                                    <button type="submit" class="btn btn-cancel-custom w-100 rounded-3 py-2" style="height: 40px">
+                                        Batal Konfirmasi Pembayaran
+                                    </button>
+                                </form>
+                                @else
+                                <button type="button" class="btn btn-cancel-custom w-100 rounded-3 py-2" style="height: 40px" data-bs-dismiss="modal">
+                                    Tutup
                                 </button>
+                                @endif
                             </div>
 
                         </div>
@@ -320,11 +352,15 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.status) {
-                            // Payment recorded successfully, open the modal
-                            var paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-                            paymentModal.show();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: 'Pembayaran telah dikonfirmasi dan menunggu validasi panitia',
+                                confirmButtonColor: '#5b1456'
+                            }).then(() => {
+                                window.location.reload();
+                            });
                         } else {
-                            // Show error (e.g., document not uploaded yet)
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Tidak Dapat Melanjutkan',
