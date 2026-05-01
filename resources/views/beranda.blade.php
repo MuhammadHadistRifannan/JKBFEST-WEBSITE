@@ -870,7 +870,7 @@
         });
 
         // SCRIPT COUNTDOWN
-        const countDownDate = new Date("May 2, 2026 00:00:00").getTime();
+        const countDownDate = new Date("May 3, 2026 00:00:00").getTime();
         const x = setInterval(function() {
             const now = new Date().getTime();
             const distance = countDownDate - now;
