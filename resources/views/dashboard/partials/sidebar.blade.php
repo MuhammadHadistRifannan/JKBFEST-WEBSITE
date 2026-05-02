@@ -29,7 +29,7 @@
             </li>
 
             <li class="nav-item">
-                @if (!$isExpired)
+                @if (!$isExpiredTeam)
                     <a href="{{ route('teamPeserta') }}"
                         class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('teamPeserta') ? 'active' : '' }}"
                         title="Team">
@@ -59,14 +59,14 @@
                 @endif
             </li>
             <li class="nav-item">
-                @if (auth()->user()->team && auth()->user()->team->status_team && !$isExpired)
+                @if (auth()->user()->team && auth()->user()->team->status_team && !$isExpiredKarya)
                     <a href="{{ route('uploadKarya') }}"
                         class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('uploadKarya') ? 'active' : '' }}"
                         title="Upload">
                         <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0">
                         <span class="sidebar-label ms-3">Upload</span>
                     </a>
-                @elseif (auth()->user()->team && !auth()->user()->team->status_team && !$isExpired)
+                @elseif (auth()->user()->team && !auth()->user()->team->status_team && !$isExpiredKarya)
                     <a href="javascript:void(0)"
                         class="nav-link text-white-50 d-flex align-items-center sidebar-nav-link disabled"
                         style="opacity: 0.5; cursor: not-allowed; pointer-events: auto;"
@@ -77,7 +77,7 @@
                         <span class="sidebar-label ms-3">Upload</span>
                         <i class="bi bi-lock-fill ms-auto" style="font-size: 14px;"></i>
                     </a>
-                @elseif(!auth()->user()->team && !$isExpired)
+                @elseif(!auth()->user()->team && !$isExpiredKarya)
                     <a href="javascript:void(0)"
                         class="nav-link text-white-50 d-flex align-items-center sidebar-nav-link disabled"
                         style="opacity: 0.5; cursor: not-allowed; pointer-events: auto;"

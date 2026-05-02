@@ -29,9 +29,12 @@ class AppServiceProvider extends ServiceProvider
         }
 
         // TAMBAHIN ISEXPIRE DI SETIAP VIEW 
-        $batasWaktu = DeadlineService::deadline();
-        $isExpired = now()->greaterThan($batasWaktu);
+        $batasWaktuTeam = DeadlineService::deadlineTeam();
+        $batasWaktuKarya = DeadlineService::deadlineKarya();
+        $isExpiredTeam = now()->greaterThan($batasWaktuTeam);
+        $isExpiredKarya = now()->greaterThan($batasWaktuKarya);
 
-        View::share('isExpired', $isExpired);
+        View::share('isExpiredTeam', $isExpiredTeam);
+        View::share('isExpiredKarya', $isExpiredKarya);
     }
 }

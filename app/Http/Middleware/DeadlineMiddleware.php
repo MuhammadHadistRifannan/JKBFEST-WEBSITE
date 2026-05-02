@@ -17,9 +17,14 @@ class DeadlineMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (DeadlineService::isExpired() && request()->routeIs(DeadlineService::preservedRoutes())){
+        if (DeadlineService::isExpiredTeam() && request()->routeIs(DeadlineService::teamRoute())){
             return redirect()->route('dashboard');
         }
+
+        if (DeadlineService::isExpiredKarya() && request()->routeIs(DeadlineService::karyaRoute())){
+            return redirect()->route('dashboard');
+        }
+
         return $next($request);
     }
 }
