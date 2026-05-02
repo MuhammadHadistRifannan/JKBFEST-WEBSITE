@@ -11,7 +11,7 @@ class  DeadlineService
      */
     public static function deadline(): Carbon
     {
-        return Carbon::create(2026, 5, 1, 23, 59, 59);
+        return Carbon::create(2026, 5, 10, 23, 59, 59);
     }
 
     /**
