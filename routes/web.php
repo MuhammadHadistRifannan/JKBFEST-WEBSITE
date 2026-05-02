@@ -3,9 +3,12 @@
 use App\Http\Controllers\ApiController\AdminController;
 use App\Http\Controllers\ApiController\TeamController;
 use App\Http\Controllers\ApiController\UserController;
+use App\Http\Controllers\ApiController\UserDashboardController;
 use App\Http\Controllers\biodataController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\DeadlineMiddleware;
+use App\Http\Middleware\TeamMiddleware;
 use App\Models\ResetToken;
 use App\Route\Router;
 use Illuminate\Support\Facades\Route;
@@ -52,30 +55,15 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
     Route::post('/updateProfile', [UserController::class, 'update'])->name('updateProfile');
 
-    Route::get('/addTeam', function () {
-        return view('dashboard.dashboard.addTeam');
-    })->name('addTeam');
+    Route::get('/addTeam', [UserDashboardController::class , 'addTeam'])->name('addTeam')->middleware([DeadlineMiddleware::class , TeamMiddleware::class]);
 
-    Route::get('/teamPeserta', function () {
-        return view('dashboard.dashboard.teamPeserta');
-    })->name('teamPeserta');
+    Route::get('/teamPeserta', [UserDashboardController::class , 'teamPeserta'])->name('teamPeserta')->middleware([DeadlineMiddleware::class , TeamMiddleware::class]);
 
-    Route::get('/dashboard', function () {
-        return view('dashboard.dashboard.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [UserDashboardController::class , 'index'])->name('dashboard');
 
-    Route::get('/contact', function () {
-        return view('dashboard.dashboard.contactPerson');
-    })->name('contact');
+    Route::get('/contact', [UserDashboardController::class , 'contact'])->name('contact');
 
-    Route::get('/uploadKarya', function () {
-        $team = auth()->user()->team;
-        if (!$team || !$team->status_team) {
-            Alert::warning('Akses Terkunci', 'Pembayaran anda belum terverifikasi oleh admin. Silakan selesaikan pembayaran terlebih dahulu.');
-            return redirect()->route('teamPeserta');
-        }
-        return view('dashboard.dashboard.uploadKarya');
-    })->name('uploadKarya');
+    Route::get('/uploadKarya', [UserDashboardController::class , 'uploadKarya'])->name('uploadKarya')->middleware(DeadlineMiddleware::class);
 
     Route::post('/uploadDocument', [TeamController::class, 'UploadDocument'])->name('uploadDocument');
     Route::post('/uploadKarya', [TeamController::class , 'UploadKarya'])->name('uploadKarya');

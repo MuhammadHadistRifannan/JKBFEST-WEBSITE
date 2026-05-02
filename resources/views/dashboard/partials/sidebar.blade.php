@@ -27,10 +27,6 @@
                     <span class="sidebar-label ms-3">Dashboard</span>
                 </a>
             </li>
-            @php
-                $batasWaktu = \Carbon\Carbon::create(2026, 5, 2, 23, 59, 59);
-                $isExpired = now()->greaterThan($batasWaktu);
-            @endphp
 
             <li class="nav-item">
                 @if (!$isExpired)
@@ -42,6 +38,7 @@
                         <span class="sidebar-label ms-3">Team</span>
                     </a>
                 @else
+
                         <a href="javascript:void(0)"
                             class="nav-link text-white-50 d-flex align-items-center sidebar-nav-link disabled"
                             style="opacity: 0.5; cursor: not-allowed; pointer-events: auto;" title="Batas waktu sudah berakhir"
@@ -62,14 +59,14 @@
                 @endif
             </li>
             <li class="nav-item">
-                @if (auth()->user()->team && auth()->user()->team->status_team)
+                @if (auth()->user()->team && auth()->user()->team->status_team && !$isExpired)
                     <a href="{{ route('uploadKarya') }}"
                         class="nav-link text-white d-flex align-items-center sidebar-nav-link {{ request()->routeIs('uploadKarya') ? 'active' : '' }}"
                         title="Upload">
                         <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0">
                         <span class="sidebar-label ms-3">Upload</span>
                     </a>
-                @else
+                @elseif (auth()->user()->team && !auth()->user()->team->status_team && !$isExpired)
                     <a href="javascript:void(0)"
                         class="nav-link text-white-50 d-flex align-items-center sidebar-nav-link disabled"
                         style="opacity: 0.5; cursor: not-allowed; pointer-events: auto;"
@@ -80,6 +77,29 @@
                         <span class="sidebar-label ms-3">Upload</span>
                         <i class="bi bi-lock-fill ms-auto" style="font-size: 14px;"></i>
                     </a>
+                @elseif(!auth()->user()->team && !$isExpired)
+                    <a href="javascript:void(0)"
+                        class="nav-link text-white-50 d-flex align-items-center sidebar-nav-link disabled"
+                        style="opacity: 0.5; cursor: not-allowed; pointer-events: auto;"
+                        title="Batas waktu pengumpulan karya telah berakhir"
+                        onclick="event.preventDefault(); Swal.fire({icon: 'warning', title: 'Akses Terkunci', text: 'Anda belum membuat team. Silahkan bentuk tim terlebih dahulu untuk dapat mengupload karya.', confirmButtonColor: '#5b1456'});">
+                        <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0"
+                            style="opacity: 0.5;">
+                        <span class="sidebar-label ms-3">Upload</span>
+                        <i class="bi bi-lock-fill ms-auto" style="font-size: 14px;"></i>
+                    </a>
+                @else
+                        <a href="javascript:void(0)"
+                            class="nav-link text-white-50 d-flex align-items-center sidebar-nav-link disabled"
+                            style="opacity: 0.5; cursor: not-allowed; pointer-events: auto;"
+                            title="Batas waktu pengumpulan karya telah berakhir"
+                            onclick="event.preventDefault(); Swal.fire({icon: 'warning', title: 'Akses Terkunci', text: 'Batas waktu pengumpulan karya telah berakhir. Terimakasih telah mengikuti rangkaian acara JKBFEST WebApp Competition', confirmButtonColor: '#5b1456'});">
+                            <img src="{{ asset('icons/dashboard/upload.svg') }}" alt="Upload" class="icon-svg flex-shrink-0"
+                                style="opacity: 0.5;">
+                            <span class="sidebar-label ms-3">Upload</span>
+                            <i class="bi bi-lock-fill ms-auto" style="font-size: 14px;"></i>
+                        </a>
+                    
                 @endif
             </li>
             <li class="nav-item">
@@ -106,6 +126,7 @@
                 </button>
             </form>
         </div>
+      
 
     </div>
 </div>

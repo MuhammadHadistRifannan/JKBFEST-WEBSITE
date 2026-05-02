@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\DeadlineService;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use URL;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +27,11 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
+
+        // TAMBAHIN ISEXPIRE DI SETIAP VIEW 
+        $batasWaktu = DeadlineService::deadline();
+        $isExpired = now()->greaterThan($batasWaktu);
+
+        View::share('isExpired', $isExpired);
     }
 }
