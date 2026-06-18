@@ -165,7 +165,10 @@ class AdminService
             $document->has_payed = false;
             
             if ($document->document_path) {
-                Storage::disk('public')->delete($document->document_path);
+                $fullPath = storage_path('app/public/' . $document->document_path);
+                if (file_exists($fullPath)) {
+                    unlink($fullPath);
+                }
             }
             $document->document_path = '';
 
@@ -206,7 +209,10 @@ class AdminService
 
             // 2. Cek apakah dokumen ditemukan
             if ($document && $document->document_path) {
-                Storage::disk('public')->delete($document->document_path);
+                $fullPath = storage_path('app/public/' . $document->document_path);
+                if (file_exists($fullPath)) {
+                    unlink($fullPath);
+                }
                 $document->delete(); 
             }
 

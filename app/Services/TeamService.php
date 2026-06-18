@@ -115,6 +115,15 @@ class TeamService
                 ]);
             }
             else {
+                // Hapus file lama sebelum upload yang baru
+                $oldDocument = Documents::where('team_id', $team->id)->first();
+                if ($oldDocument && $oldDocument->document_path) {
+                    $oldFullPath = storage_path('app/public/' . $oldDocument->document_path);
+                    if (file_exists($oldFullPath)) {
+                        unlink($oldFullPath);
+                    }
+                }
+                
                 $document = Documents::where('team_id' , $team->id)->update([
                     'document_path' => $filePath,
                     'status_document' => 'pending',
@@ -127,8 +136,9 @@ class TeamService
 
         } catch (Exception $e) {
             // Jika gagal update database, HAPUS file yang sudah telanjur terupload agar tidak jadi sampah
-            if (Storage::disk('public')->exists($filePath)) {
-                Storage::disk('public')->delete($filePath);
+            $fullPath = storage_path('app/public/' . $filePath);
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
             }
 
             // Kembalikan response error tanpa dd()
@@ -170,7 +180,12 @@ class TeamService
             return ResponseService::MakeResponse(401, 'Karya tidak bisa dikumpulkan');
         }
 
-        $team->link_karya = $request->link_karya; 
+        $link = $request->link_karya;
+        if ($link && !preg_match("~^(?:f|ht)tps?://~i", $link)) {
+            $link = "https://" . $link;
+        }
+
+        $team->link_karya = $link; 
         $team->waktu_submit = now()->locale('id')->isoFormat('D MMMM Y, HH:mm [WIB]');
         $team->save();
 
@@ -187,8 +202,11 @@ class TeamService
 
         $document = Documents::where('team_id', $team->id)->first();
         if ($document) {
-            if ($document->document_path && Storage::disk('public')->exists($document->document_path)) {
-                Storage::disk('public')->delete($document->document_path);
+            if ($document->document_path) {
+                $fullPath = storage_path('app/public/' . $document->document_path);
+                if (file_exists($fullPath)) {
+                    unlink($fullPath);
+                }
             }
             $document->delete();
             return ResponseService::MakeResponse(200, 'Dokumen berhasil dihapus', status: 'success');

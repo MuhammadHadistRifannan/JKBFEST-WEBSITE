@@ -34,5 +34,13 @@ class Team extends Model
         return $this->hasMany(TeamMember::class , 'team_id');
     }
 
+    public function getLinkKaryaAttribute($value)
+    {
+        if ($value && !preg_match("~^(?:f|ht)tps?://~i", $value)) {
+            return "https://" . $value;
+        }
+        return $value;
+    }
+
 
 }
